@@ -1,7 +1,6 @@
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, VideoIcon } from './components/Icons';
 
-
 const MarqueeBanner = () => (
   <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
     <div className="inline-block animate-marquee py-2">
@@ -12,7 +11,6 @@ const MarqueeBanner = () => (
     </div>
   </div>
 );
-
 
 const HeroSection = () => (
   <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
@@ -60,7 +58,7 @@ const WhyChooseSection = () => (
   </section>
 );
 
-const ResourcesSection = () => {
+const ResourcesSection = ({ onResourceClick }) => {
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Bài tập lịch sử", icon: <PuzzleIcon className="w-10 h-10 text-brown-red mb-3"/> },
@@ -75,18 +73,32 @@ const ResourcesSection = () => {
             <div className="max-w-6xl mx-auto text-center">
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu "Tất cả tài nguyên bạn cần"</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                    {resources.map((res, index) => (
-                        <div key={index} className="flex flex-col items-center justify-center p-6 bg-ivory rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 aspect-square">
-                           {res.icon}
-                           <h3 className="font-semibold text-center">{res.title}</h3>
-                        </div>
-                    ))}
+                    {resources.map((res, index) => {
+                        const isInteractive = res.title === "Bài giảng điện tử";
+                        return (
+                            <div 
+                                key={index} 
+                                className={`flex flex-col items-center justify-center p-6 bg-ivory rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 aspect-square ${isInteractive ? 'cursor-pointer hover:border-brown-red border-2 border-transparent' : ''}`}
+                                onClick={() => isInteractive && onResourceClick(res.title)}
+                                role={isInteractive ? 'button' : undefined}
+                                tabIndex={isInteractive ? 0 : -1}
+                                onKeyDown={(e) => {
+                                  if (isInteractive && (e.key === 'Enter' || e.key === ' ')) {
+                                    e.preventDefault();
+                                    onResourceClick(res.title);
+                                  }
+                                }}
+                            >
+                               {res.icon}
+                               <h3 className="font-semibold text-center">{res.title}</h3>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </section>
     );
 };
-
 
 const ExperienceSection = () => {
   const youtubeVideos = [
@@ -189,20 +201,102 @@ const Footer = () => (
     </footer>
 );
 
+const ResourceModal = ({ isOpen, onClose, selectedTopic, onTopicChange, onViewContent }) => {
+  if (!isOpen) return null;
+
+  const topics = [
+    "Chủ đề 1: Trật tự thế giới trong và sau chiến tranh lạnh",
+    "Chủ đề 2: Phong trào giải phóng dân tộc 1930-1945",
+    "Chủ đề 3: Kháng chiến chống Pháp (1945-1954)",
+    "Chủ đề 4: Xây dựng CNXH ở miền Bắc và đấu tranh thống nhất đất nước (1954-1975)",
+    "Chủ đề 5: Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975)",
+  ];
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div 
+        className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+        onClick={e => e.stopPropagation()} // Prevent closing when clicking inside
+      >
+        <button 
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+          aria-label="Đóng"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h3 id="modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Chọn chủ đề bài giảng</h3>
+        <div className="space-y-6">
+          <select 
+            value={selectedTopic}
+            onChange={e => onTopicChange(e.target.value)}
+            className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+          >
+            <option value="" disabled>-- Vui lòng chọn chủ đề --</option>
+            {topics.map(topic => <option key={topic} value={topic}>{topic}</option>)}
+          </select>
+          <button 
+            onClick={onViewContent}
+            className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg"
+          >
+            Xem nội dung
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const App = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [selectedTopic, setSelectedTopic] = React.useState('');
+
+  const handleResourceClick = (resourceTitle: string) => {
+    if (resourceTitle === "Bài giảng điện tử") {
+      setSelectedTopic(''); // Reset topic when opening
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleViewContent = () => {
+    if (selectedTopic) {
+      alert(`Đang tải nội dung cho chủ đề: "${selectedTopic}"...`);
+      handleCloseModal();
+    } else {
+      alert('Vui lòng chọn một chủ đề để xem nội dung.');
+    }
+  };
+  
   return (
     <div>
       <MarqueeBanner />
       <main>
         <HeroSection />
         <WhyChooseSection />
-        <ResourcesSection />
+        <ResourcesSection onResourceClick={handleResourceClick} />
         <ExperienceSection />
         <ContactSection />
         <TeacherSection />
       </main>
       <Footer />
+      <ResourceModal 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        selectedTopic={selectedTopic}
+        onTopicChange={setSelectedTopic}
+        onViewContent={handleViewContent}
+      />
     </div>
   );
 };

@@ -97,7 +97,7 @@ const ResourcesSection = () => {
 const ExperienceSection = () => {
   const youtubeVideos = [
     { id: 'xudfEww9pVQ', title: 'Phim tư liệu Ngô Đình Diệm' },
-    { id: 'id2', title: 'Video 2' },
+    { id: 'BTE8r9kRjvs', title: 'Video 2' },
     { id: 'id3', title: 'Video 3' },
     { id: 'id4', title: 'Video 4' },
     { id: 'id5', title: 'Video 5' },

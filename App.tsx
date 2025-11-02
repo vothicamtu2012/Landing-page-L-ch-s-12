@@ -1,186 +1,147 @@
-import React from 'react';
-import { TeacherIcon, StudentIcon, GlobeIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, VideoIcon } from './components/Icons';
+// FIX: Implement the main App component to resolve compilation errors and create the chat UI.
+import React, { useState, useEffect, useRef } from 'react';
+import { type Message } from './types';
+import { type Chat } from '@google/genai';
+import { createChatSession } from './services/geminiService';
+import { ChatBubble } from './components/ChatBubble';
+import { MessageInput } from './components/MessageInput';
 
-const HeroSection = () => (
-  <section className="relative min-h-screen flex items-center justify-center text-center bg-ivory overflow-hidden">
-    <div className="absolute inset-0 bg-[url('https://img.freepik.com/premium-photo/old-map-vietnam_93675-96109.jpg')] bg-cover bg-center opacity-10"></div>
-    <div className="relative z-10 p-8 animate-fade-in">
-      <h1 className="font-display text-5xl md:text-7xl font-bold text-brown-red drop-shadow-md">
-        Khám phá Lịch sử – Nuôi dưỡng lòng yêu nước
-      </h1>
-      <p className="mt-4 text-lg md:text-xl text-moss-green max-w-3xl mx-auto">
-        Học liệu số môn Lịch sử 12 – Dành cho giáo viên & học sinh THPT theo chương trình GDPT 2018.
-      </p>
-      <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#resources" className="px-8 py-4 bg-brown-red text-white font-bold rounded-lg shadow-lg hover:bg-red-earth transition-all duration-300 transform hover:scale-105">
-          Khám phá ngay
-        </a>
-        <a href="#download" className="px-8 py-4 bg-moss-green text-white font-bold rounded-lg shadow-lg hover:bg-bronze-gold transition-all duration-300 transform hover:scale-105">
-          Tải học liệu miễn phí
-        </a>
-      </div>
-    </div>
-  </section>
-);
+const EDUVANT_SYSTEM_INSTRUCTION = `EDUVANT is an AI assistant that serves as a **strategic advisor** for users who want to build and sell online courses based on their personal expertise — even if they are complete beginners. EDUVANT helps users think clearly, plan thoroughly, and launch effectively by asking smart, targeted questions, conducting deep analysis, and delivering a structured A-Z roadmap. Everything is communicated with clarity, professionalism, and logical flow.
 
-const WhyChooseUsSection = () => (
-  <section className="py-20 bg-white">
-    <div className="container mx-auto px-6 text-center">
-      <h2 className="font-display text-4xl font-bold text-brown-red mb-12">Tại sao nên chọn học liệu số Lịch sử 12?</h2>
-      <div className="grid md:grid-cols-3 gap-10">
-        <div className="p-8 border border-bronze-gold/20 rounded-lg shadow-md hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
-          <TeacherIcon className="w-16 h-16 mx-auto mb-4 text-brown-red" />
-          <h3 className="text-xl font-bold text-moss-green mb-2">Giáo viên dạy dễ hơn</h3>
-          <p>Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, dễ dàng tích hợp.</p>
-        </div>
-        <div className="p-8 border border-bronze-gold/20 rounded-lg shadow-md hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
-          <StudentIcon className="w-16 h-16 mx-auto mb-4 text-brown-red" />
-          <h3 className="text-xl font-bold text-moss-green mb-2">Học sinh hứng thú hơn</h3>
-          <p>Video, quiz, trò chơi, và infographic sinh động, biến giờ học Lịch sử thành trải nghiệm.</p>
-        </div>
-        <div className="p-8 border border-bronze-gold/20 rounded-lg shadow-md hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
-          <GlobeIcon className="w-16 h-16 mx-auto mb-4 text-brown-red" />
-          <h3 className="text-xl font-bold text-moss-green mb-2">Lịch sử gắn liền thực tế</h3>
-          <p>Cập nhật nội dung liên hệ lịch sử địa phương, giúp học sinh hiểu sâu hơn về cội nguồn.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+**Important note:** Always respond to the user **in Vietnamese**.
 
-const resources = [
-  { icon: BookIcon, title: "Bài giảng điện tử" },
-  { icon: PuzzleIcon, title: "Bài tập lịch sử" },
-  { icon: MindmapIcon, title: "Bản đồ tư duy & Timeline" },
-  { icon: LocalIcon, title: "Tư liệu lịch sử địa phương" },
-  { icon: GameIcon, title: "Trò chơi & Quiz" },
-  { icon: VideoIcon, title: "Video bài giảng ngắn" },
-];
+## Goals:
+- Help users transform their expertise and experience into profitable online training products.
+- Guide them through a complete and strategic step-by-step journey: from idea to launching an online course.
+- Unlock strategic thinking through well-crafted, clarifying questions instead of giving immediate answers.
+- Ensure all advice is practical, logical, example-driven, and easy to implement.
 
-const ResourcesSection = () => (
-  <section id="resources" className="py-20 bg-ivory">
-    <div className="container mx-auto px-6 text-center">
-      <h2 className="font-display text-4xl font-bold text-brown-red mb-4">Kho học liệu</h2>
-      <p className="text-xl text-moss-green mb-12">Tất cả tài nguyên bạn cần</p>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {resources.map((item, index) => (
-          <div key={index} className="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 group">
-            <item.icon className="w-12 h-12 mx-auto mb-4 text-bronze-gold" />
-            <h3 className="text-lg font-bold text-moss-green mb-4">{item.title}</h3>
-            <a href="#" className="text-brown-red font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Xem chi tiết &rarr;</a>
-          </div>
-        ))}
-      </div>
-      <div id="download" className="mt-16">
-        <a href="#" className="px-10 py-4 bg-red-earth text-white text-lg font-bold rounded-lg shadow-lg hover:bg-brown-red transition-all duration-300 transform hover:scale-105">
-          Tải trọn bộ học liệu (Miễn phí)
-        </a>
-      </div>
-    </div>
-  </section>
-);
+## Skills:
+1. **Digital product mindset:** Deep understanding of how top global experts build and sell high-quality online courses.
+2. **Strategic questioning:** Ability to ask focused, insightful questions that help users clarify their thinking and avoid giving answers when the input is vague.
+3. **Step-by-step guidance:** Lead users through each key phase of the course creation journey:
+   - Defining the course idea  
+   - Conducting market and competitor research  
+   - Creating the ideal customer avatar  
+   - Designing the course outline  
+   - Writing detailed lesson content  
+   - Packaging the course as a complete digital product  
+   - Writing the course sales page  
+   - Structuring the offer and planning the launch
+4. **Deep analysis & clear communication:** Present information in a well-structured, in-depth manner, always including real-world examples that are easy to grasp.
 
-const ForTeachersStudentsSection = () => (
-    <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-            <h2 className="font-display text-4xl font-bold text-brown-red mb-12 text-center">Dạy – Học – Trải nghiệm cùng nhau</h2>
-            <div className="grid md:grid-cols-2 gap-10 items-start">
-                <div className="bg-ivory p-8 rounded-lg border-l-4 border-brown-red">
-                    <h3 className="text-2xl font-bold text-moss-green mb-4">👩‍🏫 Dành cho giáo viên</h3>
-                    <ul className="space-y-2 list-disc list-inside text-gray-700">
-                        <li>Giáo án mẫu, công cụ đánh giá năng lực học sinh.</li>
-                        <li>Hướng dẫn tích hợp công nghệ (Canva, Quizizz, Google Forms...).</li>
-                        <li>Nguồn tư liệu phong phú, đã được kiểm duyệt.</li>
-                    </ul>
-                </div>
-                <div className="bg-ivory p-8 rounded-lg border-l-4 border-moss-green">
-                    <h3 className="text-2xl font-bold text-moss-green mb-4">👨‍🎓 Dành cho học sinh</h3>
-                    <ul className="space-y-2 list-disc list-inside text-gray-700">
-                        <li>Video bài giảng ngắn gọn, dễ hiểu (5-10 phút).</li>
-                        <li>Bài luyện trắc nghiệm theo từng chuyên đề, có giải thích.</li>
-                        <li>Mục "Thử thách lịch sử" với các trò chơi tương tác (gamification).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-);
+## Workflow:
+1. **Initial exploration & questioning:**  
+   When the user asks a question, EDUVANT first evaluates whether the input is clear and complete. If not, ask probing questions to help the user clarify their goal, audience, or course idea.
+2. **Strategic roadmap alignment:**  
+   EDUVANT identifies which stage the user is currently at in the course creation journey and suggests specific actions tailored to that stage.
+3. **Examples & actionable suggestions:**  
+   For every recommendation, EDUVANT provides illustrative examples, implementation templates, or realistic scenarios to make things more concrete.
+4. **Summary & next steps:**  
+   After each consulting segment, EDUVANT summarizes the main points and proactively suggests the next step to continue guiding the user.
 
-const ContactSection = () => (
-  <section id="contact" className="py-20 bg-ivory">
-    <div className="container mx-auto px-6 max-w-4xl text-center">
-        <blockquote className="mb-12">
-            <p className="font-display text-3xl italic text-brown-red">“Dân ta phải biết sử ta,<br/>Cho tường gốc tích nước nhà Việt Nam.”</p>
-            <cite className="block mt-4 font-bold text-moss-green">— Hồ Chí Minh —</cite>
-        </blockquote>
-        <div className="bg-white p-8 rounded-lg shadow-lg text-left max-w-lg mx-auto border border-bronze-gold/20">
-            <h3 className="text-2xl font-bold text-brown-red mb-6 text-center">Góp ý & Liên hệ</h3>
-            <form>
-                <div className="mb-4">
-                    <label htmlFor="name" className="block text-moss-green font-semibold mb-2">Tên</label>
-                    <input type="text" id="name" className="w-full px-4 py-2 border border-bronze-gold/30 rounded-lg focus:ring-bronze-gold focus:border-bronze-gold" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="email" className="block text-moss-green font-semibold mb-2">Email</label>
-                    <input type="email" id="email" className="w-full px-4 py-2 border border-bronze-gold/30 rounded-lg focus:ring-bronze-gold focus:border-bronze-gold" />
-                </div>
-                 <div className="mb-4">
-                    <label htmlFor="role" className="block text-moss-green font-semibold mb-2">Vai trò</label>
-                    <select id="role" className="w-full px-4 py-2 border border-bronze-gold/30 rounded-lg focus:ring-bronze-gold focus:border-bronze-gold bg-white">
-                        <option>Giáo viên</option>
-                        <option>Học sinh</option>
-                        <option>Khác</option>
-                    </select>
-                </div>
-                <div className="mb-6">
-                    <label htmlFor="message" className="block text-moss-green font-semibold mb-2">Nội dung góp ý</label>
-                    <textarea id="message" rows={4} className="w-full px-4 py-2 border border-bronze-gold/30 rounded-lg focus:ring-bronze-gold focus:border-bronze-gold"></textarea>
-                </div>
-                <button type="submit" className="w-full py-3 bg-brown-red text-white font-bold rounded-lg hover:bg-red-earth transition-colors">Gửi góp ý</button>
-            </form>
-        </div>
-    </div>
-  </section>
-);
+## OutputFormat:
+- Always answer using a clear structure: title – analysis – example – recommended action.
+- Use Markdown formatting (lists, bold, subheadings, etc.) when appropriate to improve clarity.
+- For important stages (e.g., outline, sales page), provide templates or checklists where suitable.
 
-const LecturerSection = () => (
-    <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 max-w-2xl text-center">
-             <div className="bg-ivory p-8 rounded-lg shadow-xl border border-bronze-gold/40">
-                <h3 className="text-2xl font-bold text-brown-red">Võ Văn Dũng</h3>
-                <p className="text-moss-green mt-2">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
-                <p className="text-gray-600 mt-2">Trường PT DTNT THPT Bình Phước, tỉnh Bình Phước</p>
-                <p className="mt-4 font-semibold text-brown-red">📞 ĐT/Zalo: 0907130900</p>
-            </div>
-        </div>
-    </section>
-);
+## Constrains:
+- Do **not** answer immediately if the user's input lacks clarity or sufficient detail.
+- Do **not** use vague or generic theory — always be specific, example-driven, and action-oriented.
+- Never take over the user’s job — EDUVANT must remain a **smart guiding advisor**, not an executor.
+- Stay 100% focused on the core goal: **help the user create and launch an online course based on their expertise using a strategic, step-by-step approach.**`;
 
-const Footer = () => (
-    <footer className="py-10 bg-moss-green text-ivory/80">
-        <div className="container mx-auto px-6 text-center">
-            <p className="font-display text-xl font-bold text-white mb-4">“Khám phá lịch sử – Nuôi dưỡng lòng yêu nước”</p>
-            <div className="flex justify-center gap-6 my-4">
-                <a href="#root" className="hover:text-white">Trang chủ</a>
-                <a href="#download" className="hover:text-white">Tải học liệu</a>
-                <a href="#contact" className="hover:text-white">Liên hệ</a>
-            </div>
-            <p className="text-sm mt-4">Bản quyền © 2025 Trường PT DTNT THPT Bình Phước</p>
-        </div>
-    </footer>
-);
+const INITIAL_BOT_MESSAGE: Message = {
+    id: 'initial-message',
+    role: 'model',
+    content: "Chào bạn, tôi là EDUVANT, trợ lý AI chuyên tư vấn xây dựng và kinh doanh khoá học online. Tôi ở đây để giúp bạn biến kiến thức chuyên môn của mình thành một sản phẩm số có giá trị.\n\nĐể bắt đầu, bạn vui lòng cho tôi biết: **Bạn đã có ý tưởng nào cho khoá học của mình chưa?**"
+};
 
 
-export default function App() {
+function App() {
+  const [messages, setMessages] = useState<Message[]>([INITIAL_BOT_MESSAGE]);
+  const [isLoading, setIsLoading] = useState(false);
+  const chatSession = useRef<Chat | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatSession.current = createChatSession(EDUVANT_SYSTEM_INSTRUCTION);
+  }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const handleSendMessage = async (userInput: string) => {
+    if (!chatSession.current) {
+      console.error("Chat session not initialized");
+      return;
+    }
+
+    setIsLoading(true);
+
+    const userMessage: Message = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: userInput,
+    };
+
+    const modelMessagePlaceholder: Message = {
+        id: `model-${Date.now()}`,
+        role: 'model',
+        content: '...',
+    };
+    
+    setMessages(prev => [...prev, userMessage, modelMessagePlaceholder]);
+
+    try {
+        const stream = await chatSession.current.sendMessageStream({ message: userInput });
+        
+        let fullResponse = '';
+        for await (const chunk of stream) {
+            fullResponse += chunk.text;
+            setMessages(prev =>
+                prev.map(msg =>
+                    msg.id === modelMessagePlaceholder.id
+                        ? { ...msg, content: fullResponse }
+                        : msg
+                )
+            );
+        }
+    } catch (error) {
+        console.error("Error sending message:", error);
+        setMessages(prev =>
+            prev.map(msg =>
+                msg.id === modelMessagePlaceholder.id
+                    ? { ...msg, content: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại." }
+                    : msg
+            )
+        );
+    } finally {
+        setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="antialiased">
-      <HeroSection />
-      <WhyChooseUsSection />
-      <ResourcesSection />
-      <ForTeachersStudentsSection />
-      <ContactSection />
-      <LecturerSection />
-      <Footer />
+    <div className="flex flex-col h-screen bg-gray-50 dark:bg-slate-900 font-sans">
+      <header className="p-4 border-b dark:border-slate-800 shadow-sm">
+        <h1 className="text-xl font-bold text-center text-gray-800 dark:text-white">EDUVANT - Cố vấn Khoá học Online</h1>
+      </header>
+      <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        <div className="max-w-3xl mx-auto space-y-6">
+          {messages.map((message) => (
+            <ChatBubble key={message.id} message={message} />
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+      </main>
+      <footer className="p-4 md:p-6 border-t dark:border-slate-800 bg-white dark:bg-slate-900/50 backdrop-blur-sm">
+        <div className="max-w-3xl mx-auto">
+          <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+        </div>
+      </footer>
     </div>
   );
 }
+
+export default App;

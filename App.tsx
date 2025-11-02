@@ -110,10 +110,11 @@ const ExperienceSection = () => {
         <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Dạy – Học – Trải nghiệm cùng nhau</h2>
         
         <div className="relative">
-          <div className="flex overflow-x-auto space-x-8 pb-4 scrollbar-thin scrollbar-thumb-brown-red scrollbar-track-bronze-gold/20">
+          <div className="flex overflow-x-auto space-x-8 pb-4 scrollbar-thin scroll-snap-type-x-mandatory scroll-smooth">
+            <div className="flex-shrink-0 w-24"></div> {/* Spacer for start padding */}
             {youtubeVideos.map(video => (
-              <div key={video.id} className="flex-shrink-0 w-11/12 md:w-2/3 lg:w-1/2">
-                <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden">
+              <div key={video.id} className="flex-shrink-0 w-11/12 md:w-2/3 lg:w-1/2 scroll-snap-align-center">
+                <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
                   <iframe
                     src={`https://www.youtube.com/embed/${video.id}`}
                     title={video.title}
@@ -125,6 +126,7 @@ const ExperienceSection = () => {
                 </div>
               </div>
             ))}
+             <div className="flex-shrink-0 w-24"></div> {/* Spacer for end padding */}
           </div>
         </div>
 

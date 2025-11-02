@@ -38,6 +38,33 @@
             },
           },
         },
+        plugins: [
+            function({ addUtilities }) {
+                addUtilities({
+                    '.scrollbar-thin': {
+                        '&::-webkit-scrollbar': {
+                            height: '8px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            background: 'rgba(193, 154, 107, 0.2)',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: '#A0522D',
+                            borderRadius: '4px',
+                        },
+                    },
+                    '.scroll-snap-type-x-mandatory': {
+                        'scroll-snap-type': 'x mandatory',
+                    },
+                    '.scroll-snap-align-center': {
+                        'scroll-snap-align': 'center',
+                    },
+                    '.scroll-smooth': {
+                        'scroll-behavior': 'smooth',
+                    }
+                })
+            }
+        ]
       }
     </script>
   <script type="importmap">

@@ -171,7 +171,7 @@ const TeacherSection = () => (
       </div>
       <h3 className="text-3xl font-display text-red-earth">Võ Văn Dũng</h3>
       <p className="text-lg mt-2 mb-4">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
-      <p className="text-gray-600">Trường PT DTNT THPT tỉnh Đồng Nai</p>
+      <p className="text-gray-600">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
       <p className="text-gray-600 mt-1">ĐT/Zalo: 0907130900</p>
     </div>
   </section>
@@ -185,7 +185,7 @@ const Footer = () => (
             <a href="#" className="hover:text-white">Tải học liệu</a>
             <a href="#" className="hover:text-white">Liên hệ</a>
         </div>
-        <p className="text-sm">Bản quyền © 2025 Trường PT DTNT THPT tỉnh Đồng Nai</p>
+        <p className="text-sm">Bản quyền © 2025 Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
     </footer>
 );
 

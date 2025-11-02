@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, type Chat } from "@google/genai";
 
 const API_KEY = process.env.API_KEY;

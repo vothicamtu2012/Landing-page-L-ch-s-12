@@ -5,30 +5,29 @@ import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, Vi
 const MarqueeBanner = () => (
   <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
     <div className="inline-block animate-marquee py-2">
-      <h2 className="text-3xl font-serif mx-8">Trường PT DTNT THPT tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKT&amp;PL</h2>
+      <h2 className="text-3xl font-serif mx-8">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKTPL</h2>
     </div>
     <div className="inline-block animate-marquee py-2">
-      <h2 className="text-3xl font-serif mx-8">Trường PT DTNT THPT tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKT&amp;PL</h2>
+      <h2 className="text-3xl font-serif mx-8">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKTPL</h2>
     </div>
   </div>
 );
 
 
 const HeroSection = () => (
-  <section className="relative h-screen flex items-center justify-center text-center text-ivory bg-cover bg-center" style={{ backgroundImage: "url('/hero-background.png')" }}>
-    <div className="absolute inset-0 bg-black/50"></div>
+  <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
     <div className="relative z-10 p-4">
-      <h1 className="text-6xl md:text-8xl font-display font-black leading-tight drop-shadow-md">
+      <h1 className="text-5xl md:text-7xl font-display font-black leading-tight drop-shadow-md text-yellow-400">
         Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
       </h1>
-      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto">
+      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory">
         Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
       </p>
       <div className="mt-8 flex justify-center gap-4">
-        <button className="bg-brown-red hover:bg-opacity-80 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
+        <button className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
           Khám phá ngay
         </button>
-        <button className="bg-ivory hover:bg-opacity-90 text-brown-red font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
+        <button className="border-2 border-ivory hover:bg-ivory hover:text-red-earth text-ivory font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
           Tải học liệu miễn phí
         </button>
       </div>

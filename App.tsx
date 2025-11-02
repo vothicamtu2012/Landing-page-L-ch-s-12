@@ -106,31 +106,25 @@ const ExperienceSection = () => {
 
   return (
     <section className="py-20 px-4 bg-ivory">
-      <div className="max-w-full mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Dạy – Học – Trải nghiệm cùng nhau</h2>
         
-        <div className="relative">
-          <div className="flex overflow-x-auto space-x-8 pb-4 scrollbar-thin scroll-snap-type-x-mandatory scroll-smooth">
-            <div className="flex-shrink-0 w-24"></div> {/* Spacer for start padding */}
-            {youtubeVideos.map(video => (
-              <div key={video.id} className="flex-shrink-0 w-11/12 md:w-2/3 lg:w-1/2 scroll-snap-align-center">
-                <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    title={video.title}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  ></iframe>
-                </div>
-              </div>
-            ))}
-             <div className="flex-shrink-0 w-24"></div> {/* Spacer for end padding */}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {youtubeVideos.map(video => (
+            <div key={video.id} className="aspect-w-1 aspect-h-1 bg-black rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
+              <iframe
+                src={`https://www.youtube.com/embed/${video.id}`}
+                title={video.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          ))}
         </div>
 
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 mt-12 text-left">
+        <div className="grid md:grid-cols-2 gap-8 mt-12 text-left">
           <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-brown-red">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><TeacherIcon className="w-8 h-8"/>Dành cho giáo viên</h3>
             <ul className="list-disc pl-5 space-y-2">

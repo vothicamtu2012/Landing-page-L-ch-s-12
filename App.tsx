@@ -83,11 +83,6 @@ const ResourcesSection = () => {
                         </div>
                     ))}
                 </div>
-                 <div className="mt-12">
-                   <button className="bg-red-earth hover:bg-opacity-90 text-white font-bold py-4 px-10 rounded-full text-lg transition-transform transform hover:scale-105 shadow-lg">
-                        video tư liệu lịch sử
-                    </button>
-                </div>
             </div>
         </section>
     );
@@ -107,7 +102,7 @@ const ExperienceSection = () => {
   return (
     <section className="py-20 px-4 bg-ivory">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Dạy – Học – Trải nghiệm cùng nhau</h2>
+        <h2 className="text-4xl font-serif text-red-earth mb-12">PHIM TƯ LIỆU LỊCH SỬ VIỆT NAM 1954-1975</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {youtubeVideos.map(video => (

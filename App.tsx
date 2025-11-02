@@ -1,144 +1,170 @@
-// FIX: Implement the main App component to resolve compilation errors and create the chat UI.
-import React, { useState, useEffect, useRef } from 'react';
-import { type Message } from './types';
-import { type Chat } from '@google/genai';
-import { createChatSession } from './services/geminiService';
-import { ChatBubble } from './components/ChatBubble';
-import { MessageInput } from './components/MessageInput';
+import React from 'react';
+import { TeacherIcon, StudentIcon, GlobeIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, VideoIcon } from './components/Icons';
 
-const EDUVANT_SYSTEM_INSTRUCTION = `EDUVANT is an AI assistant that serves as a **strategic advisor** for users who want to build and sell online courses based on their personal expertise — even if they are complete beginners. EDUVANT helps users think clearly, plan thoroughly, and launch effectively by asking smart, targeted questions, conducting deep analysis, and delivering a structured A-Z roadmap. Everything is communicated with clarity, professionalism, and logical flow.
-
-**Important note:** Always respond to the user **in Vietnamese**.
-
-## Goals:
-- Help users transform their expertise and experience into profitable online training products.
-- Guide them through a complete and strategic step-by-step journey: from idea to launching an online course.
-- Unlock strategic thinking through well-crafted, clarifying questions instead of giving immediate answers.
-- Ensure all advice is practical, logical, example-driven, and easy to implement.
-
-## Skills:
-1. **Digital product mindset:** Deep understanding of how top global experts build and sell high-quality online courses.
-2. **Strategic questioning:** Ability to ask focused, insightful questions that help users clarify their thinking and avoid giving answers when the input is vague.
-3. **Step-by-step guidance:** Lead users through each key phase of the course creation journey:
-   - Defining the course idea  
-   - Conducting market and competitor research  
-   - Creating the ideal customer avatar  
-   - Designing the course outline  
-   - Writing detailed lesson content  
-   - Packaging the course as a complete digital product  
-   - Writing the course sales page  
-   - Structuring the offer and planning the launch
-4. **Deep analysis & clear communication:** Present information in a well-structured, in-depth manner, always including real-world examples that are easy to grasp.
-
-## Workflow:
-1. **Initial exploration & questioning:**  
-   When the user asks a question, EDUVANT first evaluates whether the input is clear and complete. If not, ask probing questions to help the user clarify their goal, audience, or course idea.
-2. **Strategic roadmap alignment:**  
-   EDUVANT identifies which stage the user is currently at in the course creation journey and suggests specific actions tailored to that stage.
-3. **Examples & actionable suggestions:**  
-   For every recommendation, EDUVANT provides illustrative examples, implementation templates, or realistic scenarios to make things more concrete.
-4. **Summary & next steps:**  
-   After each consulting segment, EDUVANT summarizes the main points and proactively suggests the next step to continue guiding the user.
-
-## OutputFormat:
-- Always answer using a clear structure: title – analysis – example – recommended action.
-- Use Markdown formatting (lists, bold, subheadings, etc.) when appropriate to improve clarity.
-- For important stages (e.g., outline, sales page), provide templates or checklists where suitable.
-
-## Constrains:
-- Do **not** answer immediately if the user's input lacks clarity or sufficient detail.
-- Do **not** use vague or generic theory — always be specific, example-driven, and action-oriented.
-- Never take over the user’s job — EDUVANT must remain a **smart guiding advisor**, not an executor.
-- Stay 100% focused on the core goal: **help the user create and launch an online course based on their expertise using a strategic, step-by-step approach.**`;
-
-const INITIAL_BOT_MESSAGE: Message = {
-    id: 'initial-message',
-    role: 'model',
-    content: "Chào bạn, tôi là EDUVANT, trợ lý AI chuyên tư vấn xây dựng và kinh doanh khoá học online. Tôi ở đây để giúp bạn biến kiến thức chuyên môn của mình thành một sản phẩm số có giá trị.\n\nĐể bắt đầu, bạn vui lòng cho tôi biết: **Bạn đã có ý tưởng nào cho khoá học của mình chưa?**"
+// Component cho dòng chữ chạy
+const MarqueeBanner = () => {
+  return (
+    <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
+      <div className="inline-block animate-marquee py-2">
+        <span className="font-serif text-3xl mx-16">
+          Trường phổ thông DTNT THPT Bình Phước tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKT&PL
+        </span>
+        <span className="font-serif text-3xl mx-16">
+          Trường phổ thông DTNT THPT Bình Phước tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKT&PL
+        </span>
+      </div>
+    </div>
+  );
 };
 
+// Component cho các card tài nguyên
+const ResourceCard = ({ icon, title, buttonText }: { icon: React.ReactNode, title: string, buttonText: string }) => (
+  <div className="bg-white/50 backdrop-blur-sm p-6 rounded-xl shadow-md border border-bronze-gold/30 flex flex-col items-center text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+    <div className="text-brown-red mb-4">{icon}</div>
+    <h3 className="font-display text-xl font-bold text-brown-red mb-4">{title}</h3>
+    <a href="#" className="mt-auto bg-transparent border-2 border-brown-red text-brown-red font-semibold py-2 px-6 rounded-full hover:bg-brown-red hover:text-white transition-colors duration-300">
+      {buttonText}
+    </a>
+  </div>
+);
 
 function App() {
-  const [messages, setMessages] = useState<Message[]>([INITIAL_BOT_MESSAGE]);
-  const [isLoading, setIsLoading] = useState(false);
-  const chatSession = useRef<Chat | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    chatSession.current = createChatSession(EDUVANT_SYSTEM_INSTRUCTION);
-  }, []);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  const handleSendMessage = async (userInput: string) => {
-    if (!chatSession.current) {
-      console.error("Chat session not initialized");
-      return;
-    }
-
-    setIsLoading(true);
-
-    const userMessage: Message = {
-      id: `user-${Date.now()}`,
-      role: 'user',
-      content: userInput,
-    };
-
-    const modelMessagePlaceholder: Message = {
-        id: `model-${Date.now()}`,
-        role: 'model',
-        content: '...',
-    };
-    
-    setMessages(prev => [...prev, userMessage, modelMessagePlaceholder]);
-
-    try {
-        const stream = await chatSession.current.sendMessageStream({ message: userInput });
-        
-        let fullResponse = '';
-        for await (const chunk of stream) {
-            fullResponse += chunk.text;
-            setMessages(prev =>
-                prev.map(msg =>
-                    msg.id === modelMessagePlaceholder.id
-                        ? { ...msg, content: fullResponse }
-                        : msg
-                )
-            );
-        }
-    } catch (error) {
-        console.error("Error sending message:", error);
-        setMessages(prev =>
-            prev.map(msg =>
-                msg.id === modelMessagePlaceholder.id
-                    ? { ...msg, content: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại." }
-                    : msg
-            )
-        );
-    } finally {
-        setIsLoading(false);
-    }
-  };
-
   return (
-    <div className="flex flex-col h-screen bg-gray-50 dark:bg-slate-900 font-sans">
-      <header className="p-4 border-b dark:border-slate-800 shadow-sm">
-        <h1 className="text-xl font-bold text-center text-gray-800 dark:text-white">EDUVANT - Cố vấn Khoá học Online</h1>
+    <div className="bg-ivory font-sans text-gray-800">
+      <MarqueeBanner />
+
+      {/* Phần 1: Hero Section */}
+      <header 
+        className="relative min-h-screen flex items-center justify-center text-center text-white bg-cover bg-center"
+        style={{ backgroundImage: "url('https://i.imgur.com/Gk5gS3B.jpeg')"}}
+      >
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        <div className="relative z-10 p-4">
+          <h1 className="font-display text-5xl md:text-7xl font-black mb-4 animate-fade-in-down" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.7)'}}>
+            Khám phá Lịch sử – Nuôi dưỡng lòng yêu nước
+          </h1>
+          <p className="max-w-3xl mx-auto text-lg md:text-xl mb-8 animate-fade-in-up" style={{textShadow: '1px 1px 4px rgba(0,0,0,0.7)'}}>
+            Học liệu số môn Lịch sử 12 – Dành cho giáo viên & học sinh THPT theo chương trình GDPT 2018.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
+            <a href="#resources" className="bg-brown-red hover:bg-red-earth text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105 shadow-lg">
+              Khám phá ngay
+            </a>
+            <a href="#download" className="bg-ivory text-red-earth font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105 shadow-lg">
+              Tải học liệu miễn phí
+            </a>
+          </div>
+        </div>
       </header>
-      <main className="flex-1 overflow-y-auto p-4 md:p-6">
-        <div className="max-w-3xl mx-auto space-y-6">
-          {messages.map((message) => (
-            <ChatBubble key={message.id} message={message} />
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
+
+      <main className="container mx-auto px-6 py-16 md:py-24 space-y-20">
+        {/* Phần 2: Lý do */}
+        <section className="text-center">
+          <h2 className="font-display text-4xl font-bold mb-12 text-brown-red">Tại sao nên chọn học liệu số Lịch sử 12?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-8 border border-bronze-gold/40 rounded-lg shadow-sm hover:shadow-xl hover:border-bronze-gold transition-all duration-300">
+              <TeacherIcon className="w-16 h-16 mx-auto mb-4 text-moss-green" />
+              <h3 className="font-display text-2xl font-bold mb-2 text-red-earth">Giáo viên dạy dễ hơn</h3>
+              <p>Nội dung biên soạn theo GDPT 2018, tích hợp bài giảng điện tử và công cụ đa dạng.</p>
+            </div>
+            <div className="p-8 border border-bronze-gold/40 rounded-lg shadow-sm hover:shadow-xl hover:border-bronze-gold transition-all duration-300">
+              <StudentIcon className="w-16 h-16 mx-auto mb-4 text-moss-green" />
+              <h3 className="font-display text-2xl font-bold mb-2 text-red-earth">Học sinh hứng thú hơn</h3>
+              <p>Video, quiz, trò chơi, infographic sinh động giúp giờ học không còn nhàm chán.</p>
+            </div>
+            <div className="p-8 border border-bronze-gold/40 rounded-lg shadow-sm hover:shadow-xl hover:border-bronze-gold transition-all duration-300">
+              <GlobeIcon className="w-16 h-16 mx-auto mb-4 text-moss-green" />
+              <h3 className="font-display text-2xl font-bold mb-2 text-red-earth">Lịch sử gắn liền thực tế</h3>
+              <p>Cập nhật nội dung liên hệ lịch sử địa phương, giúp học sinh hiểu sâu sắc cội nguồn.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Phần 3: Kho học liệu */}
+        <section id="resources" className="text-center">
+          <h2 className="font-display text-4xl font-bold mb-4 text-brown-red">Kho học liệu</h2>
+          <p className="text-xl mb-12 text-gray-700">Tất cả tài nguyên bạn cần cho một năm học Lịch sử hiệu quả.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ResourceCard icon={<BookIcon className="w-12 h-12"/>} title="Bài giảng điện tử" buttonText="Xem chi tiết" />
+            <ResourceCard icon={<PuzzleIcon className="w-12 h-12"/>} title="Bài tập lịch sử" buttonText="Xem chi tiết" />
+            <ResourceCard icon={<MindmapIcon className="w-12 h-12"/>} title="Bản đồ tư duy & Timeline" buttonText="Xem chi tiết" />
+            <ResourceCard icon={<LocalIcon className="w-12 h-12"/>} title="Tư liệu lịch sử địa phương" buttonText="Xem chi tiết" />
+            <ResourceCard icon={<GameIcon className="w-12 h-12"/>} title="Trò chơi & Quiz" buttonText="Xem chi tiết" />
+            <ResourceCard icon={<VideoIcon className="w-12 h-12"/>} title="Video bài giảng ngắn" buttonText="Xem chi tiết" />
+          </div>
+           <a href="#" id="download" className="mt-12 inline-block bg-red-earth hover:bg-brown-red text-white font-bold py-3 px-10 rounded-full text-xl transition-transform transform hover:scale-105 shadow-lg">
+             Tải trọn bộ học liệu (Miễn phí)
+           </a>
+        </section>
+
+        {/* Phần 4: Dạy - Học */}
+        <section>
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-moss-green">
+              <h3 className="font-display text-3xl font-bold mb-4 text-moss-green flex items-center"><TeacherIcon className="w-8 h-8 mr-3"/>Dành cho giáo viên</h3>
+              <ul className="list-disc list-inside space-y-2 text-lg">
+                <li>Giáo án mẫu, công cụ đánh giá năng lực học sinh.</li>
+                <li>Hướng dẫn sử dụng công nghệ (Canva, Quizizz...).</li>
+                <li>Nguồn tư liệu tham khảo phong phú và đáng tin cậy.</li>
+              </ul>
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-bronze-gold">
+              <h3 className="font-display text-3xl font-bold mb-4 text-bronze-gold flex items-center"><StudentIcon className="w-8 h-8 mr-3"/>Dành cho học sinh</h3>
+              <ul className="list-disc list-inside space-y-2 text-lg">
+                  <li>Video bài giảng ngắn gọn, dễ hiểu (5–10 phút).</li>
+                  <li>Bài luyện trắc nghiệm theo từng chuyên đề, bám sát đề thi.</li>
+                  <li>Mục “Thử thách lịch sử” để vừa học vừa chơi.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Phần 5: Liên hệ */}
+        <section className="bg-moss-green text-ivory rounded-xl p-8 md:p-12 shadow-2xl">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="text-center md:text-left">
+              <h2 className="font-display text-3xl font-bold mb-4">Góp ý & Liên hệ</h2>
+              <blockquote className="border-l-4 border-bronze-gold pl-4 italic text-xl">
+                <p>"Dân ta phải biết sử ta,</p>
+                <p>Cho tường gốc tích nước nhà Việt Nam.”</p>
+                <cite className="not-italic font-semibold block mt-2">— Hồ Chí Minh</cite>
+              </blockquote>
+            </div>
+            <form className="space-y-4">
+              <input type="text" placeholder="Tên của bạn" className="w-full p-3 rounded bg-ivory/80 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-bronze-gold"/>
+              <input type="email" placeholder="Email" className="w-full p-3 rounded bg-ivory/80 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-bronze-gold"/>
+              <select className="w-full p-3 rounded bg-ivory/80 text-gray-800 focus:outline-none focus:ring-2 focus:ring-bronze-gold">
+                <option>Bạn là Giáo viên</option>
+                <option>Bạn là Học sinh</option>
+                <option>Vai trò khác</option>
+              </select>
+              <textarea placeholder="Nội dung góp ý" rows={4} className="w-full p-3 rounded bg-ivory/80 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-bronze-gold"></textarea>
+              <button type="submit" className="w-full bg-brown-red hover:bg-red-earth text-white font-bold py-3 px-6 rounded-full text-lg transition-colors duration-300">Gửi góp ý</button>
+            </form>
+          </div>
+        </section>
+
+        {/* Phần 6: Giảng viên */}
+        <section className="text-center">
+          <div className="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-xl border border-bronze-gold/50">
+            <h3 className="font-display text-3xl font-bold mb-4 text-red-earth">Giảng viên biên soạn</h3>
+            <p className="text-2xl font-semibold text-gray-800">Võ Văn Dũng</p>
+            <p className="text-lg text-gray-600">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
+            <p className="text-md text-gray-500 mt-2">Trường PT DTNT THPT Bình Phước, tỉnh Bình Phước</p>
+            <p className="text-md text-gray-600 font-semibold mt-4">ĐT/Zalo: 0907 130 900</p>
+          </div>
+        </section>
       </main>
-      <footer className="p-4 md:p-6 border-t dark:border-slate-800 bg-white dark:bg-slate-900/50 backdrop-blur-sm">
-        <div className="max-w-3xl mx-auto">
-          <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+
+      {/* Footer */}
+      <footer className="bg-brown-red text-ivory/80 text-center p-8">
+        <p className="font-display text-xl font-bold mb-2">“Khám phá lịch sử – Nuôi dưỡng lòng yêu nước”</p>
+        <div className="flex justify-center gap-6 my-4">
+          <a href="#" className="hover:text-white">Trang chủ</a>
+          <a href="#resources" className="hover:text-white">Tải học liệu</a>
+          <a href="#" className="hover:text-white">Liên hệ</a>
         </div>
+        <p className="text-sm">Bản quyền © 2025 Trường PT DTNT THPT Bình Phước</p>
       </footer>
     </div>
   );

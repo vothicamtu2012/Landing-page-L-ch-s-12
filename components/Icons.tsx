@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export const TeacherIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -45,9 +46,8 @@ export const GameIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-export const VideoIcon = (props: React.SVGProps<SVGSVGElement>) => (
+export const SoftwareIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6.75l-4.5 4.5 4.5 4.5m-3-9l-4.5 4.5 4.5 4.5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h9.75a2.25 2.25 0 012.25 2.25z" />
     </svg>
 );

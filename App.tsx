@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, VideoIcon } from './components/Icons';
+import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon } from './components/Icons';
 
 const MarqueeBanner = () => (
   <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
@@ -16,10 +16,10 @@ const MarqueeBanner = () => (
 const HeroSection = () => (
   <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
     <div className="relative z-10 p-4">
-      <h1 className="text-5xl md:text-7xl font-display font-black leading-normal md:leading-snug drop-shadow-md text-yellow-400">
+      <h1 className="text-5xl md:text-7xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
         Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
       </h1>
-      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-relaxed">
+      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-loose">
         Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
       </p>
       <div className="mt-8 flex justify-center gap-4">
@@ -42,17 +42,17 @@ const WhyChooseSection = () => (
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <TeacherIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Giáo viên dạy dễ hơn</h3>
-          <p className="leading-relaxed">Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, tiết kiệm thời gian chuẩn bị.</p>
+          <p className="leading-loose">Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, tiết kiệm thời gian chuẩn bị.</p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <BookIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Học sinh hứng thú hơn</h3>
-          <p className="leading-relaxed">Video, quiz, trò chơi, infographic sinh động giúp tiếp thu kiến thức một cách tự nhiên và hiệu quả.</p>
+          <p className="leading-loose">Video, quiz, trò chơi, infographic sinh động giúp tiếp thu kiến thức một cách tự nhiên và hiệu quả.</p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <LocalIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Lịch sử gắn liền thực tế</h3>
-          <p className="leading-relaxed">Cập nhật nội dung liên hệ thực tiễn, kết nối lịch sử địa phương, bồi đắp tình yêu quê hương.</p>
+          <p className="leading-loose">Cập nhật nội dung liên hệ thực tiễn, kết nối lịch sử địa phương, bồi đắp tình yêu quê hương.</p>
         </div>
       </div>
     </div>
@@ -66,16 +66,16 @@ const ResourcesSection = ({ onResourceClick }) => {
         { title: "Sơ đồ tư duy Chủ đề", icon: <MindmapIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Tư liệu lịch sử địa phương", icon: <LocalIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Trò chơi & Quiz", icon: <GameIcon className="w-10 h-10 text-brown-red mb-3"/> },
-        { title: "Video bài giảng ngắn", icon: <VideoIcon className="w-10 h-10 text-brown-red mb-3"/> },
+        { title: "Hướng dẫn học các phần mềm", icon: <SoftwareIcon className="w-10 h-10 text-brown-red mb-3"/> },
     ];
 
     return (
         <section className="py-20 px-4 bg-white">
             <div className="max-w-6xl mx-auto text-center">
-                <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu "Tất cả tài nguyên bạn cần"</h2>
+                <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu: Tất cả tài nguyên bạn cần</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     {resources.map((res, index) => {
-                        const isInteractive = res.title === "Bài giảng điện tử" || res.title === "Bài tập lịch sử" || res.title === "Sơ đồ tư duy Chủ đề";
+                        const isInteractive = ["Bài giảng điện tử", "Bài tập lịch sử", "Sơ đồ tư duy Chủ đề", "Hướng dẫn học các phần mềm"].includes(res.title);
                         return (
                             <div 
                                 key={index} 
@@ -114,7 +114,7 @@ const ExperienceSection = () => {
   return (
     <section className="py-20 px-4 bg-ivory">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12 tracking-wide">Phim tư liệu Lịch sử Việt Nam 1954-1975</h2>
+        <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12 tracking-wide">Phim tư liệu: Lịch sử Việt Nam 1954-1975</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {youtubeVideos.map(video => (
@@ -134,7 +134,7 @@ const ExperienceSection = () => {
         <div className="grid md:grid-cols-2 gap-8 mt-12 text-left">
           <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-brown-red">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><TeacherIcon className="w-8 h-8"/>Dành cho giáo viên</h3>
-            <ul className="list-disc pl-5 space-y-2 leading-relaxed">
+            <ul className="list-disc pl-5 space-y-2 leading-loose">
               <li>Giáo án mẫu, công cụ đánh giá năng lực học sinh.</li>
               <li>Hướng dẫn tích hợp công nghệ (Canva, Quizizz, Google Form...).</li>
               <li>Nguồn tư liệu tham khảo phong phú và đã được kiểm chứng.</li>
@@ -142,7 +142,7 @@ const ExperienceSection = () => {
           </div>
           <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-moss-green">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><BookIcon className="w-8 h-8"/>Dành cho học sinh</h3>
-            <ul className="list-disc pl-5 space-y-2 leading-relaxed">
+            <ul className="list-disc pl-5 space-y-2 leading-loose">
               <li>Video bài giảng ngắn gọn, dễ hiểu (5–10 phút).</li>
               <li>Hệ thống bài luyện trắc nghiệm theo từng chuyên đề.</li>
               <li>Mục “Thử thách lịch sử” với các trò chơi tương tác (gamification).</li>
@@ -183,9 +183,9 @@ const TeacherSection = () => (
         <img src="/avatar-vo-van-dung.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
       </div>
       <h3 className="text-3xl font-display text-red-earth">Võ Văn Dũng</h3>
-      <p className="text-lg mt-2 mb-4 leading-relaxed">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
-      <p className="text-gray-600 leading-relaxed">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
-      <p className="text-gray-600 mt-1 leading-relaxed">ĐT/Zalo: 0907130900</p>
+      <p className="text-lg mt-2 mb-4 leading-loose">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
+      <p className="text-gray-600 leading-loose">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
+      <p className="text-gray-600 mt-1 leading-loose">ĐT/Zalo: 0907130900</p>
     </div>
   </section>
 );
@@ -233,21 +233,18 @@ const mindmapData = [
     { name: "Chủ đề 6", url: "https://drive.google.com/file/d/1Eco1u47C5UDOB-OQ3JIkUb9bPJwa21FC/view?usp=sharing" },
 ];
 
-// --- Types ---
-type Lesson = {
-    name: string;
-    url: string | null;
-};
-  
-type Exercise = {
-    name: string;
-    url: string | null;
-}
+const softwareGuidesData = [
+    { name: "Canva", url: "https://drive.google.com/drive/folders/1XWlHIJ49cz0DwOyf8cNLtUkMdhyez92e" },
+    { name: "CapCut", url: "https://hoc.ductuenam.com/video/31989#678f910fe275cbc1908e2da6" },
+    { name: "Google Form", url: null },
+    { name: "Azota", url: null },
+];
 
-type Mindmap = {
-    name: string;
-    url: string | null;
-}
+// --- Types ---
+type Lesson = { name: string; url: string | null; };
+type Exercise = { name: string; url: string | null; };
+type Mindmap = { name: string; url: string | null; };
+type SoftwareGuide = { name: string; url: string | null; };
   
 // --- Modals ---
 const LectureModal = ({ 
@@ -462,6 +459,61 @@ const MindmapModal = ({ isOpen, onClose, selectedMindmap, onMindmapChange, onVie
     );
 };
 
+const SoftwareGuideModal = ({ isOpen, onClose, selectedSoftware, onSoftwareChange, onViewContent }) => {
+    if (!isOpen) return null;
+
+    const selectedSoftwareData = softwareGuidesData.find(s => s.name === selectedSoftware);
+    const isContentAvailable = !!(selectedSoftwareData && selectedSoftwareData.url);
+
+    let buttonText = "Xem";
+    if (selectedSoftware && !isContentAvailable) {
+        buttonText = "Nội dung đang cập nhật";
+    }
+
+    return (
+        <div
+            className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+        >
+            <div
+                className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+                onClick={e => e.stopPropagation()}
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+                    aria-label="Đóng"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h3 id="software-modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Chọn phần mềm cần học</h3>
+                <div className="space-y-6">
+                    <select
+                        value={selectedSoftware}
+                        onChange={e => onSoftwareChange(e.target.value)}
+                        className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                        aria-labelledby="software-modal-title"
+                    >
+                        <option value="" disabled>-- Vui lòng chọn phần mềm --</option>
+                        {softwareGuidesData.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+                    </select>
+                    <button
+                        onClick={onViewContent}
+                        disabled={!selectedSoftware || !isContentAvailable}
+                        className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+                    >
+                        {buttonText}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- Main App Component ---
 const App = () => {
     const [activeModal, setActiveModal] = React.useState<string | null>(null);
@@ -477,6 +529,9 @@ const App = () => {
 
     // State for Mindmap Modal
     const [selectedMindmap, setSelectedMindmap] = React.useState('');
+
+    // State for Software Guide Modal
+    const [selectedSoftware, setSelectedSoftware] = React.useState('');
   
     const handleResourceClick = (resourceTitle: string) => {
       if (resourceTitle === "Bài giảng điện tử") {
@@ -491,6 +546,9 @@ const App = () => {
       } else if (resourceTitle === "Sơ đồ tư duy Chủ đề") {
         setSelectedMindmap('');
         setActiveModal('mindmaps');
+      } else if (resourceTitle === "Hướng dẫn học các phần mềm") {
+        setSelectedSoftware('');
+        setActiveModal('software');
       }
     };
   
@@ -537,6 +595,14 @@ const App = () => {
             window.open(mindmap.url, '_blank', 'noopener,noreferrer');
         }
     };
+
+    // --- Software Guide Modal Handlers ---
+    const handleViewSoftwareContent = () => {
+        const software = softwareGuidesData.find(s => s.name === selectedSoftware);
+        if (software && software.url) {
+            window.open(software.url, '_blank', 'noopener,noreferrer');
+        }
+    };
     
     return (
       <div>
@@ -576,6 +642,13 @@ const App = () => {
             selectedMindmap={selectedMindmap}
             onMindmapChange={setSelectedMindmap}
             onViewContent={handleViewMindmapContent}
+        />
+        <SoftwareGuideModal
+            isOpen={activeModal === 'software'}
+            onClose={handleCloseModal}
+            selectedSoftware={selectedSoftware}
+            onSoftwareChange={setSelectedSoftware}
+            onViewContent={handleViewSoftwareContent}
         />
       </div>
     );

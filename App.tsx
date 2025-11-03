@@ -226,10 +226,10 @@ const exercisesData = [
 const mindmapData = [
     { name: "Chủ đề 1", url: "https://drive.google.com/file/d/1V3FZaiBrYedHVGgJrAUGueDZCLc3PUGX/view?usp=sharing" },
     { name: "Chủ đề 2", url: "https://drive.google.com/file/d/1tGTFOd1-uOENIN7zRt8XfTaUzQ8QsOwh/view?usp=sharing" },
-    { name: "Chủ đề 3", url: null },
-    { name: "Chủ đề 4", url: null },
-    { name: "Chủ đề 5", url: null },
-    { name: "Chủ đề 6", url: null },
+    { name: "Chủ đề 3", url: "https://drive.google.com/file/d/1RUDWqd8NaOV7EPykdBufq_8UkXsEoJBe/view?usp=sharing" },
+    { name: "Chủ đề 4", url: "https://drive.google.com/file/d/1zf7LtC_QeXKeRUIFdudMaxbN-Xvy3iHy/view?usp=sharing" },
+    { name: "Chủ đề 5", url: "https://drive.google.com/file/d/12LnWGs_CPQciYAjAsQ77rVs3WuqPrb85/view?usp=sharing" },
+    { name: "Chủ đề 6", url: "https://drive.google.com/file/d/1Eco1u47C5UDOB-OQ3JIkUb9bPJwa21FC/view?usp=sharing" },
 ];
 
 // --- Types ---

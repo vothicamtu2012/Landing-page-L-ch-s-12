@@ -201,104 +201,200 @@ const Footer = () => (
     </footer>
 );
 
-const ResourceModal = ({ isOpen, onClose, selectedTopic, onTopicChange, onViewContent }) => {
-  if (!isOpen) return null;
+const topicsData = [
+    { 
+      title: "Chủ đề 1: Trật tự thế giới trong và sau chiến tranh lạnh",
+      lessons: [
+        { name: "Bài 1: Liên hợp quốc", url: "https://docs.google.com/presentation/d/1B-noDVJoRbOwuJwTFmUKyMFtboBhkOpK/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true" },
+        { name: "Bài 2: Trật tự thế giới trong Chiến tranh tranh lạnh", url: null },
+        { name: "Bài 3: Trật tự thế giới sau Chiến tranh lạnh", url: null }
+      ]
+    },
+    { title: "Chủ đề 2: Phong trào giải phóng dân tộc 1930-1945", lessons: [] },
+    { title: "Chủ đề 3: Kháng chiến chống Pháp (1945-1954)", lessons: [] },
+    { title: "Chủ đề 4: Xây dựng CNXH ở miền Bắc và đấu tranh thống nhất đất nước (1954-1975)", lessons: [] },
+    { title: "Chủ đề 5: Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975)", lessons: [] },
+];
 
-  const topics = [
-    "Chủ đề 1: Trật tự thế giới trong và sau chiến tranh lạnh",
-    "Chủ đề 2: Phong trào giải phóng dân tộc 1930-1945",
-    "Chủ đề 3: Kháng chiến chống Pháp (1945-1954)",
-    "Chủ đề 4: Xây dựng CNXH ở miền Bắc và đấu tranh thống nhất đất nước (1954-1975)",
-    "Chủ đề 5: Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975)",
-  ];
-
-  return (
-    <div 
-      className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
+type Lesson = {
+    name: string;
+    url: string | null;
+};
+  
+const ResourceModal = ({ 
+    isOpen, 
+    onClose, 
+    selectedTopic, 
+    onTopicChange, 
+    onViewContent,
+    view,
+    lessons,
+    onBack,
+    selectedLesson,
+    onLessonSelect,
+    onViewLessonContent,
+}) => {
+    if (!isOpen) return null;
+  
+    return (
       <div 
-        className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
-        onClick={e => e.stopPropagation()} // Prevent closing when clicking inside
+        className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+        onClick={onClose}
+        role="dialog"
+        aria-modal="true"
       >
-        <button 
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
-          aria-label="Đóng"
+        <div 
+          className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+          onClick={e => e.stopPropagation()}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <h3 id="modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Chọn chủ đề bài giảng</h3>
-        <div className="space-y-6">
-          <select 
-            value={selectedTopic}
-            onChange={e => onTopicChange(e.target.value)}
-            className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
-          >
-            <option value="" disabled>-- Vui lòng chọn chủ đề --</option>
-            {topics.map(topic => <option key={topic} value={topic}>{topic}</option>)}
-          </select>
           <button 
-            onClick={onViewContent}
-            className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg"
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+            aria-label="Đóng"
           >
-            Xem nội dung
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
+          
+          {view === 'selectTopic' && (
+            <>
+              <h3 id="modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Chọn chủ đề bài giảng</h3>
+              <div className="space-y-6">
+                <select 
+                  value={selectedTopic}
+                  onChange={e => onTopicChange(e.target.value)}
+                  className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                >
+                  <option value="" disabled>-- Vui lòng chọn chủ đề --</option>
+                  {topicsData.map(topic => <option key={topic.title} value={topic.title}>{topic.title}</option>)}
+                </select>
+                <button 
+                  onClick={onViewContent}
+                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg"
+                >
+                  Xem nội dung
+                </button>
+              </div>
+            </>
+          )}
+  
+          {view === 'viewLessons' && (
+            <>
+              <h3 id="modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">{selectedTopic}</h3>
+              <ul className="space-y-4 text-left text-lg text-gray-800 list-none p-0 max-h-60 overflow-y-auto">
+                {lessons.map((lesson, index) => (
+                   <li 
+                    key={index} 
+                    className={`p-3 rounded-md border-l-4 shadow-sm cursor-pointer transition-all duration-200 ${
+                        selectedLesson?.name === lesson.name 
+                        ? 'bg-brown-red/20 border-brown-red' 
+                        : 'bg-white/50 border-transparent hover:bg-brown-red/10'
+                    }`}
+                    onClick={() => onLessonSelect(lesson)}
+                    role="option"
+                    aria-selected={selectedLesson?.name === lesson.name}
+                  >
+                    {lesson.name}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 space-y-4">
+                 <button
+                  onClick={onViewLessonContent}
+                  disabled={!selectedLesson || !selectedLesson.url}
+                  className="w-full bg-brown-red text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+                >
+                  Xem nội dung bài đã chọn
+                </button>
+                <button
+                    onClick={onBack}
+                    className="w-full bg-gray-200 hover:bg-gray-300 text-brown-red font-bold py-3 px-8 rounded-full transition-all"
+                >
+                    Quay lại chọn chủ đề
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 const App = () => {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [selectedTopic, setSelectedTopic] = React.useState('');
-
-  const handleResourceClick = (resourceTitle: string) => {
-    if (resourceTitle === "Bài giảng điện tử") {
-      setSelectedTopic(''); // Reset topic when opening
-      setIsModalOpen(true);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleViewContent = () => {
-    if (selectedTopic) {
-      alert(`Đang tải nội dung cho chủ đề: "${selectedTopic}"...`);
-      handleCloseModal();
-    } else {
-      alert('Vui lòng chọn một chủ đề để xem nội dung.');
-    }
-  };
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [selectedTopic, setSelectedTopic] = React.useState('');
+    const [modalView, setModalView] = React.useState('selectTopic'); // 'selectTopic' or 'viewLessons'
+    const [currentLessons, setCurrentLessons] = React.useState<Lesson[]>([]);
+    const [selectedLesson, setSelectedLesson] = React.useState<Lesson | null>(null);
   
-  return (
-    <div>
-      <MarqueeBanner />
-      <main>
-        <HeroSection />
-        <WhyChooseSection />
-        <ResourcesSection onResourceClick={handleResourceClick} />
-        <ExperienceSection />
-        <ContactSection />
-        <TeacherSection />
-      </main>
-      <Footer />
-      <ResourceModal 
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        selectedTopic={selectedTopic}
-        onTopicChange={setSelectedTopic}
-        onViewContent={handleViewContent}
-      />
-    </div>
-  );
-};
+    const handleResourceClick = (resourceTitle: string) => {
+      if (resourceTitle === "Bài giảng điện tử") {
+        setSelectedTopic('');
+        setModalView('selectTopic');
+        setCurrentLessons([]);
+        setSelectedLesson(null);
+        setIsModalOpen(true);
+      }
+    };
+  
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+    };
+  
+    const handleViewContent = () => {
+      if (selectedTopic) {
+        const topicData = topicsData.find(t => t.title === selectedTopic);
+        if (topicData && topicData.lessons && topicData.lessons.length > 0) {
+          setCurrentLessons(topicData.lessons);
+          setSelectedLesson(null);
+          setModalView('viewLessons');
+        } else {
+          alert(`Nội dung cho chủ đề "${selectedTopic}" đang được cập nhật.`);
+          handleCloseModal();
+        }
+      } else {
+        alert('Vui lòng chọn một chủ đề để xem nội dung.');
+      }
+    };
+  
+    const handleBackToTopics = () => {
+      setModalView('selectTopic');
+    };
 
+    const handleViewLessonContent = () => {
+        if (selectedLesson && selectedLesson.url) {
+            window.open(selectedLesson.url, '_blank', 'noopener,noreferrer');
+        }
+    };
+    
+    return (
+      <div>
+        <MarqueeBanner />
+        <main>
+          <HeroSection />
+          <WhyChooseSection />
+          <ResourcesSection onResourceClick={handleResourceClick} />
+          <ExperienceSection />
+          <ContactSection />
+          <TeacherSection />
+        </main>
+        <Footer />
+        <ResourceModal 
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          selectedTopic={selectedTopic}
+          onTopicChange={setSelectedTopic}
+          onViewContent={handleViewContent}
+          view={modalView}
+          lessons={currentLessons}
+          onBack={handleBackToTopics}
+          selectedLesson={selectedLesson}
+          onLessonSelect={setSelectedLesson}
+          onViewLessonContent={handleViewLessonContent}
+        />
+      </div>
+    );
+};
+  
 export default App;

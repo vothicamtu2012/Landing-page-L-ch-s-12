@@ -62,7 +62,7 @@ const ResourcesSection = ({ onResourceClick }) => {
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Bài tập lịch sử", icon: <PuzzleIcon className="w-10 h-10 text-brown-red mb-3"/> },
-        { title: "Bản đồ tư duy & Timeline", icon: <MindmapIcon className="w-10 h-10 text-brown-red mb-3"/> },
+        { title: "Sơ đồ tư duy Chủ đề", icon: <MindmapIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Tư liệu lịch sử địa phương", icon: <LocalIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Trò chơi & Quiz", icon: <GameIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Video bài giảng ngắn", icon: <VideoIcon className="w-10 h-10 text-brown-red mb-3"/> },
@@ -74,7 +74,7 @@ const ResourcesSection = ({ onResourceClick }) => {
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu "Tất cả tài nguyên bạn cần"</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     {resources.map((res, index) => {
-                        const isInteractive = res.title === "Bài giảng điện tử" || res.title === "Bài tập lịch sử";
+                        const isInteractive = res.title === "Bài giảng điện tử" || res.title === "Bài tập lịch sử" || res.title === "Sơ đồ tư duy Chủ đề";
                         return (
                             <div 
                                 key={index} 
@@ -223,6 +223,15 @@ const exercisesData = [
     { name: "Đề thi thử tốt nghiệp", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
 ];
 
+const mindmapData = [
+    { name: "Chủ đề 1", url: "https://drive.google.com/file/d/1V3FZaiBrYedHVGgJrAUGueDZCLc3PUGX/view?usp=sharing" },
+    { name: "Chủ đề 2", url: "https://drive.google.com/file/d/1tGTFOd1-uOENIN7zRt8XfTaUzQ8QsOwh/view?usp=sharing" },
+    { name: "Chủ đề 3", url: null },
+    { name: "Chủ đề 4", url: null },
+    { name: "Chủ đề 5", url: null },
+    { name: "Chủ đề 6", url: null },
+];
+
 // --- Types ---
 type Lesson = {
     name: string;
@@ -230,6 +239,11 @@ type Lesson = {
 };
   
 type Exercise = {
+    name: string;
+    url: string | null;
+}
+
+type Mindmap = {
     name: string;
     url: string | null;
 }
@@ -392,6 +406,61 @@ const ExerciseModal = ({ isOpen, onClose, selectedExercise, onExerciseChange, on
     );
 };
 
+const MindmapModal = ({ isOpen, onClose, selectedMindmap, onMindmapChange, onViewContent }) => {
+    if (!isOpen) return null;
+
+    const selectedMindmapData = mindmapData.find(m => m.name === selectedMindmap);
+    const isContentAvailable = !!(selectedMindmapData && selectedMindmapData.url);
+
+    let buttonText = "Xem";
+    if (selectedMindmap && !isContentAvailable) {
+        buttonText = "Nội dung đang cập nhật";
+    }
+
+    return (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div 
+            className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+              aria-label="Đóng"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+             <h3 id="mindmap-modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Bạn chọn chủ đề lịch sử 12 muốn xem</h3>
+              <div className="space-y-6">
+                <select 
+                  value={selectedMindmap}
+                  onChange={e => onMindmapChange(e.target.value)}
+                  className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                  aria-labelledby="mindmap-modal-title"
+                >
+                  <option value="" disabled>-- Vui lòng chọn chủ đề --</option>
+                  {mindmapData.map(m => <option key={m.name} value={m.name}>{m.name}</option>)}
+                </select>
+                <button 
+                  onClick={onViewContent}
+                  disabled={!selectedMindmap || !isContentAvailable}
+                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+                >
+                  {buttonText}
+                </button>
+              </div>
+          </div>
+        </div>
+    );
+};
+
 // --- Main App Component ---
 const App = () => {
     const [activeModal, setActiveModal] = React.useState<string | null>(null);
@@ -404,6 +473,9 @@ const App = () => {
 
     // State for Exercise Modal
     const [selectedExercise, setSelectedExercise] = React.useState('');
+
+    // State for Mindmap Modal
+    const [selectedMindmap, setSelectedMindmap] = React.useState('');
   
     const handleResourceClick = (resourceTitle: string) => {
       if (resourceTitle === "Bài giảng điện tử") {
@@ -415,6 +487,9 @@ const App = () => {
       } else if (resourceTitle === "Bài tập lịch sử") {
         setSelectedExercise('');
         setActiveModal('exercises');
+      } else if (resourceTitle === "Sơ đồ tư duy Chủ đề") {
+        setSelectedMindmap('');
+        setActiveModal('mindmaps');
       }
     };
   
@@ -452,7 +527,15 @@ const App = () => {
         if (exercise && exercise.url) {
             window.open(exercise.url, '_blank', 'noopener,noreferrer');
         }
-    }
+    };
+
+    // --- Mindmap Modal Handlers ---
+    const handleViewMindmapContent = () => {
+        const mindmap = mindmapData.find(m => m.name === selectedMindmap);
+        if (mindmap && mindmap.url) {
+            window.open(mindmap.url, '_blank', 'noopener,noreferrer');
+        }
+    };
     
     return (
       <div>
@@ -485,6 +568,13 @@ const App = () => {
             selectedExercise={selectedExercise}
             onExerciseChange={setSelectedExercise}
             onViewContent={handleViewExerciseContent}
+        />
+        <MindmapModal
+            isOpen={activeModal === 'mindmaps'}
+            onClose={handleCloseModal}
+            selectedMindmap={selectedMindmap}
+            onMindmapChange={setSelectedMindmap}
+            onViewContent={handleViewMindmapContent}
         />
       </div>
     );

@@ -74,11 +74,11 @@ const ResourcesSection = ({ onResourceClick }) => {
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu "Tất cả tài nguyên bạn cần"</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     {resources.map((res, index) => {
-                        const isInteractive = res.title === "Bài giảng điện tử";
+                        const isInteractive = res.title === "Bài giảng điện tử" || res.title === "Bài tập lịch sử";
                         return (
                             <div 
                                 key={index} 
-                                className={`flex flex-col items-center justify-center p-6 bg-ivory rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 aspect-square ${isInteractive ? 'cursor-pointer hover:border-brown-red border-2 border-transparent' : ''}`}
+                                className={`flex flex-col items-center justify-center p-6 bg-ivory rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 aspect-square ${isInteractive ? 'cursor-pointer hover:border-brown-red border-2 border-transparent' : 'cursor-not-allowed opacity-60'}`}
                                 onClick={() => isInteractive && onResourceClick(res.title)}
                                 role={isInteractive ? 'button' : undefined}
                                 tabIndex={isInteractive ? 0 : -1}
@@ -201,6 +201,7 @@ const Footer = () => (
     </footer>
 );
 
+// --- Data ---
 const topicsData = [
     { 
       title: "Chủ đề 1: Trật tự thế giới trong và sau chiến tranh lạnh",
@@ -216,12 +217,25 @@ const topicsData = [
     { title: "Chủ đề 5: Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975)", lessons: [] },
 ];
 
+const exercisesData = [
+    { name: "Bài tập trắc nghiệp theo chủ đề", url: null },
+    { name: "Bài tập tự luận", url: null },
+    { name: "Đề thi thử tốt nghiệp", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
+];
+
+// --- Types ---
 type Lesson = {
     name: string;
     url: string | null;
 };
   
-const ResourceModal = ({ 
+type Exercise = {
+    name: string;
+    url: string | null;
+}
+  
+// --- Modals ---
+const LectureModal = ({ 
     isOpen, 
     onClose, 
     selectedTopic, 
@@ -265,15 +279,17 @@ const ResourceModal = ({
                   value={selectedTopic}
                   onChange={e => onTopicChange(e.target.value)}
                   className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                  aria-labelledby="modal-title"
                 >
                   <option value="" disabled>-- Vui lòng chọn chủ đề --</option>
                   {topicsData.map(topic => <option key={topic.title} value={topic.title}>{topic.title}</option>)}
                 </select>
                 <button 
                   onClick={onViewContent}
-                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg"
+                  disabled={!selectedTopic}
+                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
                 >
-                  Xem nội dung
+                  Xem danh sách bài học
                 </button>
               </div>
             </>
@@ -321,45 +337,107 @@ const ResourceModal = ({
     );
 };
 
+const ExerciseModal = ({ isOpen, onClose, selectedExercise, onExerciseChange, onViewContent }) => {
+    if (!isOpen) return null;
+
+    const selectedExerciseData = exercisesData.find(ex => ex.name === selectedExercise);
+    const isContentAvailable = !!(selectedExerciseData && selectedExerciseData.url);
+
+    let buttonText = "Xem nội dung";
+    if (selectedExercise && !isContentAvailable) {
+        buttonText = "Nội dung đang cập nhật";
+    }
+
+    return (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div 
+            className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+              aria-label="Đóng"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+             <h3 id="exercise-modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Bạn chọn thể loại bài tập muốn xem</h3>
+              <div className="space-y-6">
+                <select 
+                  value={selectedExercise}
+                  onChange={e => onExerciseChange(e.target.value)}
+                  className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                  aria-labelledby="exercise-modal-title"
+                >
+                  <option value="" disabled>-- Vui lòng chọn loại bài tập --</option>
+                  {exercisesData.map(ex => <option key={ex.name} value={ex.name}>{ex.name}</option>)}
+                </select>
+                <button 
+                  onClick={onViewContent}
+                  disabled={!selectedExercise || !isContentAvailable}
+                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+                >
+                  {buttonText}
+                </button>
+              </div>
+          </div>
+        </div>
+    );
+};
+
+// --- Main App Component ---
 const App = () => {
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [activeModal, setActiveModal] = React.useState<string | null>(null);
+
+    // State for Lecture Modal
     const [selectedTopic, setSelectedTopic] = React.useState('');
-    const [modalView, setModalView] = React.useState('selectTopic'); // 'selectTopic' or 'viewLessons'
+    const [lectureModalView, setLectureModalView] = React.useState('selectTopic');
     const [currentLessons, setCurrentLessons] = React.useState<Lesson[]>([]);
     const [selectedLesson, setSelectedLesson] = React.useState<Lesson | null>(null);
+
+    // State for Exercise Modal
+    const [selectedExercise, setSelectedExercise] = React.useState('');
   
     const handleResourceClick = (resourceTitle: string) => {
       if (resourceTitle === "Bài giảng điện tử") {
-        setSelectedTopic('');
-        setModalView('selectTopic');
+        setSelectedTopic(topicsData[0]?.title || '');
+        setLectureModalView('selectTopic');
         setCurrentLessons([]);
         setSelectedLesson(null);
-        setIsModalOpen(true);
+        setActiveModal('lectures');
+      } else if (resourceTitle === "Bài tập lịch sử") {
+        setSelectedExercise('');
+        setActiveModal('exercises');
       }
     };
   
     const handleCloseModal = () => {
-      setIsModalOpen(false);
+      setActiveModal(null);
     };
   
-    const handleViewContent = () => {
+    // --- Lecture Modal Handlers ---
+    const handleViewLectureContent = () => {
       if (selectedTopic) {
         const topicData = topicsData.find(t => t.title === selectedTopic);
         if (topicData && topicData.lessons && topicData.lessons.length > 0) {
           setCurrentLessons(topicData.lessons);
           setSelectedLesson(null);
-          setModalView('viewLessons');
+          setLectureModalView('viewLessons');
         } else {
           alert(`Nội dung cho chủ đề "${selectedTopic}" đang được cập nhật.`);
-          handleCloseModal();
         }
-      } else {
-        alert('Vui lòng chọn một chủ đề để xem nội dung.');
       }
     };
   
     const handleBackToTopics = () => {
-      setModalView('selectTopic');
+      setLectureModalView('selectTopic');
     };
 
     const handleViewLessonContent = () => {
@@ -367,6 +445,14 @@ const App = () => {
             window.open(selectedLesson.url, '_blank', 'noopener,noreferrer');
         }
     };
+
+    // --- Exercise Modal Handlers ---
+    const handleViewExerciseContent = () => {
+        const exercise = exercisesData.find(ex => ex.name === selectedExercise);
+        if (exercise && exercise.url) {
+            window.open(exercise.url, '_blank', 'noopener,noreferrer');
+        }
+    }
     
     return (
       <div>
@@ -380,18 +466,25 @@ const App = () => {
           <TeacherSection />
         </main>
         <Footer />
-        <ResourceModal 
-          isOpen={isModalOpen}
+        <LectureModal 
+          isOpen={activeModal === 'lectures'}
           onClose={handleCloseModal}
           selectedTopic={selectedTopic}
           onTopicChange={setSelectedTopic}
-          onViewContent={handleViewContent}
-          view={modalView}
+          onViewContent={handleViewLectureContent}
+          view={lectureModalView}
           lessons={currentLessons}
           onBack={handleBackToTopics}
           selectedLesson={selectedLesson}
           onLessonSelect={setSelectedLesson}
           onViewLessonContent={handleViewLessonContent}
+        />
+        <ExerciseModal
+            isOpen={activeModal === 'exercises'}
+            onClose={handleCloseModal}
+            selectedExercise={selectedExercise}
+            onExerciseChange={setSelectedExercise}
+            onViewContent={handleViewExerciseContent}
         />
       </div>
     );

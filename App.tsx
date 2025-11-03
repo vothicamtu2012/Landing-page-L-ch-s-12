@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, VideoIcon } from './components/Icons';
 
@@ -15,10 +16,10 @@ const MarqueeBanner = () => (
 const HeroSection = () => (
   <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
     <div className="relative z-10 p-4">
-      <h1 className="text-5xl md:text-7xl font-display font-black leading-tight drop-shadow-md text-yellow-400">
+      <h1 className="text-5xl md:text-7xl font-display font-black leading-normal md:leading-snug drop-shadow-md text-yellow-400">
         Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
       </h1>
-      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory">
+      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-relaxed">
         Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
       </p>
       <div className="mt-8 flex justify-center gap-4">
@@ -41,17 +42,17 @@ const WhyChooseSection = () => (
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <TeacherIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Giáo viên dạy dễ hơn</h3>
-          <p>Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, tiết kiệm thời gian chuẩn bị.</p>
+          <p className="leading-relaxed">Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, tiết kiệm thời gian chuẩn bị.</p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <BookIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Học sinh hứng thú hơn</h3>
-          <p>Video, quiz, trò chơi, infographic sinh động giúp tiếp thu kiến thức một cách tự nhiên và hiệu quả.</p>
+          <p className="leading-relaxed">Video, quiz, trò chơi, infographic sinh động giúp tiếp thu kiến thức một cách tự nhiên và hiệu quả.</p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <LocalIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Lịch sử gắn liền thực tế</h3>
-          <p>Cập nhật nội dung liên hệ thực tiễn, kết nối lịch sử địa phương, bồi đắp tình yêu quê hương.</p>
+          <p className="leading-relaxed">Cập nhật nội dung liên hệ thực tiễn, kết nối lịch sử địa phương, bồi đắp tình yêu quê hương.</p>
         </div>
       </div>
     </div>
@@ -90,7 +91,7 @@ const ResourcesSection = ({ onResourceClick }) => {
                                 }}
                             >
                                {res.icon}
-                               <h3 className="font-semibold text-center">{res.title}</h3>
+                               <h3 className="font-semibold text-center text-base">{res.title}</h3>
                             </div>
                         )
                     })}
@@ -113,7 +114,7 @@ const ExperienceSection = () => {
   return (
     <section className="py-20 px-4 bg-ivory">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl font-serif text-red-earth mb-12">PHIM TƯ LIỆU LỊCH SỬ VIỆT NAM 1954-1975</h2>
+        <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12 tracking-wide">Phim tư liệu Lịch sử Việt Nam 1954-1975</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {youtubeVideos.map(video => (
@@ -133,7 +134,7 @@ const ExperienceSection = () => {
         <div className="grid md:grid-cols-2 gap-8 mt-12 text-left">
           <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-brown-red">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><TeacherIcon className="w-8 h-8"/>Dành cho giáo viên</h3>
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc pl-5 space-y-2 leading-relaxed">
               <li>Giáo án mẫu, công cụ đánh giá năng lực học sinh.</li>
               <li>Hướng dẫn tích hợp công nghệ (Canva, Quizizz, Google Form...).</li>
               <li>Nguồn tư liệu tham khảo phong phú và đã được kiểm chứng.</li>
@@ -141,7 +142,7 @@ const ExperienceSection = () => {
           </div>
           <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-moss-green">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><BookIcon className="w-8 h-8"/>Dành cho học sinh</h3>
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc pl-5 space-y-2 leading-relaxed">
               <li>Video bài giảng ngắn gọn, dễ hiểu (5–10 phút).</li>
               <li>Hệ thống bài luyện trắc nghiệm theo từng chuyên đề.</li>
               <li>Mục “Thử thách lịch sử” với các trò chơi tương tác (gamification).</li>
@@ -156,7 +157,7 @@ const ExperienceSection = () => {
 const ContactSection = () => (
   <section className="py-20 px-4 bg-white">
     <div className="max-w-4xl mx-auto text-center">
-      <h2 className="text-3xl font-display text-red-earth mb-4">“Dân ta phải biết sử ta, <br/>Cho tường gốc tích nước nhà Việt Nam.”</h2>
+      <h2 className="text-3xl font-display text-red-earth mb-4 leading-relaxed">“Dân ta phải biết sử ta, <br/>Cho tường gốc tích nước nhà Việt Nam.”</h2>
       <p className="mb-10 text-lg font-semibold">- Hồ Chí Minh -</p>
       <div className="max-w-xl mx-auto bg-ivory/50 p-8 rounded-lg shadow-inner border border-bronze-gold/30">
         <h3 className="text-2xl font-display text-brown-red mb-6">Góp ý & Liên hệ</h3>
@@ -182,9 +183,9 @@ const TeacherSection = () => (
         <img src="/avatar-vo-van-dung.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
       </div>
       <h3 className="text-3xl font-display text-red-earth">Võ Văn Dũng</h3>
-      <p className="text-lg mt-2 mb-4">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
-      <p className="text-gray-600">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
-      <p className="text-gray-600 mt-1">ĐT/Zalo: 0907130900</p>
+      <p className="text-lg mt-2 mb-4 leading-relaxed">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
+      <p className="text-gray-600 leading-relaxed">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
+      <p className="text-gray-600 mt-1 leading-relaxed">ĐT/Zalo: 0907130900</p>
     </div>
   </section>
 );

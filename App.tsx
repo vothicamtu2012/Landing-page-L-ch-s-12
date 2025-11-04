@@ -13,26 +13,31 @@ const MarqueeBanner = () => (
   </div>
 );
 
-const HeroSection = () => (
-  <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
-    <div className="relative z-10 p-4">
-      <h1 className="text-5xl md:text-7xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
-        Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
-      </h1>
-      <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-loose">
-        Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
-      </p>
-      <div className="mt-8 flex justify-center gap-4">
-        <button className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
-          Khám phá ngay
-        </button>
-        <button className="border-2 border-ivory hover:bg-ivory hover:text-red-earth text-ivory font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
-          Tải học liệu miễn phí
-        </button>
+const HeroSection = () => {
+  const handleDiscoverClick = () => {
+    document.getElementById('resources-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
+      <div className="relative z-10 p-4">
+        <h1 className="text-5xl md:text-7xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
+          Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
+        </h1>
+        <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-loose">
+          Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
+        </p>
+        <div className="mt-8 flex justify-center gap-4">
+          <button 
+            onClick={handleDiscoverClick}
+            className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
+            Khám phá ngay
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const WhyChooseSection = () => (
   <section className="py-20 px-4 bg-ivory">
@@ -70,7 +75,7 @@ const ResourcesSection = ({ onResourceClick }) => {
     ];
 
     return (
-        <section className="py-20 px-4 bg-white">
+        <section id="resources-section" className="py-20 px-4 bg-white">
             <div className="max-w-6xl mx-auto text-center">
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu: Tất cả tài nguyên bạn cần</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">

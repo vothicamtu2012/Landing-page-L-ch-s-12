@@ -1,1 +1,0 @@
-Thư mục này dùng để chứa các tài sản tĩnh như hình ảnh, fonts, v.v. Bạn hãy đặt các file ảnh của mình vào đây.

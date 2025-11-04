@@ -64,7 +64,7 @@ const ResourcesSection = ({ onResourceClick }) => {
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Bài tập lịch sử", icon: <PuzzleIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Sơ đồ tư duy Chủ đề", icon: <MindmapIcon className="w-10 h-10 text-brown-red mb-3"/> },
-        { title: "Tư liệu lịch sử địa phương", icon: <LocalIcon className="w-10 h-10 text-brown-red mb-3"/> },
+        { title: "Luyện thi tốt nghiệp THPT", icon: <TeacherIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Trò chơi & Quiz", icon: <GameIcon className="w-10 h-10 text-brown-red mb-3"/> },
         { title: "Hướng dẫn học các phần mềm", icon: <SoftwareIcon className="w-10 h-10 text-brown-red mb-3"/> },
     ];
@@ -75,7 +75,7 @@ const ResourcesSection = ({ onResourceClick }) => {
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu: Tất cả tài nguyên bạn cần</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     {resources.map((res, index) => {
-                        const isInteractive = ["Bài giảng điện tử", "Bài tập lịch sử", "Sơ đồ tư duy Chủ đề", "Hướng dẫn học các phần mềm"].includes(res.title);
+                        const isInteractive = ["Bài giảng điện tử", "Bài tập lịch sử", "Sơ đồ tư duy Chủ đề", "Luyện thi tốt nghiệp THPT", "Hướng dẫn học các phần mềm"].includes(res.title);
                         return (
                             <div 
                                 key={index} 
@@ -118,7 +118,7 @@ const ExperienceSection = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {youtubeVideos.map(video => (
-            <div key={video.id} className="aspect-w-1 aspect-h-1 bg-black rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
+            <div key={video.id} className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
               <iframe
                 src={`https://www.youtube.com/embed/${video.id}`}
                 title={video.title}
@@ -221,7 +221,7 @@ const topicsData = [
 const exercisesData = [
     { name: "Bài tập trắc nghiệp theo chủ đề", url: null },
     { name: "Bài tập tự luận", url: null },
-    { name: "Đề thi thử tốt nghiệp", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
+    { name: "Luyện đề thi tốt nghiệp THPT", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
 ];
 
 const mindmapData = [
@@ -238,6 +238,16 @@ const softwareGuidesData = [
     { name: "CapCut", url: "https://hoc.ductuenam.com/video/31989#678f910fe275cbc1908e2da6" },
     { name: "Google Form", url: null },
     { name: "Azota", url: null },
+];
+
+const graduationExamData = [
+    { name: "Chủ đề 1", url: "https://forms.gle/r5wSkqF52boUZRy3A" },
+    { name: "Chủ đề 2", url: null },
+    { name: "Chủ đề 3", url: null },
+    { name: "Chủ đề 4", url: null },
+    { name: "Chủ đề 5", url: null },
+    { name: "Chủ đề 6", url: null },
+    { name: "Đề thi thử tốt nghiệp THPT", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
 ];
 
 // --- Types ---
@@ -514,6 +524,61 @@ const SoftwareGuideModal = ({ isOpen, onClose, selectedSoftware, onSoftwareChang
     );
 };
 
+const GraduationExamModal = ({ isOpen, onClose, selectedTopic, onTopicChange, onViewContent }) => {
+    if (!isOpen) return null;
+
+    const selectedData = graduationExamData.find(item => item.name === selectedTopic);
+    const isContentAvailable = !!(selectedData && selectedData.url);
+
+    let buttonText = "Bắt đầu";
+    if (selectedTopic && !isContentAvailable) {
+        buttonText = "Nội dung đang cập nhật";
+    }
+
+    return (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div 
+            className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+              aria-label="Đóng"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+             <h3 id="grad-exam-modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Bạn chọn nội dung muốn luyện tập</h3>
+              <div className="space-y-6">
+                <select 
+                  value={selectedTopic}
+                  onChange={e => onTopicChange(e.target.value)}
+                  className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                  aria-labelledby="grad-exam-modal-title"
+                >
+                  <option value="" disabled>-- Vui lòng chọn nội dung --</option>
+                  {graduationExamData.map(item => <option key={item.name} value={item.name}>{item.name}</option>)}
+                </select>
+                <button 
+                  onClick={onViewContent}
+                  disabled={!selectedTopic || !isContentAvailable}
+                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+                >
+                  {buttonText}
+                </button>
+              </div>
+          </div>
+        </div>
+    );
+};
+
 // --- Main App Component ---
 const App = () => {
     const [activeModal, setActiveModal] = React.useState<string | null>(null);
@@ -532,6 +597,9 @@ const App = () => {
 
     // State for Software Guide Modal
     const [selectedSoftware, setSelectedSoftware] = React.useState('');
+
+    // State for Graduation Exam Modal
+    const [selectedGradExamTopic, setSelectedGradExamTopic] = React.useState('');
   
     const handleResourceClick = (resourceTitle: string) => {
       if (resourceTitle === "Bài giảng điện tử") {
@@ -549,6 +617,9 @@ const App = () => {
       } else if (resourceTitle === "Hướng dẫn học các phần mềm") {
         setSelectedSoftware('');
         setActiveModal('software');
+      } else if (resourceTitle === "Luyện thi tốt nghiệp THPT") {
+        setSelectedGradExamTopic('');
+        setActiveModal('graduationExam');
       }
     };
   
@@ -603,6 +674,14 @@ const App = () => {
             window.open(software.url, '_blank', 'noopener,noreferrer');
         }
     };
+
+    // --- Graduation Exam Modal Handlers ---
+    const handleViewGradExamContent = () => {
+        const topic = graduationExamData.find(t => t.name === selectedGradExamTopic);
+        if (topic && topic.url) {
+            window.open(topic.url, '_blank', 'noopener,noreferrer');
+        }
+    };
     
     return (
       <div>
@@ -649,6 +728,13 @@ const App = () => {
             selectedSoftware={selectedSoftware}
             onSoftwareChange={setSelectedSoftware}
             onViewContent={handleViewSoftwareContent}
+        />
+        <GraduationExamModal
+            isOpen={activeModal === 'graduationExam'}
+            onClose={handleCloseModal}
+            selectedTopic={selectedGradExamTopic}
+            onTopicChange={setSelectedGradExamTopic}
+            onViewContent={handleViewGradExamContent}
         />
       </div>
     );

@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon } from './components/Icons';
 
@@ -217,7 +218,7 @@ const topicsData = [
         { name: "Bài 3: Trật tự thế giới sau Chiến tranh lạnh", url: null }
       ]
     },
-    { title: "Chủ đề 2: Phong trào giải phóng dân tộc 1930-1945", lessons: [] },
+    { title: "Chủ đề 2: Phong trào giải phóng dân tộc 1930-1945", lessons: [{ name: "Bài luyện tập: Chủ đề 2", url: "https://forms.gle/F13u5Avbnx8QcZVS9" }] },
     { title: "Chủ đề 3: Kháng chiến chống Pháp (1945-1954)", lessons: [] },
     { title: "Chủ đề 4: Xây dựng CNXH ở miền Bắc và đấu tranh thống nhất đất nước (1954-1975)", lessons: [] },
     { title: "Chủ đề 5: Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975)", lessons: [] },
@@ -247,7 +248,7 @@ const softwareGuidesData = [
 
 const graduationExamData = [
     { name: "Chủ đề 1", url: "https://forms.gle/r5wSkqF52boUZRy3A" },
-    { name: "Chủ đề 2", url: null },
+    { name: "Chủ đề 2", url: "https://forms.gle/F13u5Avbnx8QcZVS9" },
     { name: "Chủ đề 3", url: null },
     { name: "Chủ đề 4", url: null },
     { name: "Chủ đề 5", url: null },

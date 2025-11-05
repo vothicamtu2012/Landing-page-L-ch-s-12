@@ -1,5 +1,6 @@
 
 
+
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon } from './components/Icons';
 
@@ -167,15 +168,15 @@ const ContactSection = () => (
       <p className="mb-10 text-lg font-semibold">- Hồ Chí Minh -</p>
       <div className="max-w-xl mx-auto bg-ivory/50 p-8 rounded-lg shadow-inner border border-bronze-gold/30">
         <h3 className="text-2xl font-display text-brown-red mb-6">Góp ý & Liên hệ</h3>
-        <form className="space-y-4 text-left">
-          <input type="text" placeholder="Tên của bạn" className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red" />
-          <input type="email" placeholder="Email" className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red" />
-          <select className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white">
-            <option>Tôi là Giáo viên</option>
-            <option>Tôi là Học sinh</option>
+        <form id="contact-form" className="space-y-4 text-left">
+          <input type="text" name="ho_ten" placeholder="Tên của bạn" className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red" required />
+          <input type="email" name="email" placeholder="Email" className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red" required />
+          <select name="vai_tro" className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white">
+            <option value="Giáo viên">Tôi là Giáo viên</option>
+            <option value="Học sinh">Tôi là Học sinh</option>
           </select>
-          <textarea placeholder="Nội dung góp ý" rows={4} className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red"></textarea>
-          <button type="submit" className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">Gửi góp ý</button>
+          <textarea name="noi_dung_gop_y" placeholder="Nội dung góp ý" rows={4} className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red"></textarea>
+          <button type="submit" className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 disabled:bg-gray-400 disabled:cursor-wait">Gửi góp ý</button>
         </form>
       </div>
     </div>
@@ -606,6 +607,66 @@ const App = () => {
 
     // State for Graduation Exam Modal
     const [selectedGradExamTopic, setSelectedGradExamTopic] = React.useState('');
+
+    // Effect for handling the contact form submission
+    React.useEffect(() => {
+        const form = document.getElementById('contact-form');
+        if (!form) {
+            return;
+        }
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        if (!submitButton) {
+            return;
+        }
+
+        const handleSubmit = async (event: Event) => {
+            event.preventDefault();
+
+            const originalButtonText = submitButton.textContent;
+            (submitButton as HTMLButtonElement).disabled = true;
+            submitButton.textContent = 'Đang gửi...';
+
+            const formData = new FormData(form as HTMLFormElement);
+            const data = Object.fromEntries(formData.entries());
+            const webhookUrl = 'https://us-central1-zenleads-ai.cloudfunctions.net/publicWebhook/if5bHoy6MwFkFudN5ksg';
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi máy chủ: ' + response.status);
+                }
+
+                const responseData = await response.json();
+
+                if (responseData.redirectTo) {
+                    window.location.href = responseData.redirectTo;
+                } else {
+                    alert('Gửi thông tin thành công! Cảm ơn bạn.');
+                    (form as HTMLFormElement).reset();
+                }
+            } catch (error) {
+                console.error('Lỗi khi gửi form:', error);
+                alert('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
+            } finally {
+                (submitButton as HTMLButtonElement).disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        };
+
+        form.addEventListener('submit', handleSubmit);
+
+        return () => {
+            form.removeEventListener('submit', handleSubmit);
+        };
+    }, []); // Empty dependency array ensures this runs only once after mount
   
     const handleResourceClick = (resourceTitle: string) => {
       if (resourceTitle === "Bài giảng điện tử") {

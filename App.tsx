@@ -1,6 +1,7 @@
 
 
 
+
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon } from './components/Icons';
 
@@ -250,7 +251,7 @@ const softwareGuidesData = [
 const graduationExamData = [
     { name: "Chủ đề 1", url: "https://forms.gle/r5wSkqF52boUZRy3A" },
     { name: "Chủ đề 2", url: "https://forms.gle/F13u5Avbnx8QcZVS9" },
-    { name: "Chủ đề 3", url: null },
+    { name: "Chủ đề 3", url: "https://forms.gle/a7oDA6a6d4vHQebUA" },
     { name: "Chủ đề 4", url: null },
     { name: "Chủ đề 5", url: null },
     { name: "Chủ đề 6", url: null },

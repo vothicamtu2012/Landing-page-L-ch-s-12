@@ -647,7 +647,7 @@ const App = () => {
                 if (responseData.redirectTo) {
                     window.location.href = responseData.redirectTo;
                 } else {
-                    alert('Gửi thông tin thành công! Cảm ơn bạn.');
+                    alert('Cảm ơn đã góp ý cho tôi');
                     (form as HTMLFormElement).reset();
                 }
             } catch (error) {

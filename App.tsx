@@ -1,7 +1,4 @@
 
-
-
-
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon } from './components/Icons';
 
@@ -228,7 +225,7 @@ const topicsData = [
 
 const exercisesData = [
     { name: "Bài tập trắc nghiệp theo chủ đề", url: null },
-    { name: "Bài tập tự luận", url: null },
+    { name: "Tự luận dạng Hỏi - Đáp", url: "https://drive.google.com/drive/folders/1af09hPRv30aMgbR374qPrrYIn3tU7HdH?usp=sharing" },
     { name: "Luyện đề thi tốt nghiệp THPT", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
 ];
 

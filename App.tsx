@@ -67,11 +67,12 @@ const WhyChooseSection = () => (
 const SchoolVideoSection = () => (
   <section className="py-16 px-4 bg-white">
     <div className="max-w-4xl mx-auto text-center">
-      <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Giờ học Lịch sử tại trường</h2>
+      <h2 className="text-3xl md:text-4xl font-display text-red-earth mb-4">Luyện sử online – Gắn kết tri thức thời đại số</h2>
+      <p className="text-xl italic text-brown-red mb-8">Luyện sử mỗi ngày – Dựng xây tri thức Việt</p>
       <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden relative border-4 border-bronze-gold">
         <iframe
           src="https://www.youtube.com/embed/eKdvUZkeX5I"
-          title="Giờ học Lịch sử tại trường PT DTNT THPT Bình Phước tỉnh Đồng Nai"
+          title="Luyện sử online – Gắn kết tri thức thời đại số"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -212,6 +213,25 @@ const TeacherSection = () => (
     </div>
   </section>
 );
+
+const PracticeRoomSection = () => (
+  <section className="py-16 px-4 bg-ivory">
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Giờ thực hành tại phòng bộ môn</h2>
+      <div className="bg-white p-8 rounded-lg shadow-lg border border-bronze-gold/30">
+        <img 
+          src="/phong-bo-mon.png" 
+          alt="Học sinh thực hành tại phòng bộ môn Lịch sử" 
+          className="w-full h-auto object-cover rounded-md shadow-md mb-8 border-4 border-bronze-gold" 
+        />
+        <p className="text-lg leading-relaxed text-gray-700 text-left">
+          Phòng bộ môn Lịch sử được trang bị đầy đủ thiết bị hiện đại như máy chiếu, máy tính, và các học liệu trực quan, tạo điều kiện tốt nhất cho học sinh thực hành, thảo luận nhóm và ứng dụng công nghệ vào việc học tập, biến mỗi giờ học trở nên sinh động và hiệu quả hơn.
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
 
 const Footer = () => (
     <footer className="bg-red-earth text-ivory/80 py-10 px-4 text-center">
@@ -602,130 +622,67 @@ const GraduationExamModal = ({ isOpen, onClose, selectedTopic, onTopicChange, on
     );
 };
 
-// --- Main App Component ---
+// --- Main App ---
 const App = () => {
     const [activeModal, setActiveModal] = React.useState<string | null>(null);
 
-    // State for Lecture Modal
+    // State for LectureModal
+    const [lectureView, setLectureView] = React.useState('selectTopic');
     const [selectedTopic, setSelectedTopic] = React.useState('');
-    const [lectureModalView, setLectureModalView] = React.useState('selectTopic');
-    const [currentLessons, setCurrentLessons] = React.useState<Lesson[]>([]);
     const [selectedLesson, setSelectedLesson] = React.useState<Lesson | null>(null);
+    const lessonsForTopic = topicsData.find(t => t.title === selectedTopic)?.lessons || [];
 
-    // State for Exercise Modal
+    // State for ExerciseModal
     const [selectedExercise, setSelectedExercise] = React.useState('');
 
-    // State for Mindmap Modal
+    // State for MindmapModal
     const [selectedMindmap, setSelectedMindmap] = React.useState('');
 
-    // State for Software Guide Modal
+    // State for SoftwareGuideModal
     const [selectedSoftware, setSelectedSoftware] = React.useState('');
 
-    // State for Graduation Exam Modal
-    const [selectedGradExamTopic, setSelectedGradExamTopic] = React.useState('');
+    // State for GraduationExamModal
+    const [selectedGraduationTopic, setSelectedGraduationTopic] = React.useState('');
 
-    // Effect for handling the contact form submission
-    React.useEffect(() => {
-        const form = document.getElementById('contact-form');
-        if (!form) {
-            return;
-        }
-
-        const submitButton = form.querySelector('button[type="submit"]');
-        if (!submitButton) {
-            return;
-        }
-
-        const handleSubmit = async (event: Event) => {
-            event.preventDefault();
-
-            const originalButtonText = submitButton.textContent;
-            (submitButton as HTMLButtonElement).disabled = true;
-            submitButton.textContent = 'Đang gửi...';
-
-            const formData = new FormData(form as HTMLFormElement);
-            const data = Object.fromEntries(formData.entries());
-            const webhookUrl = 'https://us-central1-zenleads-ai.cloudfunctions.net/publicWebhook/if5bHoy6MwFkFudN5ksg';
-
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Lỗi máy chủ: ' + response.status);
-                }
-
-                const responseData = await response.json();
-
-                if (responseData.redirectTo) {
-                    window.location.href = responseData.redirectTo;
-                } else {
-                    alert('Cảm ơn đã góp ý cho tôi');
-                    (form as HTMLFormElement).reset();
-                }
-            } catch (error) {
-                console.error('Lỗi khi gửi form:', error);
-                alert('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
-            } finally {
-                (submitButton as HTMLButtonElement).disabled = false;
-                submitButton.textContent = originalButtonText;
-            }
-        };
-
-        form.addEventListener('submit', handleSubmit);
-
-        return () => {
-            form.removeEventListener('submit', handleSubmit);
-        };
-    }, []); // Empty dependency array ensures this runs only once after mount
-  
     const handleResourceClick = (resourceTitle: string) => {
-      if (resourceTitle === "Bài giảng điện tử") {
-        setSelectedTopic(topicsData[0]?.title || '');
-        setLectureModalView('selectTopic');
-        setCurrentLessons([]);
-        setSelectedLesson(null);
-        setActiveModal('lectures');
-      } else if (resourceTitle === "Bài tập lịch sử") {
-        setSelectedExercise('');
-        setActiveModal('exercises');
-      } else if (resourceTitle === "Sơ đồ tư duy Chủ đề") {
-        setSelectedMindmap('');
-        setActiveModal('mindmaps');
-      } else if (resourceTitle === "Hướng dẫn học các phần mềm") {
-        setSelectedSoftware('');
-        setActiveModal('software');
-      } else if (resourceTitle === "Luyện thi tốt nghiệp THPT") {
-        setSelectedGradExamTopic('');
-        setActiveModal('graduationExam');
-      }
-    };
-  
-    const handleCloseModal = () => {
-      setActiveModal(null);
-    };
-  
-    // --- Lecture Modal Handlers ---
-    const handleViewLectureContent = () => {
-      if (selectedTopic) {
-        const topicData = topicsData.find(t => t.title === selectedTopic);
-        if (topicData && topicData.lessons && topicData.lessons.length > 0) {
-          setCurrentLessons(topicData.lessons);
-          setSelectedLesson(null);
-          setLectureModalView('viewLessons');
-        } else {
-          alert(`Nội dung cho chủ đề "${selectedTopic}" đang được cập nhật.`);
+        switch (resourceTitle) {
+            case "Bài giảng điện tử":
+                setActiveModal("lecture");
+                break;
+            case "Bài tập lịch sử":
+                setActiveModal("exercise");
+                break;
+            case "Sơ đồ tư duy Chủ đề":
+                setActiveModal("mindmap");
+                break;
+            case "Hướng dẫn học các phần mềm":
+                setActiveModal("software");
+                break;
+            case "Luyện thi tốt nghiệp THPT":
+                setActiveModal("graduation");
+                break;
+            default:
+                break;
         }
-      }
     };
-  
-    const handleBackToTopics = () => {
-      setLectureModalView('selectTopic');
+
+    const closeModal = () => {
+        setActiveModal(null);
+        // Reset states
+        setLectureView('selectTopic');
+        setSelectedTopic('');
+        setSelectedLesson(null);
+        setSelectedExercise('');
+        setSelectedMindmap('');
+        setSelectedSoftware('');
+        setSelectedGraduationTopic('');
+    };
+
+    const handleViewContent = () => {
+        const topicData = topicsData.find(t => t.title === selectedTopic);
+        if (topicData) {
+            setLectureView('viewLessons');
+        }
     };
 
     const handleViewLessonContent = () => {
@@ -734,7 +691,6 @@ const App = () => {
         }
     };
 
-    // --- Exercise Modal Handlers ---
     const handleViewExerciseContent = () => {
         const exercise = exercisesData.find(ex => ex.name === selectedExercise);
         if (exercise && exercise.url) {
@@ -742,7 +698,6 @@ const App = () => {
         }
     };
 
-    // --- Mindmap Modal Handlers ---
     const handleViewMindmapContent = () => {
         const mindmap = mindmapData.find(m => m.name === selectedMindmap);
         if (mindmap && mindmap.url) {
@@ -750,78 +705,114 @@ const App = () => {
         }
     };
 
-    // --- Software Guide Modal Handlers ---
-    const handleViewSoftwareContent = () => {
+    const handleViewSoftwareGuideContent = () => {
         const software = softwareGuidesData.find(s => s.name === selectedSoftware);
         if (software && software.url) {
             window.open(software.url, '_blank', 'noopener,noreferrer');
         }
     };
 
-    // --- Graduation Exam Modal Handlers ---
-    const handleViewGradExamContent = () => {
-        const topic = graduationExamData.find(t => t.name === selectedGradExamTopic);
-        if (topic && topic.url) {
-            window.open(topic.url, '_blank', 'noopener,noreferrer');
+    const handleViewGraduationContent = () => {
+        const item = graduationExamData.find(i => i.name === selectedGraduationTopic);
+        if (item && item.url) {
+            window.open(item.url, '_blank', 'noopener,noreferrer');
         }
     };
     
+    React.useEffect(() => {
+        const handleFormSubmit = (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Đang gửi...';
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch("https://script.google.com/macros/s/AKfycby_3tGvT3GgR4E8UqT9vQ6p8jY7cR5Z3L2F-9x8rW0K/dev", {
+                method: "POST",
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Cảm ơn bạn đã góp ý!');
+                form.reset();
+                submitButton.disabled = false;
+                submitButton.textContent = 'Gửi góp ý';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Gửi góp ý';
+            });
+        };
+
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', handleFormSubmit);
+
+        return () => {
+            form.removeEventListener('submit', handleFormSubmit);
+        };
+    }, []);
+
     return (
-      <div>
-        <MarqueeBanner />
-        <main>
-          <HeroSection />
-          <WhyChooseSection />
-          <SchoolVideoSection />
-          <ResourcesSection onResourceClick={handleResourceClick} />
-          <ExperienceSection />
-          <ContactSection />
-          <TeacherSection />
-        </main>
-        <Footer />
-        <LectureModal 
-          isOpen={activeModal === 'lectures'}
-          onClose={handleCloseModal}
-          selectedTopic={selectedTopic}
-          onTopicChange={setSelectedTopic}
-          onViewContent={handleViewLectureContent}
-          view={lectureModalView}
-          lessons={currentLessons}
-          onBack={handleBackToTopics}
-          selectedLesson={selectedLesson}
-          onLessonSelect={setSelectedLesson}
-          onViewLessonContent={handleViewLessonContent}
-        />
-        <ExerciseModal
-            isOpen={activeModal === 'exercises'}
-            onClose={handleCloseModal}
-            selectedExercise={selectedExercise}
-            onExerciseChange={setSelectedExercise}
-            onViewContent={handleViewExerciseContent}
-        />
-        <MindmapModal
-            isOpen={activeModal === 'mindmaps'}
-            onClose={handleCloseModal}
-            selectedMindmap={selectedMindmap}
-            onMindmapChange={setSelectedMindmap}
-            onViewContent={handleViewMindmapContent}
-        />
-        <SoftwareGuideModal
-            isOpen={activeModal === 'software'}
-            onClose={handleCloseModal}
-            selectedSoftware={selectedSoftware}
-            onSoftwareChange={setSelectedSoftware}
-            onViewContent={handleViewSoftwareContent}
-        />
-        <GraduationExamModal
-            isOpen={activeModal === 'graduationExam'}
-            onClose={handleCloseModal}
-            selectedTopic={selectedGradExamTopic}
-            onTopicChange={setSelectedGradExamTopic}
-            onViewContent={handleViewGradExamContent}
-        />
-      </div>
+        <div className="bg-ivory text-gray-800">
+            <MarqueeBanner />
+            <HeroSection />
+            <WhyChooseSection />
+            <SchoolVideoSection />
+            <ResourcesSection onResourceClick={handleResourceClick} />
+            <ExperienceSection />
+            <ContactSection />
+            <TeacherSection />
+            <PracticeRoomSection />
+            <Footer />
+
+            <LectureModal 
+                isOpen={activeModal === 'lecture'}
+                onClose={closeModal}
+                selectedTopic={selectedTopic}
+                onTopicChange={setSelectedTopic}
+                onViewContent={handleViewContent}
+                view={lectureView}
+                lessons={lessonsForTopic}
+                onBack={() => setLectureView('selectTopic')}
+                selectedLesson={selectedLesson}
+                onLessonSelect={setSelectedLesson}
+                onViewLessonContent={handleViewLessonContent}
+            />
+            <ExerciseModal 
+                isOpen={activeModal === 'exercise'}
+                onClose={closeModal}
+                selectedExercise={selectedExercise}
+                onExerciseChange={setSelectedExercise}
+                onViewContent={handleViewExerciseContent}
+            />
+            <MindmapModal
+                isOpen={activeModal === 'mindmap'}
+                onClose={closeModal}
+                selectedMindmap={selectedMindmap}
+                onMindmapChange={setSelectedMindmap}
+                onViewContent={handleViewMindmapContent}
+            />
+            <SoftwareGuideModal
+                isOpen={activeModal === 'software'}
+                onClose={closeModal}
+                selectedSoftware={selectedSoftware}
+                onSoftwareChange={setSelectedSoftware}
+                onViewContent={handleViewSoftwareGuideContent}
+            />
+            <GraduationExamModal
+                isOpen={activeModal === 'graduation'}
+                onClose={closeModal}
+                selectedTopic={selectedGraduationTopic}
+                onTopicChange={setSelectedGraduationTopic}
+                onViewContent={handleViewGraduationContent}
+            />
+        </div>
     );
 };
-  
+
 export default App;

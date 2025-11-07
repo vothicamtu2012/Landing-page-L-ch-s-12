@@ -24,7 +24,7 @@ const HeroSection = () => {
         <h1 className="text-5xl md:text-7xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
           Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
         </h1>
-        <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-loose">
+        <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-relaxed">
           Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
         </p>
         <div className="mt-8 flex justify-center gap-4">
@@ -40,25 +40,43 @@ const HeroSection = () => {
 };
 
 const WhyChooseSection = () => (
-  <section className="py-20 px-4 bg-ivory">
+  <section className="py-16 px-4 bg-ivory">
     <div className="max-w-6xl mx-auto text-center">
       <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Tại sao nên chọn học liệu số Lịch sử 12?</h2>
       <div className="grid md:grid-cols-3 gap-8">
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <TeacherIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Giáo viên dạy dễ hơn</h3>
-          <p className="leading-loose">Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, tiết kiệm thời gian chuẩn bị.</p>
+          <p className="leading-relaxed">Nội dung biên soạn theo GDPT 2018, có sẵn bài giảng điện tử, tiết kiệm thời gian chuẩn bị.</p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <BookIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Học sinh hứng thú hơn</h3>
-          <p className="leading-loose">Video, quiz, trò chơi, infographic sinh động giúp tiếp thu kiến thức một cách tự nhiên và hiệu quả.</p>
+          <p className="leading-relaxed">Video, quiz, trò chơi, infographic sinh động giúp tiếp thu kiến thức một cách tự nhiên và hiệu quả.</p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-md border border-bronze-gold/30 hover:shadow-xl hover:border-bronze-gold transition-all duration-300 transform hover:-translate-y-2">
           <LocalIcon className="w-12 h-12 mx-auto mb-4 text-brown-red" />
           <h3 className="text-2xl font-display mb-2">Lịch sử gắn liền thực tế</h3>
-          <p className="leading-loose">Cập nhật nội dung liên hệ thực tiễn, kết nối lịch sử địa phương, bồi đắp tình yêu quê hương.</p>
+          <p className="leading-relaxed">Cập nhật nội dung liên hệ thực tiễn, kết nối lịch sử địa phương, bồi đắp tình yêu quê hương.</p>
         </div>
+      </div>
+    </div>
+  </section>
+);
+
+const SchoolVideoSection = () => (
+  <section className="py-16 px-4 bg-white">
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Giờ học Lịch sử tại trường</h2>
+      <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden relative border-4 border-bronze-gold">
+        <iframe
+          src="https://www.youtube.com/embed/eKdvUZkeX5I"
+          title="Giờ học Lịch sử tại trường PT DTNT THPT Bình Phước tỉnh Đồng Nai"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="w-full h-full"
+        ></iframe>
       </div>
     </div>
   </section>
@@ -75,7 +93,7 @@ const ResourcesSection = ({ onResourceClick }) => {
     ];
 
     return (
-        <section id="resources-section" className="py-20 px-4 bg-white">
+        <section id="resources-section" className="py-16 px-4 bg-ivory">
             <div className="max-w-6xl mx-auto text-center">
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu: Tất cả tài nguyên bạn cần</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
@@ -84,7 +102,7 @@ const ResourcesSection = ({ onResourceClick }) => {
                         return (
                             <div 
                                 key={index} 
-                                className={`flex flex-col items-center justify-center p-6 bg-ivory rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 aspect-square ${isInteractive ? 'cursor-pointer hover:border-brown-red border-2 border-transparent' : 'cursor-not-allowed opacity-60'}`}
+                                className={`flex flex-col items-center justify-center p-6 bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 aspect-square ${isInteractive ? 'cursor-pointer hover:border-brown-red border-2 border-transparent' : 'cursor-not-allowed opacity-60'}`}
                                 onClick={() => isInteractive && onResourceClick(res.title)}
                                 role={isInteractive ? 'button' : undefined}
                                 tabIndex={isInteractive ? 0 : -1}
@@ -117,7 +135,7 @@ const ExperienceSection = () => {
   ];
 
   return (
-    <section className="py-20 px-4 bg-ivory">
+    <section className="py-16 px-4 bg-white">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12 tracking-wide">Phim tư liệu: Lịch sử Việt Nam 1954-1975</h2>
         
@@ -137,17 +155,17 @@ const ExperienceSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-12 text-left">
-          <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-brown-red">
+          <div className="bg-ivory p-8 rounded-lg shadow-lg border-l-4 border-brown-red">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><TeacherIcon className="w-8 h-8"/>Dành cho giáo viên</h3>
-            <ul className="list-disc pl-5 space-y-2 leading-loose">
+            <ul className="list-disc pl-5 space-y-2 leading-relaxed">
               <li>Giáo án mẫu, công cụ đánh giá năng lực học sinh.</li>
               <li>Hướng dẫn tích hợp công nghệ (Canva, Quizizz, Google Form...).</li>
               <li>Nguồn tư liệu tham khảo phong phú và đã được kiểm chứng.</li>
             </ul>
           </div>
-          <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-moss-green">
+          <div className="bg-ivory p-8 rounded-lg shadow-lg border-l-4 border-moss-green">
             <h3 className="text-2xl font-display mb-4 flex items-center gap-3"><BookIcon className="w-8 h-8"/>Dành cho học sinh</h3>
-            <ul className="list-disc pl-5 space-y-2 leading-loose">
+            <ul className="list-disc pl-5 space-y-2 leading-relaxed">
               <li>Video bài giảng ngắn gọn, dễ hiểu (5–10 phút).</li>
               <li>Hệ thống bài luyện trắc nghiệm theo từng chuyên đề.</li>
               <li>Mục “Thử thách lịch sử” với các trò chơi tương tác (gamification).</li>
@@ -160,11 +178,11 @@ const ExperienceSection = () => {
 };
 
 const ContactSection = () => (
-  <section className="py-20 px-4 bg-white">
+  <section className="py-16 px-4 bg-ivory">
     <div className="max-w-4xl mx-auto text-center">
       <h2 className="text-3xl font-display text-red-earth mb-4 leading-relaxed">“Dân ta phải biết sử ta, <br/>Cho tường gốc tích nước nhà Việt Nam.”</h2>
       <p className="mb-10 text-lg font-semibold">- Hồ Chí Minh -</p>
-      <div className="max-w-xl mx-auto bg-ivory/50 p-8 rounded-lg shadow-inner border border-bronze-gold/30">
+      <div className="max-w-xl mx-auto bg-white/50 p-8 rounded-lg shadow-inner border border-bronze-gold/30">
         <h3 className="text-2xl font-display text-brown-red mb-6">Góp ý & Liên hệ</h3>
         <form id="contact-form" className="space-y-4 text-left">
           <input type="text" name="ho_ten" placeholder="Tên của bạn" className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red" required />
@@ -182,15 +200,15 @@ const ContactSection = () => (
 );
 
 const TeacherSection = () => (
-  <section className="py-20 px-4 bg-ivory">
-    <div className="max-w-md mx-auto text-center bg-white p-10 rounded-lg shadow-xl border border-bronze-gold/50">
+  <section className="py-16 px-4 bg-white">
+    <div className="max-w-md mx-auto text-center bg-ivory p-10 rounded-lg shadow-xl border border-bronze-gold/50">
        <div className="w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden bg-gray-200 border-4 border-bronze-gold flex items-center justify-center">
         <img src="/avatar-vo-van-dung.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
       </div>
       <h3 className="text-3xl font-display text-red-earth">Võ Văn Dũng</h3>
-      <p className="text-lg mt-2 mb-4 leading-loose">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
-      <p className="text-gray-600 leading-loose">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
-      <p className="text-gray-600 mt-1 leading-loose">ĐT/Zalo: 0907130900</p>
+      <p className="text-lg mt-2 mb-4 leading-relaxed">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
+      <p className="text-gray-600 leading-relaxed">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
+      <p className="text-gray-600 mt-1 leading-relaxed">ĐT/Zalo: 0907130900</p>
     </div>
   </section>
 );
@@ -754,6 +772,7 @@ const App = () => {
         <main>
           <HeroSection />
           <WhyChooseSection />
+          <SchoolVideoSection />
           <ResourcesSection onResourceClick={handleResourceClick} />
           <ExperienceSection />
           <ContactSection />

@@ -264,7 +264,7 @@ const PracticeRoomSection = () => {
 
 const SquareCarouselSection = () => {
     const memorableMomentsImages = [
-        'https://i.postimg.cc/pXN9xZLz/khoanh-khac-1.jpg',
+        'https://i.postimg.cc/G2zMTbFw/khoanh-khac-1-jpg.png',
         'https://i.postimg.cc/RVT0n50z/khoanh-khac-2.jpg',
         'https://i.postimg.cc/L854fD42/khoanh-khac-3.jpg',
         'https://i.postimg.cc/y8NqVpP5/khoanh-khac-4.jpg',

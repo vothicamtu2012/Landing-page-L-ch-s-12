@@ -208,7 +208,7 @@ const TeacherSection = () => (
   <section className="py-16 px-4 bg-white">
     <div className="max-w-md mx-auto text-center bg-ivory p-10 rounded-lg shadow-xl border border-bronze-gold/50">
        <div className="w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden bg-gray-200 border-4 border-bronze-gold flex items-center justify-center">
-        <img src="https://i.postimg.cc/k40wVpB0/avatar-giao-vien.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
+        <img src="https://i.postimg.cc/D4ww0sRG/avatar-vo-van-dung.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
       </div>
       <h3 className="text-3xl font-display text-red-earth">Võ Văn Dũng</h3>
       <p className="text-lg mt-2 mb-4 leading-relaxed">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>

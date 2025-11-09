@@ -19,15 +19,19 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center text-center bg-red-earth">
-      <div className="relative z-10 p-4">
+    <section 
+      className="relative h-screen flex items-center bg-cover bg-center"
+      style={{ backgroundImage: "url('https://i.imgur.com/u5v01pD.png')" }}
+    >
+      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+      <div className="relative z-10 p-4 md:px-24 max-w-3xl text-left">
         <h1 className="text-5xl md:text-7xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
           Khám phá Lịch sử –<br />Nuôi dưỡng lòng yêu nước
         </h1>
-        <p className="mt-4 text-xl md:text-2xl max-w-3xl mx-auto text-ivory leading-relaxed">
+        <p className="mt-4 text-xl md:text-2xl text-ivory leading-relaxed">
           Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
         </p>
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex justify-start gap-4">
           <button 
             onClick={handleDiscoverClick}
             className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">

@@ -21,7 +21,7 @@ const HeroSection = () => {
   return (
     <section 
       className="relative h-screen flex items-center bg-cover bg-center"
-      style={{ backgroundImage: "url('https://i.imgur.com/u5v01pD.png')" }}
+      style={{ backgroundImage: "url('https://i.postimg.cc/v8zbYnCT/hinh-nen-chinh.jpg')" }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       <div className="relative z-10 p-4 md:px-24 max-w-3xl text-left">

@@ -220,16 +220,16 @@ const TeacherSection = () => (
 
 const PracticeRoomSection = () => {
     const schoolActivityImages = [
-      'https://i.postimg.cc/PqYp5pYd/phong-thuc-hanh-1.jpg',
-      'https://i.postimg.cc/tCN3zVzz/phong-thuc-hanh-2.jpg',
-      'https://i.postimg.cc/W3t1H0pC/phong-thuc-hanh-3.jpg',
-      'https://i.postimg.cc/d11m5b0V/phong-thuc-hanh-4.jpg',
-      'https://i.postimg.cc/pX1g0ffp/phong-thuc-hanh-5.jpg',
-      'https://i.postimg.cc/Y0xWzX4M/phong-thuc-hanh-6.jpg',
-      'https://i.postimg.cc/L6T0NmwV/phong-thuc-hanh-7.jpg',
-      'https://i.postimg.cc/3w9yFpB5/phong-thuc-hanh-8.jpg',
-      'https://i.postimg.cc/rwM2tWzQ/phong-thuc-hanh-9.jpg',
-      'https://i.postimg.cc/qvN1z7tT/phong-thuc-hanh-10.jpg',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
+      'https://postimg.cc/ZB5D1TWb',
     ];
   
     return (

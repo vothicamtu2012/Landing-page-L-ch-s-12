@@ -265,11 +265,11 @@ const PracticeRoomSection = () => {
 const SquareCarouselSection = () => {
     const memorableMomentsImages = [
         'https://i.postimg.cc/G2zMTbFw/khoanh-khac-1-jpg.png',
-        'https://i.postimg.cc/RVT0n50z/khoanh-khac-2.jpg',
-        'https://i.postimg.cc/L854fD42/khoanh-khac-3.jpg',
-        'https://i.postimg.cc/y8NqVpP5/khoanh-khac-4.jpg',
-        'https://i.postimg.cc/x8gG0fWq/khoanh-khac-5.jpg',
-        'https://i.postimg.cc/nryD2kC8/khoanh-khac-6.jpg',
+        'https://i.postimg.cc/x1JKVMt7/khoanh-khac-2-jpg-2.png',
+        'https://i.postimg.cc/zXmLH6jB/khoanh-khac-3-jpg.png',
+        'https://i.postimg.cc/Pq1VhB2Y/khoanh-khac-4-jpg.png',
+        'https://i.postimg.cc/y8p3xdrJ/khoanh-khac-5-jpg.png',
+        'https://i.postimg.cc/4xHsvxxx/khoanh-khac-6-jpg.png',
         'https://i.postimg.cc/C10T9Gvx/khoanh-khac-7.jpg',
         'https://i.postimg.cc/6p2yL8Bq/khoanh-khac-8.jpg',
         'https://i.postimg.cc/YqrnLy0Z/khoanh-khac-9.jpg',

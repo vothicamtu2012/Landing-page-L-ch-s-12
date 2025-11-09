@@ -264,16 +264,16 @@ const PracticeRoomSection = () => {
 
 const SquareCarouselSection = () => {
     const memorableMomentsImages = [
+        'https://i.postimg.cc/G2zMTbFw/khoanh-khac-1-jpg.png',
+        'https://i.postimg.cc/x1JKVMt7/khoanh-khac-2-jpg-2.png',
+        'https://i.postimg.cc/zXmLH6jB/khoanh-khac-3-jpg.png',
+        'https://i.postimg.cc/Pq1VhB2Y/khoanh-khac-4-jpg.png',
+        'https://i.postimg.cc/y8p3xdrJ/khoanh-khac-5-jpg.png',
+        'https://i.postimg.cc/4xHsvxxx/khoanh-khac-6-jpg.png',
         'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
-        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
+        'https://i.postimg.cc/6p2yL8Bq/khoanh-khac-8.jpg',
+        'https://i.postimg.cc/YqrnLy0Z/khoanh-khac-9.jpg',
+        'https://i.postimg.cc/tJ0X7cR2/khoanh-khac-10.jpg',
     ];
     const [currentIndex, setCurrentIndex] = React.useState(0);
 

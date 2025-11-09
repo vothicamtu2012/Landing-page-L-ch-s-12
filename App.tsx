@@ -270,7 +270,7 @@ const SquareCarouselSection = () => {
         'https://i.postimg.cc/Pq1VhB2Y/khoanh-khac-4-jpg.png',
         'https://i.postimg.cc/y8p3xdrJ/khoanh-khac-5-jpg.png',
         'https://i.postimg.cc/4xHsvxxx/khoanh-khac-6-jpg.png',
-        'https://i.postimg.cc/C10T9Gvx/khoanh-khac-7.jpg',
+        'https://i.postimg.cc/jdsGdd7Z/khoanh-khac-7-jpg.png',
         'https://i.postimg.cc/6p2yL8Bq/khoanh-khac-8.jpg',
         'https://i.postimg.cc/YqrnLy0Z/khoanh-khac-9.jpg',
         'https://i.postimg.cc/tJ0X7cR2/khoanh-khac-10.jpg',

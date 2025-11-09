@@ -51,3 +51,22 @@ export const SoftwareIcon = (props: React.SVGProps<SVGSVGElement>) => (
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h9.75a2.25 2.25 0 012.25 2.25z" />
     </svg>
 );
+
+export const GlobeAltIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.255 12.44A9.003 9.003 0 0112 3c1.64 0 3.16.42 4.493 1.157m-8.986 8.283a9.002 9.002 0 01-1.26-3.44m3.939 6.262a9.002 9.002 0 01-3.44-1.26m3.939 6.262a9.002 9.002 0 01-1.26 3.44M12 21a9.003 9.003 0 01-8.745-6.56m12.481-3.44a9.002 9.002 0 011.26 3.44m-3.939-6.262a9.002 9.002 0 013.44 1.26m-3.939-6.262a9.002 9.002 0 011.26-3.44" />
+  </svg>
+);
+
+export const PhoneIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.992-.55-1.348l-2.46-2.46a2.25 2.25 0 00-3.182 0l-1.22 1.22a.75.75 0 01-1.06 0l-5.18-5.18a.75.75 0 010-1.06l1.22-1.22a2.25 2.25 0 000-3.182L5.598 3.55A2.25 2.25 0 004.25 3.25H3A2.25 2.25 0 00.75 5.5v1.25z" />
+    </svg>
+);
+
+export const BuildingLibraryIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+  </svg>
+);

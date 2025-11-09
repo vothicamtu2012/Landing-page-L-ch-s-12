@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon } from './components/Icons';
+import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon } from './components/Icons';
 
 const MarqueeBanner = () => (
   <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
@@ -356,13 +356,21 @@ const SquareCarouselSection = () => {
 
 const Footer = () => (
     <footer className="bg-red-earth text-ivory/80 py-10 px-4 text-center">
-        <p className="text-lg font-display">“Khám phá lịch sử – Nuôi dưỡng lòng yêu nước”</p>
-        <div className="flex justify-center gap-6 my-4">
-            <a href="#" className="hover:text-white">Trang chủ</a>
-            <a href="#" className="hover:text-white">Tải học liệu</a>
-            <a href="#" className="hover:text-white">Liên hệ</a>
+        <h4 className="text-xl font-display mb-6">Thông tin trang Website</h4>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-x-8 gap-y-4 my-4 text-ivory/90">
+            <div className="flex items-center gap-2">
+                <GlobeAltIcon className="w-5 h-5"/>
+                <span>Địa chỉ trang Web : www.vovandung.click</span>
+            </div>
+            <div className="flex items-center gap-2">
+                <PhoneIcon className="w-5 h-5"/>
+                <span>Liên hệ SĐT: 0907130900 Zalo : 0907130900</span>
+            </div>
         </div>
-        <p className="text-sm">Bản quyền © 2025 Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</p>
+        <div className="flex items-center justify-center gap-2 mt-6 text-sm text-ivory/70">
+            <BuildingLibraryIcon className="w-5 h-5"/>
+            <span>Bản quyền © 2025 Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai</span>
+        </div>
     </footer>
 );
 

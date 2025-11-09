@@ -220,9 +220,9 @@ const TeacherSection = () => (
 
 const PracticeRoomSection = () => {
     const schoolActivityImages = [
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
+      'https://i.postimg.cc/mDYf1kRH/truong-hoat-dong-01-jpg.png',
+      'https://i.postimg.cc/mrh6GDtz/truong-hoat-dong-02-jpg.png',
+      'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png',
       'https://postimg.cc/ZB5D1TWb',
       'https://postimg.cc/ZB5D1TWb',
       'https://postimg.cc/ZB5D1TWb',

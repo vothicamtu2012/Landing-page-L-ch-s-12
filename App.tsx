@@ -208,7 +208,7 @@ const TeacherSection = () => (
   <section className="py-16 px-4 bg-white">
     <div className="max-w-md mx-auto text-center bg-ivory p-10 rounded-lg shadow-xl border border-bronze-gold/50">
        <div className="w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden bg-gray-200 border-4 border-bronze-gold flex items-center justify-center">
-        <img src="/avatar-vo-van-dung.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
+        <img src="https://i.postimg.cc/k40wVpB0/avatar-giao-vien.png" alt="Ảnh đại diện Thầy Võ Văn Dũng" className="w-full h-full object-cover" />
       </div>
       <h3 className="text-3xl font-display text-red-earth">Võ Văn Dũng</h3>
       <p className="text-lg mt-2 mb-4 leading-relaxed">25 năm kinh nghiệm giảng dạy Lịch sử THPT</p>
@@ -218,23 +218,143 @@ const TeacherSection = () => (
   </section>
 );
 
-const PracticeRoomSection = () => (
-  <section className="py-16 px-4 bg-ivory">
-    <div className="max-w-4xl mx-auto text-center">
-      <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Giờ thực hành tại phòng bộ môn</h2>
-      <div className="bg-white p-8 rounded-lg shadow-lg border border-bronze-gold/30">
-        <img 
-          src="/phong-bo-mon.png" 
-          alt="Học sinh thực hành tại phòng bộ môn Lịch sử" 
-          className="w-full h-auto object-cover rounded-md shadow-md mb-8 border-4 border-bronze-gold" 
-        />
-        <p className="text-lg leading-relaxed text-gray-700 text-left">
-          Phòng bộ môn Lịch sử được trang bị đầy đủ thiết bị hiện đại như máy chiếu, máy tính, và các học liệu trực quan, tạo điều kiện tốt nhất cho học sinh thực hành, thảo luận nhóm và ứng dụng công nghệ vào việc học tập, biến mỗi giờ học trở nên sinh động và hiệu quả hơn.
-        </p>
-      </div>
-    </div>
-  </section>
-);
+const PracticeRoomSection = () => {
+    const schoolActivityImages = [
+      'https://i.postimg.cc/PqYp5pYd/phong-thuc-hanh-1.jpg',
+      'https://i.postimg.cc/tCN3zVzz/phong-thuc-hanh-2.jpg',
+      'https://i.postimg.cc/W3t1H0pC/phong-thuc-hanh-3.jpg',
+      'https://i.postimg.cc/d11m5b0V/phong-thuc-hanh-4.jpg',
+      'https://i.postimg.cc/pX1g0ffp/phong-thuc-hanh-5.jpg',
+      'https://i.postimg.cc/Y0xWzX4M/phong-thuc-hanh-6.jpg',
+      'https://i.postimg.cc/L6T0NmwV/phong-thuc-hanh-7.jpg',
+      'https://i.postimg.cc/3w9yFpB5/phong-thuc-hanh-8.jpg',
+      'https://i.postimg.cc/rwM2tWzQ/phong-thuc-hanh-9.jpg',
+      'https://i.postimg.cc/qvN1z7tT/phong-thuc-hanh-10.jpg',
+    ];
+  
+    return (
+      <section className="py-16 px-4 bg-ivory">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+             <h2 className="text-4xl md:text-5xl font-display text-red-earth">Thư viện hình ảnh nhà trường</h2>
+             <p className="mt-4 text-xl text-gray-700">Một số khoảnh khắc và hoạt động tiêu biểu</p>
+          </div>
+          
+          <div className="relative group">
+            <div className="flex overflow-x-auto scroll-snap-type-x-mandatory scroll-smooth scrollbar-thin rounded-lg">
+              <div className="flex">
+                {schoolActivityImages.map((src, index) => (
+                  <div key={index} className="scroll-snap-align-center flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-2">
+                    <img
+                      src={src}
+                      alt={`Hình ảnh hoạt động của trường ${index + 1}`}
+                      className="w-full h-80 object-cover rounded-lg shadow-lg border-4 border-white"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <p className="text-center mt-6 text-gray-600 italic">Kéo chuột sang ngang để xem thêm ảnh</p>
+        </div>
+      </section>
+    );
+};
+
+const SquareCarouselSection = () => {
+    const memorableMomentsImages = [
+        'https://i.postimg.cc/pXN9xZLz/khoanh-khac-1.jpg',
+        'https://i.postimg.cc/RVT0n50z/khoanh-khac-2.jpg',
+        'https://i.postimg.cc/L854fD42/khoanh-khac-3.jpg',
+        'https://i.postimg.cc/y8NqVpP5/khoanh-khac-4.jpg',
+        'https://i.postimg.cc/x8gG0fWq/khoanh-khac-5.jpg',
+        'https://i.postimg.cc/nryD2kC8/khoanh-khac-6.jpg',
+        'https://i.postimg.cc/C10T9Gvx/khoanh-khac-7.jpg',
+        'https://i.postimg.cc/6p2yL8Bq/khoanh-khac-8.jpg',
+        'https://i.postimg.cc/YqrnLy0Z/khoanh-khac-9.jpg',
+        'https://i.postimg.cc/tJ0X7cR2/khoanh-khac-10.jpg',
+    ];
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+
+    const goToPrevious = () => {
+        setCurrentIndex(prevIndex => (prevIndex === 0 ? memorableMomentsImages.length - 1 : prevIndex - 1));
+    };
+
+    const goToNext = () => {
+        setCurrentIndex(prevIndex => (prevIndex === memorableMomentsImages.length - 1 ? 0 : prevIndex + 1));
+    };
+
+    const ArrowLeftIcon = (props) => (
+        <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+    );
+
+    const ArrowRightIcon = (props) => (
+        <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+    );
+
+    return (
+        <section className="py-16 px-4 bg-white">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-display text-red-earth">Khoảnh khắc đáng nhớ</h2>
+                    <p className="mt-4 text-xl text-gray-700">Những kỷ niệm được ghi lại</p>
+                </div>
+
+                <div className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center">
+                    {memorableMomentsImages.map((src, index) => {
+                        let offset = index - currentIndex;
+                        // Handle wrap-around for seamless display
+                        if (offset > memorableMomentsImages.length / 2) offset -= memorableMomentsImages.length;
+                        if (offset < -memorableMomentsImages.length / 2) offset += memorableMomentsImages.length;
+
+                        const isCenter = index === currentIndex;
+                        
+                        const transformStyle = {
+                            transform: `translateX(${offset * 60}%) scale(${isCenter ? 1 : 0.7})`,
+                            opacity: Math.max(1 - Math.abs(offset) * 0.4, 0),
+                            zIndex: memorableMomentsImages.length - Math.abs(offset),
+                        };
+
+                        return (
+                            <div
+                                key={index}
+                                className="absolute w-[60%] md:w-[40%] aspect-square transition-all duration-500 ease-out"
+                                style={transformStyle}
+                            >
+                                <img
+                                    src={src}
+                                    alt={`Khoảnh khắc đáng nhớ ${index + 1}`}
+                                    className="w-full h-full object-cover rounded-xl shadow-2xl border-4 border-white"
+                                    loading="lazy"
+                                />
+                            </div>
+                        );
+                    })}
+                     <button 
+                        onClick={goToPrevious}
+                        className="absolute left-0 md:left-10 top-1/2 -translate-y-1/2 z-30 bg-white/60 rounded-full p-3 hover:bg-white transition-colors shadow-lg"
+                        aria-label="Ảnh trước"
+                    >
+                        <ArrowLeftIcon className="w-6 h-6 text-brown-red"/>
+                    </button>
+                    <button 
+                        onClick={goToNext}
+                        className="absolute right-0 md:right-10 top-1/2 -translate-y-1/2 z-30 bg-white/60 rounded-full p-3 hover:bg-white transition-colors shadow-lg"
+                        aria-label="Ảnh tiếp theo"
+                    >
+                        <ArrowRightIcon className="w-6 h-6 text-brown-red"/>
+                    </button>
+                </div>
+                 <p className="text-center mt-12 text-gray-600 italic">Sử dụng nút bấm hai bên để xem thêm nhiều khoảnh khắc</p>
+            </div>
+        </section>
+    );
+};
 
 
 const Footer = () => (
@@ -772,6 +892,7 @@ const App = () => {
             <ContactSection />
             <TeacherSection />
             <PracticeRoomSection />
+            <SquareCarouselSection />
             <Footer />
 
             <LectureModal 

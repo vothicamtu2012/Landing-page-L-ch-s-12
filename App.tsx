@@ -73,15 +73,17 @@ const SchoolVideoSection = () => (
     <div className="max-w-4xl mx-auto text-center">
       <h2 className="text-3xl md:text-4xl font-display text-red-earth mb-4">Luyện sử online – Gắn kết tri thức thời đại số</h2>
       <p className="text-xl italic text-brown-red mb-8">Luyện sử mỗi ngày – Dựng xây tri thức Việt</p>
-      <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg shadow-lg overflow-hidden relative border-4 border-bronze-gold">
-        <iframe
-          src="https://www.youtube.com/embed/eKdvUZkeX5I"
-          title="Luyện sử online – Gắn kết tri thức thời đại số"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        ></iframe>
+      <div className="max-w-sm mx-auto">
+        <div className="aspect-[9/16] bg-black rounded-lg shadow-lg overflow-hidden relative border-4 border-bronze-gold">
+            <iframe
+            src="https://www.youtube.com/embed/eKdvUZkeX5I"
+            title="Luyện sử online – Gắn kết tri thức thời đại số"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+            ></iframe>
+        </div>
       </div>
     </div>
   </section>

@@ -20,15 +20,15 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative h-screen flex items-end justify-center bg-cover bg-center"
+      className="relative h-[90vh] flex items-end justify-center bg-cover bg-top"
       style={{ backgroundImage: "url('https://i.postimg.cc/v8zbYnCT/hinh-nen-chinh.jpg')" }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      <div className="relative z-10 p-4 pb-20 md:pb-32 w-full text-center">
-        <h1 className="text-4xl md:text-6xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
+      <div className="relative z-10 p-4 pb-16 md:pb-24 w-full text-center">
+        <h1 className="text-4xl md:text-5xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
           Khám phá Lịch sử – Nuôi dưỡng lòng yêu nước
         </h1>
-        <p className="mt-4 text-xl md:text-2xl text-ivory leading-relaxed max-w-4xl mx-auto">
+        <p className="mt-4 text-lg md:text-xl text-ivory leading-relaxed max-w-3xl mx-auto">
           Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
         </p>
         <div className="mt-8 flex justify-center gap-4">

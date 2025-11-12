@@ -1,6 +1,7 @@
 
+
 import React from 'react';
-import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon } from './components/Icons';
+import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon } from './components/Icons';
 
 const MarqueeBanner = () => (
   <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
@@ -430,7 +431,26 @@ type Exercise = { name: string; url: string | null; };
 type Mindmap = { name: string; url: string | null; };
 type SoftwareGuide = { name: string; url: string | null; };
   
-// --- Modals ---
+// --- Modals & Popups ---
+const ConfirmationPopup = ({ isOpen }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4 animate-fade-in-up">
+            <div className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-md text-center border-2 border-bronze-gold">
+                <CheckCircleIcon className="w-16 h-16 mx-auto mb-4 text-moss-green" />
+                <h3 className="text-2xl font-display text-red-earth mb-4">Gửi góp ý thành công!</h3>
+                <p className="text-gray-700 mb-2 leading-relaxed">
+                    Cảm ơn bạn. Chúng tôi sẽ xem xét và liên hệ lại trong vòng 24 giờ.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                    Nếu cần hỗ trợ gấp, vui lòng liên hệ hotline: <a href="tel:0907130900" className="font-bold text-brown-red hover:underline">0907130900</a>.
+                </p>
+            </div>
+        </div>
+    );
+};
+
 const LectureModal = ({ 
     isOpen, 
     onClose, 
@@ -756,6 +776,7 @@ const GraduationExamModal = ({ isOpen, onClose, selectedTopic, onTopicChange, on
 // --- Main App ---
 const App = () => {
     const [activeModal, setActiveModal] = React.useState<string | null>(null);
+    const [showConfirmation, setShowConfirmation] = React.useState(false);
 
     // State for LectureModal
     const [lectureView, setLectureView] = React.useState('selectTopic');
@@ -851,40 +872,59 @@ const App = () => {
     };
     
     React.useEffect(() => {
-        const handleFormSubmit = (event) => {
+        const handleFormSubmit = (event: Event) => {
             event.preventDefault();
-            const form = event.target;
-            const submitButton = form.querySelector('button[type="submit"]');
+            const form = event.target as HTMLFormElement;
+            const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
             submitButton.disabled = true;
             submitButton.textContent = 'Đang gửi...';
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
+            const webhookUrl = 'https://us-central1-zenleads-ai.cloudfunctions.net/publicWebhook/if5bHoy6MwFkFudN5ksg';
 
-            fetch("https://script.google.com/macros/s/AKfycby_3tGvT3GgR4E8UqT9vQ6p8jY7cR5Z3L2F-9x8rW0K/dev", {
+            fetch(webhookUrl, {
                 method: "POST",
+                 headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(data),
             })
-            .then(response => response.json())
-            .then(data => {
-                alert('Cảm ơn bạn đã góp ý!');
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Lỗi máy chủ: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                setShowConfirmation(true);
                 form.reset();
-                submitButton.disabled = false;
-                submitButton.textContent = 'Gửi góp ý';
+                setTimeout(() => {
+                    setShowConfirmation(false);
+                    if (responseData && responseData.redirectTo) {
+                        window.location.href = responseData.redirectTo;
+                    }
+                }, 5000);
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+            })
+            .finally(() => {
                 submitButton.disabled = false;
                 submitButton.textContent = 'Gửi góp ý';
             });
         };
 
         const form = document.getElementById('contact-form');
-        form.addEventListener('submit', handleFormSubmit);
+        if (form) {
+            form.addEventListener('submit', handleFormSubmit);
+        }
 
         return () => {
-            form.removeEventListener('submit', handleFormSubmit);
+            if (form) {
+                form.removeEventListener('submit', handleFormSubmit);
+            }
         };
     }, []);
 
@@ -901,6 +941,8 @@ const App = () => {
             <PracticeRoomSection />
             <SquareCarouselSection />
             <Footer />
+
+            <ConfirmationPopup isOpen={showConfirmation} />
 
             <LectureModal 
                 isOpen={activeModal === 'lecture'}

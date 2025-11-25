@@ -2,8 +2,45 @@
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon } from './components/Icons';
 
+const DateTimeDisplay = () => {
+  const [currentTime, setCurrentTime] = React.useState(new Date());
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const dateOptions: Intl.DateTimeFormatOptions = { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'numeric', 
+    day: 'numeric' 
+  };
+  
+  // Format: Thứ Hai, 25/09/2023
+  const dateStr = currentTime.toLocaleDateString('vi-VN', dateOptions);
+  // Format: 14:30:05
+  const timeStr = currentTime.toLocaleTimeString('vi-VN', { hour12: false });
+
+  return (
+    <div className="bg-red-earth text-ivory text-center py-2 text-sm md:text-base font-medium border-b border-ivory/20 flex flex-col md:flex-row justify-center items-center gap-1 md:gap-4">
+      <div className="flex items-center gap-2">
+         <span>🕒</span>
+         <span className="font-bold tracking-widest">{timeStr}</span>
+      </div>
+      <div className="hidden md:block w-px h-4 bg-ivory/40"></div>
+      <div className="flex items-center gap-2 capitalize">
+        <span>📅</span>
+        <span>{dateStr}</span>
+      </div>
+    </div>
+  );
+};
+
 const MarqueeBanner = () => (
-  <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap">
+  <div className="bg-red-earth text-ivory overflow-hidden whitespace-nowrap border-b-4 border-bronze-gold">
     <div className="inline-block animate-marquee py-2">
       <h2 className="text-3xl font-serif mx-8">Trường PT DTNT THPT Bình Phước tỉnh Đồng Nai - Tổ : TDQP - Sử - Địa - GDKTPL</h2>
     </div>
@@ -880,6 +917,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-800 bg-ivory">
+      <DateTimeDisplay />
       <MarqueeBanner />
       <HeroSection />
       <WhyChooseSection />

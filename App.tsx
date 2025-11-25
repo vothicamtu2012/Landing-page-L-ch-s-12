@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { BookIcon, TeacherIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon } from './components/Icons';
 
@@ -222,17 +221,19 @@ const TeacherSection = () => (
 );
 
 const PracticeRoomSection = () => {
+    const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
+
     const schoolActivityImages = [
       'https://i.postimg.cc/mDYf1kRH/truong-hoat-dong-01-jpg.png',
       'https://i.postimg.cc/mrh6GDtz/truong-hoat-dong-02-jpg.png',
       'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
-      'https://postimg.cc/ZB5D1TWb',
+      'https://i.postimg.cc/Y0h4QqWw/hoat-dong-truong-04.jpg',
+      'https://i.postimg.cc/BvSxr9zL/hoat-dong-truong-05.jpg',
+      'https://i.postimg.cc/pdvHxkQ5/hoat-dong-truong-06.jpg',
+      'https://i.postimg.cc/mDYf1kRH/truong-hoat-dong-01-jpg.png', // Placeholder
+      'https://i.postimg.cc/mrh6GDtz/truong-hoat-dong-02-jpg.png', // Placeholder
+      'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png', // Placeholder
+      'https://i.postimg.cc/Y0h4QqWw/hoat-dong-truong-04.jpg',     // Placeholder
     ];
   
     return (
@@ -241,26 +242,52 @@ const PracticeRoomSection = () => {
           <div className="text-center mb-12">
              <h2 className="text-4xl md:text-5xl font-display text-red-earth">Thư viện hình ảnh nhà trường</h2>
              <p className="mt-4 text-xl text-gray-700">Một số khoảnh khắc và hoạt động tiêu biểu</p>
+             <p className="mt-2 text-sm text-gray-500 italic">(Bấm vào ảnh để xem chi tiết)</p>
           </div>
           
-          <div className="relative group">
-            <div className="flex overflow-x-auto scroll-snap-type-x-mandatory scroll-smooth scrollbar-thin rounded-lg">
-              <div className="flex">
-                {schoolActivityImages.map((src, index) => (
-                  <div key={index} className="scroll-snap-align-center flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-2">
-                    <img
-                      src={src}
-                      alt={`Hình ảnh hoạt động của trường ${index + 1}`}
-                      className="w-full h-80 object-cover rounded-lg shadow-lg border-4 border-white"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+             {schoolActivityImages.map((src, index) => (
+                <div 
+                    key={index} 
+                    className="aspect-square group overflow-hidden rounded-lg shadow-md border-2 border-bronze-gold/20 cursor-pointer"
+                    onClick={() => setSelectedImage(src)}
+                >
+                  <img
+                    src={src}
+                    alt={`Hình ảnh hoạt động của trường ${index + 1}`}
+                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
           </div>
-          <p className="text-center mt-6 text-gray-600 italic">Kéo chuột sang ngang để xem thêm ảnh</p>
         </div>
+
+        {/* Lightbox Modal */}
+        {selectedImage && (
+            <div 
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-4 animate-fade-in-up"
+                onClick={() => setSelectedImage(null)}
+                role="dialog"
+                aria-modal="true"
+            >
+                <button 
+                    className="absolute top-4 right-4 text-white hover:text-gray-300 p-2 focus:outline-none"
+                    onClick={() => setSelectedImage(null)}
+                    aria-label="Đóng"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <img 
+                    src={selectedImage} 
+                    alt="Phóng to" 
+                    className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                    onClick={(e) => e.stopPropagation()} 
+                />
+            </div>
+        )}
       </section>
     );
 };
@@ -718,275 +745,195 @@ const SoftwareGuideModal = ({ isOpen, onClose, selectedSoftware, onSoftwareChang
     );
 };
 
-const GraduationExamModal = ({ isOpen, onClose, selectedTopic, onTopicChange, onViewContent }) => {
-    if (!isOpen) return null;
+// --- Main App Component ---
+function App() {
+  const [activeResource, setActiveResource] = React.useState<string | null>(null);
 
-    const selectedData = graduationExamData.find(item => item.name === selectedTopic);
-    const isContentAvailable = !!(selectedData && selectedData.url);
+  // Lecture Modal States
+  const [selectedTopic, setSelectedTopic] = React.useState('');
+  const [lectureView, setLectureView] = React.useState('selectTopic');
+  const [currentLessons, setCurrentLessons] = React.useState<Lesson[]>([]);
+  const [selectedLesson, setSelectedLesson] = React.useState<Lesson | null>(null);
 
-    let buttonText = "Bắt đầu";
-    if (selectedTopic && !isContentAvailable) {
-        buttonText = "Nội dung đang cập nhật";
-    }
+  // Exercise Modal States
+  const [selectedExercise, setSelectedExercise] = React.useState('');
 
-    return (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
-          onClick={onClose}
-          role="dialog"
-          aria-modal="true"
-        >
-          <div 
-            className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
-            onClick={e => e.stopPropagation()}
-          >
-            <button 
-              onClick={onClose}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
-              aria-label="Đóng"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-             <h3 id="grad-exam-modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Bạn chọn nội dung muốn luyện tập</h3>
-              <div className="space-y-6">
-                <select 
-                  value={selectedTopic}
-                  onChange={e => onTopicChange(e.target.value)}
-                  className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
-                  aria-labelledby="grad-exam-modal-title"
-                >
-                  <option value="" disabled>-- Vui lòng chọn nội dung --</option>
-                  {graduationExamData.map(item => <option key={item.name} value={item.name}>{item.name}</option>)}
-                </select>
-                <button 
-                  onClick={onViewContent}
-                  disabled={!selectedTopic || !isContentAvailable}
-                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
-                >
-                  {buttonText}
-                </button>
-              </div>
-          </div>
-        </div>
-    );
-};
+  // Mindmap Modal States
+  const [selectedMindmap, setSelectedMindmap] = React.useState('');
 
-// --- Main App ---
-const App = () => {
-    const [activeModal, setActiveModal] = React.useState<string | null>(null);
-    const [showConfirmation, setShowConfirmation] = React.useState(false);
+  // Software Guide Modal States
+  const [selectedSoftware, setSelectedSoftware] = React.useState('');
+  
+  // Confirmation Popup State
+  const [showConfirmation, setShowConfirmation] = React.useState(false);
 
-    // State for LectureModal
-    const [lectureView, setLectureView] = React.useState('selectTopic');
-    const [selectedTopic, setSelectedTopic] = React.useState('');
-    const [selectedLesson, setSelectedLesson] = React.useState<Lesson | null>(null);
-    const lessonsForTopic = topicsData.find(t => t.title === selectedTopic)?.lessons || [];
 
-    // State for ExerciseModal
-    const [selectedExercise, setSelectedExercise] = React.useState('');
-
-    // State for MindmapModal
-    const [selectedMindmap, setSelectedMindmap] = React.useState('');
-
-    // State for SoftwareGuideModal
-    const [selectedSoftware, setSelectedSoftware] = React.useState('');
-
-    // State for GraduationExamModal
-    const [selectedGraduationTopic, setSelectedGraduationTopic] = React.useState('');
-
-    const handleResourceClick = (resourceTitle: string) => {
-        switch (resourceTitle) {
-            case "Bài giảng điện tử":
-                setActiveModal("lecture");
-                break;
-            case "Bài tập lịch sử":
-                setActiveModal("exercise");
-                break;
-            case "Sơ đồ tư duy Chủ đề":
-                setActiveModal("mindmap");
-                break;
-            case "Hướng dẫn học các phần mềm":
-                setActiveModal("software");
-                break;
-            case "Luyện thi tốt nghiệp THPT":
-                setActiveModal("graduation");
-                break;
-            default:
-                break;
-        }
+  React.useEffect(() => {
+    const handleFormSubmit = (e: Event) => {
+        e.preventDefault();
+        setShowConfirmation(true);
+        const form = document.getElementById('contact-form') as HTMLFormElement;
+        if (form) form.reset();
+        setTimeout(() => setShowConfirmation(false), 5000);
     };
 
-    const closeModal = () => {
-        setActiveModal(null);
-        // Reset states
+    const form = document.getElementById('contact-form');
+    if (form) {
+        form.addEventListener('submit', handleFormSubmit);
+    }
+
+    return () => {
+        if (form) {
+            form.removeEventListener('submit', handleFormSubmit);
+        }
+    };
+  }, []);
+
+  const handleResourceClick = (title: string) => {
+    setActiveResource(title);
+    
+    // Reset internal states when opening a new resource
+    if (title === "Bài giảng điện tử") {
         setLectureView('selectTopic');
         setSelectedTopic('');
         setSelectedLesson(null);
+    } else if (title === "Bài tập lịch sử") {
         setSelectedExercise('');
+    } else if (title === "Sơ đồ tư duy Chủ đề") {
         setSelectedMindmap('');
+    } else if (title === "Hướng dẫn học các phần mềm") {
         setSelectedSoftware('');
-        setSelectedGraduationTopic('');
-    };
+    } else if (title === "Luyện thi tốt nghiệp THPT") {
+        window.open(graduationExamData.find(d => d.name === "Đề thi thử tốt nghiệp THPT")?.url || '#', '_blank');
+        setActiveResource(null); // Direct link, no modal needed
+    }
+  };
 
-    const handleViewContent = () => {
-        const topicData = topicsData.find(t => t.title === selectedTopic);
-        if (topicData) {
-            setLectureView('viewLessons');
-        }
-    };
+  const closeModal = () => {
+    setActiveResource(null);
+  };
 
-    const handleViewLessonContent = () => {
-        if (selectedLesson && selectedLesson.url) {
-            window.open(selectedLesson.url, '_blank', 'noopener,noreferrer');
-        }
-    };
+  // --- Lecture Handlers ---
+  const handleTopicChange = (topicTitle: string) => {
+    setSelectedTopic(topicTitle);
+  };
 
-    const handleViewExerciseContent = () => {
-        const exercise = exercisesData.find(ex => ex.name === selectedExercise);
-        if (exercise && exercise.url) {
-            window.open(exercise.url, '_blank', 'noopener,noreferrer');
-        }
-    };
+  const handleViewLecturesContent = () => {
+    const topic = topicsData.find(t => t.title === selectedTopic);
+    if (topic) {
+        setCurrentLessons(topic.lessons);
+        setLectureView('viewLessons');
+    }
+  };
 
-    const handleViewMindmapContent = () => {
-        const mindmap = mindmapData.find(m => m.name === selectedMindmap);
-        if (mindmap && mindmap.url) {
-            window.open(mindmap.url, '_blank', 'noopener,noreferrer');
-        }
-    };
+  const handleBackToTopics = () => {
+    setLectureView('selectTopic');
+    setSelectedLesson(null);
+  };
 
-    const handleViewSoftwareGuideContent = () => {
-        const software = softwareGuidesData.find(s => s.name === selectedSoftware);
-        if (software && software.url) {
-            window.open(software.url, '_blank', 'noopener,noreferrer');
-        }
-    };
+  const handleLessonSelect = (lesson: Lesson) => {
+      setSelectedLesson(lesson);
+  };
 
-    const handleViewGraduationContent = () => {
-        const item = graduationExamData.find(i => i.name === selectedGraduationTopic);
-        if (item && item.url) {
-            window.open(item.url, '_blank', 'noopener,noreferrer');
-        }
-    };
-    
-    React.useEffect(() => {
-        const handleFormSubmit = (event: Event) => {
-            event.preventDefault();
-            const form = event.target as HTMLFormElement;
-            const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-            submitButton.disabled = true;
-            submitButton.textContent = 'Đang gửi...';
+  const handleViewLessonContent = () => {
+      if (selectedLesson && selectedLesson.url) {
+          window.open(selectedLesson.url, '_blank');
+      }
+  };
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            const webhookUrl = 'https://us-central1-zenleads-ai.cloudfunctions.net/publicWebhook/if5bHoy6MwFkFudN5ksg';
 
-            fetch(webhookUrl, {
-                method: "POST",
-                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Lỗi máy chủ: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(responseData => {
-                setShowConfirmation(true);
-                form.reset();
-                setTimeout(() => {
-                    setShowConfirmation(false);
-                    if (responseData && responseData.redirectTo) {
-                        window.location.href = responseData.redirectTo;
-                    }
-                }, 5000);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
-            })
-            .finally(() => {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Gửi góp ý';
-            });
-        };
+  // --- Exercise Handlers ---
+  const handleExerciseChange = (exName: string) => {
+      setSelectedExercise(exName);
+  };
 
-        const form = document.getElementById('contact-form');
-        if (form) {
-            form.addEventListener('submit', handleFormSubmit);
-        }
+  const handleViewExerciseContent = () => {
+      const ex = exercisesData.find(e => e.name === selectedExercise);
+      if (ex && ex.url) {
+          window.open(ex.url, '_blank');
+      }
+  };
 
-        return () => {
-            if (form) {
-                form.removeEventListener('submit', handleFormSubmit);
-            }
-        };
-    }, []);
+  // --- Mindmap Handlers ---
+  const handleMindmapChange = (mmName: string) => {
+      setSelectedMindmap(mmName);
+  };
 
-    return (
-        <div className="bg-ivory text-gray-800">
-            <MarqueeBanner />
-            <HeroSection />
-            <WhyChooseSection />
-            <SchoolVideoSection />
-            <ResourcesSection onResourceClick={handleResourceClick} />
-            <ExperienceSection />
-            <ContactSection />
-            <TeacherSection />
-            <PracticeRoomSection />
-            <SquareCarouselSection />
-            <Footer />
+  const handleViewMindmapContent = () => {
+      const mm = mindmapData.find(m => m.name === selectedMindmap);
+      if (mm && mm.url) {
+          window.open(mm.url, '_blank');
+      }
+  };
 
-            <ConfirmationPopup isOpen={showConfirmation} />
+  // --- Software Guide Handlers ---
+  const handleSoftwareChange = (swName: string) => {
+      setSelectedSoftware(swName);
+  };
 
-            <LectureModal 
-                isOpen={activeModal === 'lecture'}
-                onClose={closeModal}
-                selectedTopic={selectedTopic}
-                onTopicChange={setSelectedTopic}
-                onViewContent={handleViewContent}
-                view={lectureView}
-                lessons={lessonsForTopic}
-                onBack={() => setLectureView('selectTopic')}
-                selectedLesson={selectedLesson}
-                onLessonSelect={setSelectedLesson}
-                onViewLessonContent={handleViewLessonContent}
-            />
-            <ExerciseModal 
-                isOpen={activeModal === 'exercise'}
-                onClose={closeModal}
-                selectedExercise={selectedExercise}
-                onExerciseChange={setSelectedExercise}
-                onViewContent={handleViewExerciseContent}
-            />
-            <MindmapModal
-                isOpen={activeModal === 'mindmap'}
-                onClose={closeModal}
-                selectedMindmap={selectedMindmap}
-                onMindmapChange={setSelectedMindmap}
-                onViewContent={handleViewMindmapContent}
-            />
-            <SoftwareGuideModal
-                isOpen={activeModal === 'software'}
-                onClose={closeModal}
-                selectedSoftware={selectedSoftware}
-                onSoftwareChange={setSelectedSoftware}
-                onViewContent={handleViewSoftwareGuideContent}
-            />
-            <GraduationExamModal
-                isOpen={activeModal === 'graduation'}
-                onClose={closeModal}
-                selectedTopic={selectedGraduationTopic}
-                onTopicChange={setSelectedGraduationTopic}
-                onViewContent={handleViewGraduationContent}
-            />
-        </div>
-    );
-};
+  const handleViewSoftwareContent = () => {
+      const sw = softwareGuidesData.find(s => s.name === selectedSoftware);
+      if (sw && sw.url) {
+          window.open(sw.url, '_blank');
+      }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col font-sans text-gray-800 bg-ivory">
+      <MarqueeBanner />
+      <HeroSection />
+      <WhyChooseSection />
+      <SchoolVideoSection />
+      <ResourcesSection onResourceClick={handleResourceClick} />
+      <ExperienceSection />
+      <TeacherSection />
+      <PracticeRoomSection />
+      <SquareCarouselSection />
+      <ContactSection />
+      <Footer />
+      
+      {/* Modals */}
+      <LectureModal 
+        isOpen={activeResource === "Bài giảng điện tử"}
+        onClose={closeModal}
+        selectedTopic={selectedTopic}
+        onTopicChange={handleTopicChange}
+        onViewContent={handleViewLecturesContent}
+        view={lectureView}
+        lessons={currentLessons}
+        onBack={handleBackToTopics}
+        selectedLesson={selectedLesson}
+        onLessonSelect={handleLessonSelect}
+        onViewLessonContent={handleViewLessonContent}
+      />
+
+      <ExerciseModal
+        isOpen={activeResource === "Bài tập lịch sử"}
+        onClose={closeModal}
+        selectedExercise={selectedExercise}
+        onExerciseChange={handleExerciseChange}
+        onViewContent={handleViewExerciseContent}
+      />
+
+      <MindmapModal
+        isOpen={activeResource === "Sơ đồ tư duy Chủ đề"}
+        onClose={closeModal}
+        selectedMindmap={selectedMindmap}
+        onMindmapChange={handleMindmapChange}
+        onViewContent={handleViewMindmapContent}
+      />
+
+      <SoftwareGuideModal
+          isOpen={activeResource === "Hướng dẫn học các phần mềm"}
+          onClose={closeModal}
+          selectedSoftware={selectedSoftware}
+          onSoftwareChange={handleSoftwareChange}
+          onViewContent={handleViewSoftwareContent}
+      />
+
+      <ConfirmationPopup isOpen={showConfirmation} />
+    </div>
+  );
+}
 
 export default App;

@@ -281,14 +281,14 @@ const PracticeRoomSection = () => {
     const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
 
     const schoolActivityImages = [
-      'https://i.postimg.cc/mDYf1kRH/truong-hoat-dong-01-jpg.png',
+      'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-01.jpg',
       'https://i.postimg.cc/52Hb96F7/hoat-dong-truong-02.jpg',
       'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png',
       'https://i.postimg.cc/Y0h4QqWw/hoat-dong-truong-04.jpg',
       'https://i.postimg.cc/BvSxr9zL/hoat-dong-truong-05.jpg',
       'https://i.postimg.cc/pdvHxkQ5/hoat-dong-truong-06.jpg',
       'https://i.postimg.cc/mDYf1kRH/truong-hoat-dong-01-jpg.png', // Placeholder
-      'https://i.postimg.cc/52Hb96F7/hoat-dong-truong-02.jpg', // Placeholder
+      'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-07.jpg',
       'https://i.postimg.cc/Y2ZJfkn9/hoat-dong-truong-09.jpg',
       'https://i.postimg.cc/9Q7TRP49/hoat-dong-truong-10.jpg',
     ];

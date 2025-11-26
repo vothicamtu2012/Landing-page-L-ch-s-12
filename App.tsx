@@ -96,12 +96,12 @@ const AboutSection = () => {
                         />
                      </div>
                 </div>
-                <div className="w-full md:w-2/3 text-center md:text-left">
-                    <h2 className="text-3xl md:text-4xl font-display text-red-earth mb-6">Giới thiệu</h2>
-                    <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                <div className="w-full md:w-2/3">
+                    <h2 className="text-3xl md:text-4xl font-display text-red-earth mb-6 text-center md:text-left">Giới thiệu</h2>
+                    <p className="text-lg text-gray-700 leading-relaxed mb-4 text-justify">
                         Chào mừng các em đến với trang học liệu số Lịch sử 12. Đây là nơi thầy Võ Văn Dũng tổng hợp các kiến thức, bài giảng và bài tập trắc nghiệm bám sát chương trình Giáo dục phổ thông 2018.
                     </p>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <p className="text-lg text-gray-700 leading-relaxed text-justify">
                         Với phương châm "Học mà chơi - Chơi mà học", thầy hy vọng website sẽ là người bạn đồng hành hữu ích giúp các em chinh phục môn Lịch sử và kỳ thi Tốt nghiệp THPT một cách nhẹ nhàng và hiệu quả nhất.
                     </p>
                 </div>

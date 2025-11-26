@@ -60,36 +60,37 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: "url('https://i.postimg.cc/v8zbYnCT/hinh-nen-chinh.jpg')" }}
     >
-      {/* Gradient overlay: Darker at top for contrast if needed, lighter at bottom to show red frame */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/10"></div>
+      {/* Gradient overlay: Transparent mostly to show background, slight dark at top for menu/clock visibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent"></div>
       
-      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-end min-h-screen text-center pb-12 md:pb-24">
+      {/* Container aligned to bottom (justify-end) with padding to lift off edge */}
+      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-end min-h-screen text-center pb-12 md:pb-20">
         
-        {/* All content grouped at bottom to fit in the red frame */}
-        <div className="animate-fade-in-up w-full max-w-6xl space-y-6">
+        {/* Content container - Compact spacing to fit inside red frame */}
+        <div className="animate-fade-in-up w-full max-w-6xl flex flex-col items-center">
              <div className="inline-block border-b-2 border-yellow-400 pb-1 mb-2">
-                 <p className="text-white text-lg md:text-2xl font-serif italic drop-shadow-md">
+                 <p className="text-white text-base md:text-xl font-serif italic drop-shadow-md">
                     “Mỗi trang sử – Một bài học làm người.”
                 </p>
             </div>
         
-            <div className="space-y-1 md:space-y-2">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight text-yellow-400 drop-shadow-lg">
+            <div className="space-y-0 text-center">
+                <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-black leading-tight text-yellow-400 drop-shadow-lg">
                 Khám phá Lịch sử – Nuôi dưỡng lòng
                 </h1>
-                <h1 className="text-5xl md:text-7xl lg:text-9xl font-display font-black leading-tight text-yellow-400 drop-shadow-lg uppercase tracking-wide">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-display font-black leading-tight text-yellow-400 drop-shadow-lg uppercase tracking-wide mt-[-2px] md:mt-[-5px]">
                 YÊU NƯỚC
                 </h1>
             </div>
 
-            <p className="text-lg md:text-2xl text-white/95 leading-relaxed max-w-4xl mx-auto font-light drop-shadow-md">
+            <p className="text-base md:text-xl text-white/95 leading-relaxed max-w-4xl mx-auto font-light drop-shadow-md mt-3 md:mt-5">
             Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
             </p>
 
-            <div className="pt-4">
+            <div className="pt-5 md:pt-8">
                 <button 
                     onClick={handleDiscoverClick}
-                    className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-10 md:py-4 md:px-16 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(250,204,21,0.6)] text-base md:text-lg uppercase tracking-wider border-2 border-white/30">
+                    className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-8 md:py-3 md:px-12 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(250,204,21,0.6)] text-sm md:text-base uppercase tracking-wider border-2 border-white/30">
                     KHÁM PHÁ NGAY
                 </button>
             </div>
@@ -282,7 +283,7 @@ const PracticeRoomSection = () => {
 
     const schoolActivityImages = [
       'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-01.jpg',
-      'https://i.postimg.cc/52Hb96F7/hoat-dong-truong-02.jpg',
+      'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-07.jpg',
       'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png',
       'https://i.postimg.cc/Y0h4QqWw/hoat-dong-truong-04.jpg',
       'https://i.postimg.cc/BvSxr9zL/hoat-dong-truong-05.jpg',

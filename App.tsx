@@ -34,7 +34,7 @@ const DateTimeDisplay = () => {
 // --- HeroSection Component ---
 const HeroSection = () => {
     return (
-        <section className="relative w-full h-screen min-h-[600px] flex flex-col items-center justify-end pb-12 md:pb-20 overflow-hidden">
+        <section className="relative w-full h-screen min-h-[600px] flex flex-col overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img 
@@ -42,29 +42,43 @@ const HeroSection = () => {
                     alt="Background" 
                     className="w-full h-full object-cover"
                 />
-                {/* Lớp phủ gradient nhẹ để làm nổi bật phần trên nhưng giữ phần dưới (màu đỏ) rực rỡ */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-transparent"></div>
+                {/* Gradient trên để làm nổi bật phần đầu trang */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent h-1/3"></div>
+                
+                {/* Gradient dưới đáy màu đỏ đất để che chữ có sẵn trong ảnh và làm nền sạch cho nội dung */}
+                <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-red-earth via-red-earth/95 to-transparent"></div>
             </div>
 
             {/* Content - Grouped all together at the bottom */}
-            <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center animate-fade-in-up">
-                 <p className="text-white/95 text-lg md:text-xl italic font-serif mb-2 drop-shadow-md">
+            <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-end h-full pb-10 md:pb-16 animate-fade-in-up">
+                 {/* Slogan */}
+                 <p className="text-white/90 text-lg md:text-xl italic font-serif mb-4 drop-shadow-md tracking-wide">
                     “Mỗi trang sử – Một bài học làm người.”
                 </p>
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-yellow-400 mb-0 whitespace-nowrap drop-shadow-lg">
-                    Khám phá Lịch sử – Nuôi dưỡng lòng
-                </h1>
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-yellow-400 mb-3 uppercase tracking-wider drop-shadow-lg">
-                    YÊU NƯỚC
-                </h1>
                 
-                <p className="text-white text-base md:text-xl max-w-3xl mb-6 font-medium drop-shadow-md">
-                    Học liệu số môn Lịch sử 12 – Dành cho giáo viên & học sinh THPT theo chương trình GDPT 2018.
+                {/* Main Title Group - Designed to be neat and beautiful */}
+                <div className="flex flex-col items-center mb-6">
+                    <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-2 drop-shadow-lg">
+                        Khám phá Lịch sử
+                    </h2>
+                    
+                    {/* Decorative Divider */}
+                    <div className="w-16 h-1 bg-yellow-400 rounded-full mb-2 opacity-80"></div>
+
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-yellow-400 uppercase tracking-wider drop-shadow-xl leading-tight">
+                        Nuôi dưỡng <br className="hidden md:block" /> lòng Yêu nước
+                    </h1>
+                </div>
+
+                {/* Description - Short and Clean */}
+                <p className="text-white/90 text-sm md:text-lg max-w-2xl mb-8 font-medium drop-shadow-md">
+                    Học liệu số môn Lịch sử 12 – GDPT 2018
                 </p>
 
+                {/* CTA Button */}
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-red-900 font-bold text-lg rounded-full shadow-xl transform transition hover:scale-105 border-2 border-white/20"
+                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-red-900 font-bold text-lg rounded-full shadow-xl transform transition hover:scale-105 border-2 border-white/20 relative z-20"
                 >
                     KHÁM PHÁ NGAY
                 </button>

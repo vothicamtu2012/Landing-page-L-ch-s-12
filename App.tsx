@@ -28,11 +28,11 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-black/20"></div>
 
                 {/* Solid Gradient Mask to completely hide text embedded in the bottom of the background image */}
-                {/* Changed from Red (#8B0000) to Dark Blue (#003366) */}
-                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-[#003366] via-[#003366] to-transparent"></div>
+                {/* Changed to Vibrant Red Gradient (Patriotism Theme) */}
+                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-red-900 via-red-600 to-transparent"></div>
             </div>
 
-            {/* Content - Pushed to bottom (justify-end) inside the blue area */}
+            {/* Content - Pushed to bottom (justify-end) inside the red area */}
             <div className="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center animate-fade-in-up pb-20">
                 
                 {/* Typography Design */}
@@ -53,7 +53,7 @@ const HeroSection = () => {
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold text-base md:text-lg rounded-full shadow-2xl transform transition hover:scale-105 border-2 border-yellow-300"
+                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-red-900 font-bold text-base md:text-lg rounded-full shadow-2xl transform transition hover:scale-105 border-2 border-yellow-300"
                 >
                     KHÁM PHÁ NGAY
                 </button>

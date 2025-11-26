@@ -14,9 +14,9 @@ const DateTimeDisplay = () => {
     }, []);
 
     return (
-        <div className="bg-ivory text-red-900 px-4 py-1 text-sm font-bold flex justify-end items-center border-b border-bronze-gold/30">
-            <span className="tracking-wide">
-                {currentTime.toLocaleTimeString('vi-VN')} - {currentTime.toLocaleDateString('vi-VN')}
+        <div className="bg-ivory text-red-900 px-6 py-3 text-lg md:text-2xl font-bold flex justify-center md:justify-end items-center border-b-2 border-bronze-gold/50 shadow-sm">
+            <span className="tracking-wider drop-shadow-sm capitalize">
+                {currentTime.toLocaleTimeString('vi-VN')} - {currentTime.toLocaleDateString('vi-VN', { weekday: 'long' })}, {currentTime.toLocaleDateString('vi-VN')}
             </span>
         </div>
     );
@@ -48,11 +48,11 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-black/20"></div>
 
                 {/* Solid Gradient Mask to completely hide text embedded in the bottom of the background image */}
-                {/* Changed to Vibrant Red Gradient (Patriotism Theme) */}
-                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-red-900 via-red-600 to-transparent"></div>
+                {/* Changed to Blue Gradient (from Blue-950 to Blue-900) */}
+                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-blue-950 via-blue-900 to-transparent"></div>
             </div>
 
-            {/* Content - Pushed to bottom (justify-end) inside the red area */}
+            {/* Content - Pushed to bottom (justify-end) inside the colored area */}
             <div className="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center animate-fade-in-up pb-20">
                 
                 {/* Typography Design */}
@@ -61,7 +61,7 @@ const HeroSection = () => {
                         Khám phá Lịch sử
                     </span>
                     {/* Divider */}
-                    <div className="w-16 h-1 bg-yellow-400 rounded-full my-2"></div>
+                    <div className="w-16 h-1 bg-yellow-500 rounded-full my-2"></div>
                     <span className="text-3xl md:text-5xl font-sans font-black text-yellow-400 uppercase tracking-wider drop-shadow-lg">
                         Nuôi dưỡng lòng yêu nước
                     </span>
@@ -73,7 +73,7 @@ const HeroSection = () => {
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-red-900 font-bold text-base md:text-lg rounded-full shadow-2xl transform transition hover:scale-105 border-2 border-yellow-300"
+                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold text-base md:text-lg rounded-full shadow-2xl transform transition hover:scale-105 border-2 border-yellow-300"
                 >
                     KHÁM PHÁ NGAY
                 </button>

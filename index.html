@@ -26,7 +26,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700;900&family=Times+New+Roman&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,20 +34,22 @@
         theme: {
           extend: {
             colors: {
-              'ivory': '#FFFBEB', // Nền trắng ngà/be nhạt
-              'red-earth': '#8B0000', // Đỏ đất
-              'brown-red': '#A0522D', // Nâu đỏ
-              'moss-green': '#6B705C', // Xanh rêu
-              'bronze-gold': '#C19A6B', // Vàng đồng
+              'paper': '#FEFAEE', // Màu giấy cũ (nền chính) - Dịu mắt
+              'paper-dark': '#F5F0E1', // Màu giấy tối hơn (nền phụ)
+              'history-red': '#8B1E1E', // Đỏ son/Đỏ trầm - Sang trọng, không chói
+              'history-dark': '#581C1C', // Đỏ đen đậm - Dùng cho footer/header
+              'antique-gold': '#C5A059', // Vàng đồng cổ - Điểm nhấn
+              'charcoal': '#3E3228', // Nâu than - Dùng cho chữ (thay màu đen)
+              'sage': '#8DA399', // Xanh rêu nhạt - Phối hợp tự nhiên
             },
             fontFamily: {
-              'display': ['"Playfair Display"', 'serif'],
-              'sans': ['Inter', 'sans-serif'],
-              'serif': ['"Times New Roman"', 'serif'],
+              'display': ['"Playfair Display"', 'serif'], // Font tiêu đề sang trọng
+              'sans': ['Inter', 'sans-serif'], // Font hiện đại dễ đọc
+              'serif': ['"Merriweather"', 'serif'], // Font văn bản giống sách
             },
             animation: {
               marquee: 'marquee 30s linear infinite',
-              'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
+              'fade-in-up': 'fade-in-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
             },
             keyframes: {
               marquee: {
@@ -55,7 +57,7 @@
                 '100%': { transform: 'translateX(-100%)' },
               },
               'fade-in-up': {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '0%': { opacity: '0', transform: 'translateY(30px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
               },
             },
@@ -66,24 +68,21 @@
                 addUtilities({
                     '.scrollbar-thin': {
                         '&::-webkit-scrollbar': {
-                            height: '8px',
+                            height: '6px',
                         },
                         '&::-webkit-scrollbar-track': {
-                            background: 'rgba(193, 154, 107, 0.2)',
+                            background: 'transparent',
                         },
                         '&::-webkit-scrollbar-thumb': {
-                            background: '#A0522D',
-                            borderRadius: '4px',
+                            background: '#C5A059',
+                            borderRadius: '10px',
                         },
                     },
-                    '.scroll-snap-type-x-mandatory': {
-                        'scroll-snap-type': 'x mandatory',
+                    '.text-shadow': {
+                        'text-shadow': '2px 2px 4px rgba(0, 0, 0, 0.5)',
                     },
-                    '.scroll-snap-align-center': {
-                        'scroll-snap-align': 'center',
-                    },
-                    '.scroll-smooth': {
-                        'scroll-behavior': 'smooth',
+                    '.text-shadow-lg': {
+                        'text-shadow': '4px 4px 8px rgba(0, 0, 0, 0.6)',
                     }
                 })
             }
@@ -103,7 +102,7 @@
 }
 </script>
 </head>
-  <body class="bg-ivory font-sans text-gray-800">
+  <body class="bg-paper font-serif text-charcoal antialiased selection:bg-antique-gold selection:text-white">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

@@ -2,6 +2,17 @@
 import React from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon } from './components/Icons';
 
+// --- MarqueeSection Component ---
+const MarqueeSection = () => {
+    return (
+        <div className="bg-red-900 text-ivory py-2 overflow-hidden border-b-2 border-bronze-gold relative z-50 shadow-md">
+            <div className="animate-marquee whitespace-nowrap inline-block font-bold text-sm md:text-base uppercase tracking-wider">
+                Trường phổ thông DTNT THPT Bình Phước tỉnh Đồng Nai  - Tổ : TDQP - Sử - Địa - GDKTPL
+            </div>
+        </div>
+    );
+}
+
 // --- HeroSection Component ---
 const HeroSection = () => {
     return (
@@ -178,6 +189,7 @@ const Footer = () => {
 export default function App() {
   return (
     <div className="min-h-screen bg-ivory font-sans text-gray-800 flex flex-col">
+        <MarqueeSection />
         <HeroSection />
         <AboutSection />
         <ResourceSection />

@@ -36,7 +36,7 @@ const MarqueeSection = () => {
 // --- HeroSection Component ---
 const HeroSection = () => {
     return (
-        <section className="relative w-full h-screen flex flex-col items-center justify-end text-center overflow-hidden pb-16 md:pb-20">
+        <section className="relative w-full h-screen flex flex-col items-center justify-end text-center overflow-hidden pb-20">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img 
@@ -44,36 +44,35 @@ const HeroSection = () => {
                     alt="Background" 
                     className="w-full h-full object-cover"
                 />
-                {/* Standard Overlay for entire image */}
+                {/* Standard Overlay */}
                 <div className="absolute inset-0 bg-black/20"></div>
 
-                {/* Solid Gradient Mask to completely hide text embedded in the bottom of the background image */}
-                {/* Changed to Blue Gradient (from Blue-950 to Blue-900) */}
-                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-blue-950 via-blue-900 to-transparent"></div>
+                {/* Solid Gradient Mask - Blue Theme */}
+                <div className="absolute bottom-0 left-0 w-full h-[100%] bg-gradient-to-t from-blue-950 via-blue-900 to-transparent opacity-100"></div>
             </div>
 
             {/* Content - Pushed to bottom (justify-end) inside the colored area */}
-            <div className="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center animate-fade-in-up pb-20">
+            <div className="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center animate-fade-in-up">
                 
                 {/* Typography Design */}
-                <div className="flex flex-col items-center mb-6">
-                    <span className="text-2xl md:text-4xl font-display font-bold text-white mb-2 drop-shadow-md">
+                <div className="flex flex-col items-center mb-8">
+                    <span className="text-2xl md:text-4xl font-serif font-bold text-white mb-2 drop-shadow-md">
                         Khám phá Lịch sử
                     </span>
                     {/* Divider */}
-                    <div className="w-16 h-1 bg-yellow-500 rounded-full my-2"></div>
-                    <span className="text-3xl md:text-5xl font-sans font-black text-yellow-400 uppercase tracking-wider drop-shadow-lg">
+                    <div className="w-20 h-1 bg-yellow-500 rounded-full my-3"></div>
+                    <span className="text-4xl md:text-6xl font-sans font-black text-yellow-400 uppercase tracking-wider drop-shadow-xl">
                         Nuôi dưỡng lòng yêu nước
                     </span>
                 </div>
                 
-                <p className="text-white/90 text-base md:text-lg max-w-2xl mb-8 font-medium drop-shadow-md">
+                <p className="text-white/90 text-base md:text-lg max-w-3xl mb-10 font-medium drop-shadow-md leading-relaxed">
                     Học liệu số môn Lịch sử 12 – Dành cho giáo viên & học sinh THPT theo chương trình GDPT 2018.
                 </p>
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold text-base md:text-lg rounded-full shadow-2xl transform transition hover:scale-105 border-2 border-yellow-300"
+                    className="px-10 py-4 bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold text-lg rounded-full shadow-2xl transform transition hover:scale-105 border-2 border-yellow-300 tracking-wide"
                 >
                     KHÁM PHÁ NGAY
                 </button>
@@ -188,19 +187,37 @@ const PracticeRoomSection = () => {
 // --- Footer Component ---
 const Footer = () => {
     return (
-        <footer className="bg-red-earth text-ivory py-10 px-4 border-t-4 border-bronze-gold">
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="text-center md:text-left">
-                    <h3 className="text-xl font-bold font-display mb-2">Thầy Võ Văn Dũng</h3>
-                    <p className="opacity-90">Trường Phổ thông Dân tộc Nội trú THPT Bình Phước</p>
+        <footer className="bg-red-earth text-ivory py-12 px-4 border-t-4 border-bronze-gold">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+                {/* Thông tin giáo viên và mục tiêu */}
+                <div className="text-center md:text-left md:w-2/3">
+                    <h3 className="text-xl md:text-2xl font-bold font-display mb-2 text-yellow-400">
+                        Võ Văn Dũng – GV Lịch sử
+                    </h3>
+                    <p className="font-bold mb-3 text-lg">Trường PT DTNT THPT Bình Phước (Đồng Nai)</p>
+                    <p className="opacity-90 leading-relaxed text-sm md:text-base border-t border-white/20 pt-3">
+                        Xây dựng học liệu số Lịch sử 12 theo chương trình GDPT 2018, hướng đến học tập dễ hiểu – trực quan – hiệu quả.
+                    </p>
                 </div>
-                <div className="flex gap-6">
-                     <a href="#" className="hover:text-yellow-400 transition-colors"><PhoneIcon className="w-6 h-6" /></a>
-                     <a href="#" className="hover:text-yellow-400 transition-colors"><GlobeAltIcon className="w-6 h-6" /></a>
+                
+                {/* Thông tin liên hệ */}
+                <div className="flex flex-col items-center md:items-end gap-3 md:w-1/3">
+                     <span className="font-bold text-yellow-400 text-lg">📩 Liên hệ:</span>
+                     <div className="flex gap-4">
+                         <a href="#" className="hover:text-yellow-400 transition-colors p-2 bg-white/10 rounded-full" title="Số điện thoại">
+                            <PhoneIcon className="w-6 h-6" />
+                         </a>
+                         <a href="#" className="hover:text-yellow-400 transition-colors p-2 bg-white/10 rounded-full" title="Website">
+                            <GlobeAltIcon className="w-6 h-6" />
+                         </a>
+                    </div>
+                    <p className="text-sm opacity-75 italic">[Email / Số điện thoại liên hệ]</p>
                 </div>
             </div>
-            <div className="mt-8 pt-6 border-t border-white/10 text-center text-sm opacity-75">
-                © 2024 Học liệu số Lịch sử 12. All rights reserved.
+            
+            {/* Bản quyền */}
+            <div className="mt-10 pt-6 border-t border-white/10 text-center text-sm opacity-80">
+                © 2024. Tất cả nội dung được biên soạn phục vụ dạy – học, vui lòng trích dẫn khi sử dụng.
             </div>
         </footer>
     )

@@ -57,24 +57,44 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative h-[90vh] flex items-end justify-center bg-cover bg-top"
+      className="relative min-h-screen flex flex-col bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: "url('https://i.postimg.cc/v8zbYnCT/hinh-nen-chinh.jpg')" }}
     >
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      <div className="relative z-10 p-4 pb-16 md:pb-24 w-full text-center">
-        <h1 className="text-4xl md:text-5xl font-display font-black leading-tight md:leading-snug drop-shadow-md text-yellow-400">
-          Khám phá Lịch sử – Nuôi dưỡng lòng yêu nước
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-ivory leading-relaxed max-w-3xl mx-auto">
-          Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
-        </p>
-        <div className="mt-8 flex justify-center gap-4">
-          <button 
-            onClick={handleDiscoverClick}
-            className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
-            Khám phá ngay
-          </button>
+      {/* Gradient overlay: Darker at top for contrast if needed, lighter at bottom to show red frame */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/10"></div>
+      
+      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-end min-h-screen text-center pb-12 md:pb-24">
+        
+        {/* All content grouped at bottom to fit in the red frame */}
+        <div className="animate-fade-in-up w-full max-w-6xl space-y-6">
+             <div className="inline-block border-b-2 border-yellow-400 pb-1 mb-2">
+                 <p className="text-white text-lg md:text-2xl font-serif italic drop-shadow-md">
+                    “Mỗi trang sử – Một bài học làm người.”
+                </p>
+            </div>
+        
+            <div className="space-y-1 md:space-y-2">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight text-yellow-400 drop-shadow-lg">
+                Khám phá Lịch sử – Nuôi dưỡng lòng
+                </h1>
+                <h1 className="text-5xl md:text-7xl lg:text-9xl font-display font-black leading-tight text-yellow-400 drop-shadow-lg uppercase tracking-wide">
+                YÊU NƯỚC
+                </h1>
+            </div>
+
+            <p className="text-lg md:text-2xl text-white/95 leading-relaxed max-w-4xl mx-auto font-light drop-shadow-md">
+            Học liệu số môn Lịch sử 12 – Dành cho giáo viên &amp; học sinh THPT theo chương trình GDPT 2018.
+            </p>
+
+            <div className="pt-4">
+                <button 
+                    onClick={handleDiscoverClick}
+                    className="bg-yellow-400 hover:bg-yellow-300 text-red-earth font-bold py-3 px-10 md:py-4 md:px-16 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(250,204,21,0.6)] text-base md:text-lg uppercase tracking-wider border-2 border-white/30">
+                    KHÁM PHÁ NGAY
+                </button>
+            </div>
         </div>
+
       </div>
     </section>
   );
@@ -142,7 +162,7 @@ const ResourcesSection = ({ onResourceClick }) => {
                 <h2 className="text-4xl md:text-5xl font-display text-red-earth mb-12">Kho học liệu: Tất cả tài nguyên bạn cần</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     {resources.map((res, index) => {
-                        const isInteractive = ["Bài giảng điện tử", "Bài tập lịch sử", "Sơ đồ tư duy Chủ đề", "Luyện thi tốt nghiệp THPT", "Hướng dẫn học các phần mềm"].includes(res.title);
+                        const isInteractive = ["Bài giảng điện tử", "Bài tập lịch sử", "Sơ đồ tư duy Chủ đề", "Hướng dẫn học các phần mềm", "Luyện thi tốt nghiệp THPT"].includes(res.title);
                         return (
                             <div 
                                 key={index} 
@@ -479,14 +499,13 @@ const softwareGuidesData = [
     { name: "Azota", url: null },
 ];
 
-const graduationExamData = [
-    { name: "Chủ đề 1", url: "https://forms.gle/r5wSkqF52boUZRy3A" },
-    { name: "Chủ đề 2", url: "https://forms.gle/F13u5Avbnx8QcZVS9" },
-    { name: "Chủ đề 3", url: "https://forms.gle/a7oDA6a6d4vHQebUA" },
-    { name: "Chủ đề 4", url: "https://forms.gle/8geLh2ULo28jgnrT9" },
-    { name: "Chủ đề 5", url: null },
-    { name: "Chủ đề 6", url: null },
-    { name: "Đề thi thử tốt nghiệp THPT", url: "https://drive.google.com/drive/u/0/folders/1Z-9rU_HHBdlhm0y1bOr6BCaf_ZgNmHy0" }
+const graduationTopicsData = [
+    { name: "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh", url: null },
+    { name: "Chủ đề 2: ASEAN: Những chặng đường lịch sử", url: null },
+    { name: "Chủ đề 3: Cách mạng tháng Tám năm 1945", url: null },
+    { name: "Chủ đề 4: Kháng chiến chống Pháp (1945 - 1954)", url: null },
+    { name: "Chủ đề 5: Kháng chiến chống Mỹ (1954 - 1975)", url: null },
+    { name: "Chủ đề 6: Đổi mới ở Việt Nam từ năm 1986", url: null },
 ];
 
 // --- Types ---
@@ -494,6 +513,7 @@ type Lesson = { name: string; url: string | null; };
 type Exercise = { name: string; url: string | null; };
 type Mindmap = { name: string; url: string | null; };
 type SoftwareGuide = { name: string; url: string | null; };
+type GraduationTopic = { name: string; url: string | null; };
   
 // --- Modals & Popups ---
 const ConfirmationPopup = ({ isOpen }) => {
@@ -782,6 +802,61 @@ const SoftwareGuideModal = ({ isOpen, onClose, selectedSoftware, onSoftwareChang
     );
 };
 
+const GraduationExamModal = ({ isOpen, onClose, selectedTopic, onTopicChange, onViewContent }) => {
+    if (!isOpen) return null;
+
+    const selectedTopicData = graduationTopicsData.find(t => t.name === selectedTopic);
+    const isContentAvailable = !!(selectedTopicData && selectedTopicData.url);
+
+    let buttonText = "Xem nội dung";
+    if (selectedTopic && !isContentAvailable) {
+        buttonText = "Nội dung đang cập nhật";
+    }
+
+    return (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div 
+            className="bg-ivory p-8 rounded-lg shadow-xl w-full max-w-lg relative border-2 border-bronze-gold"
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+              aria-label="Đóng"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+             <h3 id="graduation-modal-title" className="text-2xl font-display text-red-earth mb-6 text-center">Chọn chủ đề luyện thi</h3>
+              <div className="space-y-6">
+                <select 
+                  value={selectedTopic}
+                  onChange={e => onTopicChange(e.target.value)}
+                  className="w-full p-3 rounded border border-bronze-gold/50 focus:outline-none focus:ring-2 focus:ring-brown-red bg-white text-lg"
+                  aria-labelledby="graduation-modal-title"
+                >
+                  <option value="" disabled>-- Vui lòng chọn chủ đề --</option>
+                  {graduationTopicsData.map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
+                </select>
+                <button 
+                  onClick={onViewContent}
+                  disabled={!selectedTopic || !isContentAvailable}
+                  className="w-full bg-brown-red hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+                >
+                  {buttonText}
+                </button>
+              </div>
+          </div>
+        </div>
+    );
+};
+
 // --- Main App Component ---
 function App() {
   const [activeResource, setActiveResource] = React.useState<string | null>(null);
@@ -800,6 +875,9 @@ function App() {
 
   // Software Guide Modal States
   const [selectedSoftware, setSelectedSoftware] = React.useState('');
+
+  // Graduation Exam Modal States
+  const [selectedGraduationTopic, setSelectedGraduationTopic] = React.useState('');
   
   // Confirmation Popup State
   const [showConfirmation, setShowConfirmation] = React.useState(false);
@@ -841,8 +919,7 @@ function App() {
     } else if (title === "Hướng dẫn học các phần mềm") {
         setSelectedSoftware('');
     } else if (title === "Luyện thi tốt nghiệp THPT") {
-        window.open(graduationExamData.find(d => d.name === "Đề thi thử tốt nghiệp THPT")?.url || '#', '_blank');
-        setActiveResource(null); // Direct link, no modal needed
+        setSelectedGraduationTopic('');
     }
   };
 
@@ -915,6 +992,18 @@ function App() {
       }
   };
 
+  // --- Graduation Exam Handlers ---
+  const handleGraduationTopicChange = (topicName: string) => {
+      setSelectedGraduationTopic(topicName);
+  };
+
+  const handleViewGraduationContent = () => {
+      const topic = graduationTopicsData.find(t => t.name === selectedGraduationTopic);
+      if (topic && topic.url) {
+          window.open(topic.url, '_blank');
+      }
+  };
+
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-800 bg-ivory">
       <DateTimeDisplay />
@@ -967,6 +1056,14 @@ function App() {
           selectedSoftware={selectedSoftware}
           onSoftwareChange={handleSoftwareChange}
           onViewContent={handleViewSoftwareContent}
+      />
+
+      <GraduationExamModal
+          isOpen={activeResource === "Luyện thi tốt nghiệp THPT"}
+          onClose={closeModal}
+          selectedTopic={selectedGraduationTopic}
+          onTopicChange={handleGraduationTopicChange}
+          onViewContent={handleViewGraduationContent}
       />
 
       <ConfirmationPopup isOpen={showConfirmation} />

@@ -2,6 +2,26 @@
 import React from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon } from './components/Icons';
 
+// --- DateTimeDisplay Component ---
+const DateTimeDisplay = () => {
+    const [currentTime, setCurrentTime] = React.useState(new Date());
+
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <div className="bg-ivory text-red-900 px-4 py-1 text-sm font-bold flex justify-end items-center border-b border-bronze-gold/30">
+            <span className="tracking-wide">
+                {currentTime.toLocaleTimeString('vi-VN')} - {currentTime.toLocaleDateString('vi-VN')}
+            </span>
+        </div>
+    );
+}
+
 // --- MarqueeSection Component ---
 const MarqueeSection = () => {
     return (
@@ -189,6 +209,7 @@ const Footer = () => {
 export default function App() {
   return (
     <div className="min-h-screen bg-ivory font-sans text-gray-800 flex flex-col">
+        <DateTimeDisplay />
         <MarqueeSection />
         <HeroSection />
         <AboutSection />

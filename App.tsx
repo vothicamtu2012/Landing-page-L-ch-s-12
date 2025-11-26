@@ -59,7 +59,7 @@ const AboutSection = () => {
                 <div className="w-full md:w-1/3 flex justify-center">
                      <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-bronze-gold shadow-xl">
                          <img 
-                            src="https://via.placeholder.com/500x500?text=Thay+Dung" 
+                            src="https://i.postimg.cc/nrvjdGk3/avatar_vo_van_dung.png" 
                             alt="Thầy Võ Văn Dũng" 
                             className="w-full h-full object-cover"
                         />

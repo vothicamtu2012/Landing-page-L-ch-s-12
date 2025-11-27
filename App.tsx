@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon } from './components/Icons';
 
@@ -314,7 +313,7 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
 
     // Mapping link cho các bài tập đúng sai (Hiện tại chưa có link cụ thể, dùng alert)
     const trueFalseLinks: Record<string, string> = {
-        // "1": "link_here", 
+        "1": "https://azota.vn/de-thi/lt8gej", 
     };
 
     const handleViewContent = () => {

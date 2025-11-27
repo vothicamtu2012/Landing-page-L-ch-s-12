@@ -1,6 +1,7 @@
 
+
 import React, { useState } from 'react';
-import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon } from './components/Icons';
+import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon } from './components/Icons';
 
 // --- DateTimeDisplay Component ---
 const DateTimeDisplay = () => {
@@ -48,7 +49,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-history-dark/90"></div>
 
                 {/* Solid Gradient Mask at bottom to hide text in image & hold content */}
-                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-[#003366] via-[#003366]/95 to-transparent opacity-100"></div>
+                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-[#8B1E1E] via-[#8B1E1E]/95 to-transparent opacity-100"></div>
             </div>
 
             {/* Content */}
@@ -76,9 +77,9 @@ const HeroSection = () => {
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#003366] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-8"
+                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#8B1E1E] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-8"
                 >
-                    <span className="relative z-10 group-hover:text-[#003366] transition-colors duration-300 uppercase">KHÁM PHÁ NGAY</span>
+                    <span className="relative z-10 group-hover:text-[#8B1E1E] transition-colors duration-300 uppercase">KHÁM PHÁ NGAY</span>
                     <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
                 </button>
             </div>
@@ -305,6 +306,92 @@ const ExerciseModal = ({ isOpen, onClose }: ModalProps) => {
     );
 };
 
+// --- TrueFalseModal Component (Bài tập dạng đúng - sai) ---
+const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
+    const [selectedTopic, setSelectedTopic] = useState("1");
+
+    if (!isOpen) return null;
+
+    // Mapping link cho các bài tập đúng sai (Hiện tại chưa có link cụ thể, dùng alert)
+    const trueFalseLinks: Record<string, string> = {
+        // "1": "link_here", 
+    };
+
+    const handleViewContent = () => {
+        const link = trueFalseLinks[selectedTopic];
+        if (link) {
+            window.open(link, '_blank');
+        } else {
+            alert(`Đang mở bài tập đúng - sai: Chủ đề ${selectedTopic} \n(Chức năng đang được cập nhật link)`);
+        }
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            ></div>
+
+            {/* Modal Content */}
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
+                {/* Header */}
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
+                        <TrueFalseIcon className="w-6 h-6 text-antique-gold" />
+                        Bài tập dạng đúng - sai
+                    </h3>
+                    <button 
+                        onClick={onClose}
+                        className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-8">
+                    <label className="block text-charcoal font-serif font-bold mb-4 text-lg text-center">
+                        Bạn chọn chủ đề cần luyện tập?
+                    </label>
+                    
+                    <div className="relative">
+                        <select 
+                            value={selectedTopic}
+                            onChange={(e) => setSelectedTopic(e.target.value)}
+                            className="w-full bg-white border-2 border-antique-gold text-charcoal py-3 px-4 pr-8 rounded focus:outline-none focus:ring-2 focus:ring-history-red focus:border-transparent appearance-none font-sans text-lg cursor-pointer"
+                        >
+                            <option value="1">Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh</option>
+                            <option value="2">Chủ đề 2: ASEAN: Những chặng đường lịch sử</option>
+                            <option value="3">Chủ đề 3: Cách mạng tháng Tám năm 1945...</option>
+                            <option value="4">Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay</option>
+                            <option value="5">Chủ đề 5: Lịch sử đối ngoại của Việt Nam</option>
+                            <option value="6">Chủ đề 6: Hồ Chí Minh trong lịch sử Việt Nam</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-charcoal">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
+                    <button 
+                        onClick={handleViewContent}
+                        className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                        Làm bài
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- ExamModal Component (Luyện thi THPT) ---
 const ExamModal = ({ isOpen, onClose }: ModalProps) => {
     const [selectedExam, setSelectedExam] = useState("1");
@@ -402,14 +489,16 @@ interface ResourceSectionProps {
     onOpenMindMap: () => void;
     onOpenExam: () => void;
     onOpenExercise: () => void;
+    onOpenTrueFalse: () => void;
 }
 
-const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise }: ResourceSectionProps) => {
+const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse }: ResourceSectionProps) => {
     // Sử dụng màu Earthy tones (Tông màu đất) để tự nhiên và dịu mắt
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-12 h-12" />, bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-200", hover: "hover:border-stone-400" },
         { title: "Sơ đồ tư duy", icon: <MindmapIcon className="w-12 h-12" />, bg: "bg-amber-50", text: "text-amber-900", border: "border-amber-200", hover: "hover:border-amber-400" },
         { title: "Bài tập theo chủ đề", icon: <PuzzleIcon className="w-12 h-12" />, bg: "bg-emerald-50", text: "text-emerald-900", border: "border-emerald-200", hover: "hover:border-emerald-400" },
+        { title: "Bài tập dạng đúng - sai", icon: <TrueFalseIcon className="w-12 h-12" />, bg: "bg-sky-50", text: "text-sky-900", border: "border-sky-200", hover: "hover:border-sky-400" },
         { title: "Trò chơi Lịch sử", icon: <GameIcon className="w-12 h-12" />, bg: "bg-rose-50", text: "text-rose-900", border: "border-rose-200", hover: "hover:border-rose-400" },
         { title: "Luyện thi THPT", icon: <CheckCircleIcon className="w-12 h-12" />, bg: "bg-orange-50", text: "text-orange-900", border: "border-orange-200", hover: "hover:border-orange-400" },
     ];
@@ -421,6 +510,8 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise }: Resource
             onOpenExam();
         } else if (title === "Bài tập theo chủ đề") {
             onOpenExercise();
+        } else if (title === "Bài tập dạng đúng - sai") {
+            onOpenTrueFalse();
         }
     };
 
@@ -594,6 +685,7 @@ export default function App() {
   const [isMindMapModalOpen, setIsMindMapModalOpen] = useState(false);
   const [isExamModalOpen, setIsExamModalOpen] = useState(false);
   const [isExerciseModalOpen, setIsExerciseModalOpen] = useState(false);
+  const [isTrueFalseModalOpen, setIsTrueFalseModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-paper font-sans text-charcoal flex flex-col selection:bg-antique-gold selection:text-white">
@@ -605,6 +697,7 @@ export default function App() {
             onOpenMindMap={() => setIsMindMapModalOpen(true)} 
             onOpenExam={() => setIsExamModalOpen(true)}
             onOpenExercise={() => setIsExerciseModalOpen(true)}
+            onOpenTrueFalse={() => setIsTrueFalseModalOpen(true)}
         />
         <PracticeRoomSection />
         <Footer />
@@ -616,6 +709,10 @@ export default function App() {
         <ExerciseModal 
             isOpen={isExerciseModalOpen} 
             onClose={() => setIsExerciseModalOpen(false)} 
+        />
+        <TrueFalseModal 
+            isOpen={isTrueFalseModalOpen} 
+            onClose={() => setIsTrueFalseModalOpen(false)} 
         />
         <ExamModal 
             isOpen={isExamModalOpen} 

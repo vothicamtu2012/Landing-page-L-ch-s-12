@@ -48,7 +48,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-history-dark/90"></div>
 
                 {/* Solid Gradient Mask at bottom to hide text in image & hold content */}
-                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-[#8B1E1E] via-[#8B1E1E]/95 to-transparent opacity-100"></div>
+                <div className="absolute bottom-0 left-0 w-full h-[85%] bg-gradient-to-t from-[#003366] via-[#003366]/95 to-transparent opacity-100"></div>
             </div>
 
             {/* Content */}
@@ -76,9 +76,9 @@ const HeroSection = () => {
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#8B1E1E] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-8"
+                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#003366] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-8"
                 >
-                    <span className="relative z-10 group-hover:text-[#8B1E1E] transition-colors duration-300 uppercase">KHÁM PHÁ NGAY</span>
+                    <span className="relative z-10 group-hover:text-[#003366] transition-colors duration-300 uppercase">KHÁM PHÁ NGAY</span>
                     <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
                 </button>
             </div>
@@ -316,6 +316,7 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
         "1": "https://azota.vn/de-thi/lt8gej",
         "2": "https://azota.vn/de-thi/p6hpjf",
         "3": "https://azota.vn/de-thi/dcqffr",
+        "4": "https://azota.vn/de-thi/a7sv9o",
     };
 
     const handleViewContent = () => {

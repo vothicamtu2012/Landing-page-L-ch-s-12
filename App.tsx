@@ -313,7 +313,9 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
 
     // Mapping link cho các bài tập đúng sai (Hiện tại chưa có link cụ thể, dùng alert)
     const trueFalseLinks: Record<string, string> = {
-        "1": "https://azota.vn/de-thi/lt8gej", 
+        "1": "https://azota.vn/de-thi/lt8gej",
+        "2": "https://azota.vn/de-thi/p6hpjf",
+        "3": "https://azota.vn/de-thi/dcqffr",
     };
 
     const handleViewContent = () => {

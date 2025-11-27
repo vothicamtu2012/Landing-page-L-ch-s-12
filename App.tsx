@@ -215,6 +215,93 @@ const MindMapModal = ({ isOpen, onClose }: ModalProps) => {
     );
 };
 
+// --- ExerciseModal Component (Bài tập theo chủ đề) ---
+const ExerciseModal = ({ isOpen, onClose }: ModalProps) => {
+    const [selectedTopic, setSelectedTopic] = useState("1");
+
+    if (!isOpen) return null;
+
+    // Mapping link cho các bài tập theo chủ đề
+    const exerciseLinks: Record<string, string> = {
+        "1": "https://forms.gle/cfqZUeEcqddMchx37",
+        "2": "https://forms.gle/u6jMpAA29G5noTKr8",
+    };
+
+    const handleViewContent = () => {
+        const link = exerciseLinks[selectedTopic];
+        if (link) {
+            window.open(link, '_blank');
+        } else {
+            alert(`Đang mở bài tập trắc nghiệm: Chủ đề ${selectedTopic} \n(Chức năng đang được cập nhật link)`);
+        }
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            ></div>
+
+            {/* Modal Content */}
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
+                {/* Header */}
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
+                        <PuzzleIcon className="w-6 h-6 text-antique-gold" />
+                        Bài tập theo chủ đề
+                    </h3>
+                    <button 
+                        onClick={onClose}
+                        className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-8">
+                    <label className="block text-charcoal font-serif font-bold mb-4 text-lg text-center">
+                        Bạn chọn chủ đề cần luyện tập?
+                    </label>
+                    
+                    <div className="relative">
+                        <select 
+                            value={selectedTopic}
+                            onChange={(e) => setSelectedTopic(e.target.value)}
+                            className="w-full bg-white border-2 border-antique-gold text-charcoal py-3 px-4 pr-8 rounded focus:outline-none focus:ring-2 focus:ring-history-red focus:border-transparent appearance-none font-sans text-lg cursor-pointer"
+                        >
+                            <option value="1">Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh</option>
+                            <option value="2">Chủ đề 2: ASEAN: Những chặng đường lịch sử</option>
+                            <option value="3">Chủ đề 3: Cách mạng tháng Tám năm 1945...</option>
+                            <option value="4">Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay</option>
+                            <option value="5">Chủ đề 5: Lịch sử đối ngoại của Việt Nam</option>
+                            <option value="6">Chủ đề 6: Hồ Chí Minh trong lịch sử Việt Nam</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-charcoal">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
+                    <button 
+                        onClick={handleViewContent}
+                        className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                        Làm bài
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- ExamModal Component (Luyện thi THPT) ---
 const ExamModal = ({ isOpen, onClose }: ModalProps) => {
     const [selectedExam, setSelectedExam] = useState("1");
@@ -311,13 +398,15 @@ const ExamModal = ({ isOpen, onClose }: ModalProps) => {
 interface ResourceSectionProps {
     onOpenMindMap: () => void;
     onOpenExam: () => void;
+    onOpenExercise: () => void;
 }
 
-const ResourceSection = ({ onOpenMindMap, onOpenExam }: ResourceSectionProps) => {
+const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise }: ResourceSectionProps) => {
     // Sử dụng màu Earthy tones (Tông màu đất) để tự nhiên và dịu mắt
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-12 h-12" />, bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-200", hover: "hover:border-stone-400" },
         { title: "Sơ đồ tư duy", icon: <MindmapIcon className="w-12 h-12" />, bg: "bg-amber-50", text: "text-amber-900", border: "border-amber-200", hover: "hover:border-amber-400" },
+        { title: "Bài tập theo chủ đề", icon: <PuzzleIcon className="w-12 h-12" />, bg: "bg-emerald-50", text: "text-emerald-900", border: "border-emerald-200", hover: "hover:border-emerald-400" },
         { title: "Trò chơi Lịch sử", icon: <GameIcon className="w-12 h-12" />, bg: "bg-rose-50", text: "text-rose-900", border: "border-rose-200", hover: "hover:border-rose-400" },
         { title: "Luyện thi THPT", icon: <CheckCircleIcon className="w-12 h-12" />, bg: "bg-orange-50", text: "text-orange-900", border: "border-orange-200", hover: "hover:border-orange-400" },
     ];
@@ -327,8 +416,8 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam }: ResourceSectionProps) =>
             onOpenMindMap();
         } else if (title === "Luyện thi THPT") {
             onOpenExam();
-        } else {
-            // Default behavior for other cards (optional)
+        } else if (title === "Bài tập theo chủ đề") {
+            onOpenExercise();
         }
     };
 
@@ -340,12 +429,14 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam }: ResourceSectionProps) =>
                     <p className="text-charcoal/70 font-serif italic">Tài nguyên học tập phong phú & đa dạng</p>
                     <div className="w-24 h-1 bg-antique-gold mx-auto mt-6"></div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                {/* Layout Flexbox căn giữa các card */}
+                <div className="flex flex-wrap justify-center gap-8">
                     {resources.map((res, idx) => (
                         <div 
                             key={idx} 
                             onClick={() => handleCardClick(res.title)}
-                            className={`${res.bg} ${res.text} ${res.border} border-2 p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center text-center group ${res.hover} relative overflow-hidden`}
+                            className={`${res.bg} ${res.text} ${res.border} border-2 p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center text-center group ${res.hover} relative overflow-hidden w-full sm:w-72 md:w-80`}
                         >
                             {/* Decorative circle */}
                             <div className="absolute -top-10 -right-10 w-24 h-24 bg-white/40 rounded-full transition-transform group-hover:scale-150 duration-500"></div>
@@ -499,6 +590,7 @@ const Footer = () => {
 export default function App() {
   const [isMindMapModalOpen, setIsMindMapModalOpen] = useState(false);
   const [isExamModalOpen, setIsExamModalOpen] = useState(false);
+  const [isExerciseModalOpen, setIsExerciseModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-paper font-sans text-charcoal flex flex-col selection:bg-antique-gold selection:text-white">
@@ -509,6 +601,7 @@ export default function App() {
         <ResourceSection 
             onOpenMindMap={() => setIsMindMapModalOpen(true)} 
             onOpenExam={() => setIsExamModalOpen(true)}
+            onOpenExercise={() => setIsExerciseModalOpen(true)}
         />
         <PracticeRoomSection />
         <Footer />
@@ -516,6 +609,10 @@ export default function App() {
         <MindMapModal 
             isOpen={isMindMapModalOpen} 
             onClose={() => setIsMindMapModalOpen(false)} 
+        />
+        <ExerciseModal 
+            isOpen={isExerciseModalOpen} 
+            onClose={() => setIsExerciseModalOpen(false)} 
         />
         <ExamModal 
             isOpen={isExamModalOpen} 

@@ -225,6 +225,9 @@ const ExerciseModal = ({ isOpen, onClose }: ModalProps) => {
     const exerciseLinks: Record<string, string> = {
         "1": "https://forms.gle/cfqZUeEcqddMchx37",
         "2": "https://forms.gle/u6jMpAA29G5noTKr8",
+        "3": "https://forms.gle/Y6ab1vz6sSyj9C3E6",
+        "4": "https://forms.gle/WhRP4qusnHsoHBuu5",
+        "5": "https://azota.vn/de-thi/ok3l3g",
     };
 
     const handleViewContent = () => {

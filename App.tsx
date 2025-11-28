@@ -14,9 +14,9 @@ const DateTimeDisplay = () => {
     }, []);
 
     return (
-        <div className="bg-paper-dark text-history-red px-6 py-3 text-base md:text-xl font-medium font-display flex justify-center md:justify-end items-center border-b border-antique-gold/30">
+        <div className="bg-paper-dark text-history-red px-6 py-4 text-xl md:text-3xl font-bold font-display flex justify-center md:justify-end items-center border-b border-antique-gold/30 shadow-sm">
             <span className="tracking-wide">
-                {currentTime.toLocaleTimeString('vi-VN')} <span className="mx-2 text-antique-gold">|</span> {currentTime.toLocaleDateString('vi-VN', { weekday: 'long' })}, {currentTime.toLocaleDateString('vi-VN')}
+                {currentTime.toLocaleTimeString('vi-VN')} <span className="mx-3 text-antique-gold">|</span> {currentTime.toLocaleDateString('vi-VN', { weekday: 'long' })}, {currentTime.toLocaleDateString('vi-VN')}
             </span>
         </div>
     );
@@ -317,6 +317,7 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
         "2": "https://azota.vn/de-thi/p6hpjf",
         "3": "https://azota.vn/de-thi/dcqffr",
         "4": "https://azota.vn/de-thi/a7sv9o",
+        "5": "https://azota.vn/de-thi/mycoaa",
     };
 
     const handleViewContent = () => {

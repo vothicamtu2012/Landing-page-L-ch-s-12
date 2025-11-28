@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon } from './components/Icons';
 
@@ -596,6 +595,51 @@ const PracticeRoomSection = () => {
     );
 };
 
+// --- DocumentarySection Component ---
+const DocumentarySection = () => {
+    // Dữ liệu mẫu cho video (6 video)
+    const videos = [
+        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/placeholder1" },
+        { title: "Phim tư liệu 2", src: "https://www.youtube.com/embed/placeholder2" },
+        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/placeholder3" },
+        { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/placeholder4" },
+        { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/placeholder5" },
+        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/placeholder6" },
+    ];
+
+    return (
+        <section className="py-24 px-4 bg-paper-dark border-t border-antique-gold/20">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl md:text-5xl font-display text-history-red mb-4 font-bold">Phim tư liệu lịch sử</h2>
+                    <p className="text-charcoal/70 font-serif italic">Những thước phim hào hùng sống mãi với thời gian</p>
+                    <div className="w-24 h-1 bg-antique-gold mx-auto mt-6"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {videos.map((video, idx) => (
+                        <div key={idx} className="group relative bg-white p-3 rounded-lg shadow-md border-2 border-transparent hover:border-antique-gold transition-all duration-300">
+                            {/* Khung Video giả lập (16:9) */}
+                            <div className="relative w-full pt-[56.25%] bg-black rounded overflow-hidden">
+                                <iframe 
+                                    className="absolute top-0 left-0 w-full h-full"
+                                    src={video.src} 
+                                    title={video.title}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                            <h3 className="mt-4 text-lg font-bold text-center text-charcoal group-hover:text-history-red transition-colors font-display">
+                                {video.title}
+                            </h3>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 // --- Footer Component ---
 const Footer = () => {
     return (
@@ -704,6 +748,7 @@ export default function App() {
             onOpenTrueFalse={() => setIsTrueFalseModalOpen(true)}
         />
         <PracticeRoomSection />
+        <DocumentarySection />
         <Footer />
 
         <MindMapModal 

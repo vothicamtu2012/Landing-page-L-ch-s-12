@@ -638,7 +638,7 @@ const DocumentarySection = () => {
     const videos = [
         { title: "Phim tư liệu 1", src: "https://youtu.be/r4O2sqszkW0?si=LbtN9CJ2NILFdI-a" }, // Link gốc từ user, sẽ tự động chạy
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
-        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/placeholder3" },
+        { title: "Phim tư liệu 3", src: "https://youtu.be/xudfEww9pVQ?si=PmncmUdc18Pg4fwL" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/placeholder4" },
         { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/placeholder5" },
         { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/placeholder6" },

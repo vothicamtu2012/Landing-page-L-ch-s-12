@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon } from './components/Icons';
 
@@ -637,7 +636,7 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "https://youtu.be/BTE8r9kRjvs?si=FjvFfEfY5BArJSDY" }, // Link gốc từ user, sẽ tự động chạy
+        { title: "Phim tư liệu 1", src: "https://youtu.be/r4O2sqszkW0?si=LbtN9CJ2NILFdI-a" }, // Link gốc từ user, sẽ tự động chạy
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
         { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/placeholder3" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/placeholder4" },

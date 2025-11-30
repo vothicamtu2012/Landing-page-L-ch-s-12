@@ -1,56 +1,37 @@
 
 import React, { useState } from 'react';
-import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon } from './components/Icons';
+import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon } from './components/Icons';
 
 // --- DateTimeDisplay Component ---
 const DateTimeDisplay = () => {
     const [currentTime, setCurrentTime] = React.useState(new Date());
-    const [visitCount, setVisitCount] = useState(15420); // Số khởi điểm giả định cho đẹp
 
     React.useEffect(() => {
-        // Cập nhật giờ
         const timer = setInterval(() => {
             setCurrentTime(new Date());
         }, 1000);
-
-        // Xử lý bộ đếm lượt truy cập (Lưu vào localStorage để nhớ)
-        const storedCount = localStorage.getItem('page_visits');
-        let count = storedCount ? parseInt(storedCount) : 15420;
-        count = count + 1; // Tăng 1 lượt mỗi khi tải lại trang
-        localStorage.setItem('page_visits', count.toString());
-        setVisitCount(count);
-
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <div className="bg-paper-dark border-b border-antique-gold/20 shadow-sm px-4 md:px-8 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
-            {/* Left: Visitor Counter */}
-            <div className="flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full border border-antique-gold/30 shadow-sm">
-                <EyeIcon className="w-5 h-5 text-history-red animate-pulse" />
-                <span className="text-charcoal font-serif font-medium text-sm md:text-base">
-                    Lượt truy cập: <span className="font-bold text-history-red text-lg">{visitCount.toLocaleString('vi-VN')}</span>
-                </span>
-            </div>
-
-            {/* Right: Clock */}
+        <div className="bg-paper-dark py-4 flex justify-center items-center border-b border-antique-gold/20 shadow-sm">
             <div className="inline-flex items-center rounded-full overflow-hidden shadow-xl border-2 border-history-red/20 transform hover:scale-105 transition-transform duration-300">
                 {/* Phần Giờ: Nền Đỏ - Chữ Vàng/Trắng */}
-                <div className="bg-history-red text-white px-4 md:px-6 py-2 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 text-antique-gold animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-history-red text-white px-6 py-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-antique-gold animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="text-xl md:text-3xl font-bold font-sans tracking-widest min-w-[100px] md:min-w-[140px] text-center">
+                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-widest min-w-[140px] text-center">
                         {currentTime.toLocaleTimeString('vi-VN')}
                     </span>
                 </div>
                 
                 {/* Phần Ngày: Nền Vàng Đồng - Chữ Đỏ Đậm */}
-                <div className="bg-antique-gold text-history-dark px-4 md:px-6 py-2 flex items-center gap-2 hidden sm:flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-antique-gold text-history-dark px-6 py-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    <span className="text-sm md:text-xl font-serif font-bold uppercase tracking-wide whitespace-nowrap">
+                    <span className="text-lg md:text-xl font-serif font-bold uppercase tracking-wide">
                         {currentTime.toLocaleDateString('vi-VN', { weekday: 'long' })}, {currentTime.toLocaleDateString('vi-VN')}
                     </span>
                 </div>
@@ -637,7 +618,7 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/xudfEww9pVQ" },
+        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/placeholder1" },
         { title: "Phim tư liệu 2", src: "https://www.youtube.com/embed/placeholder2" },
         { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/placeholder3" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/placeholder4" },

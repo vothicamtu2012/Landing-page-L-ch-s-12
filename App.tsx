@@ -14,10 +14,28 @@ const DateTimeDisplay = () => {
     }, []);
 
     return (
-        <div className="bg-paper-dark text-history-red px-6 py-4 text-xl md:text-3xl font-bold font-display flex justify-center md:justify-end items-center border-b border-antique-gold/30 shadow-sm">
-            <span className="tracking-wide">
-                {currentTime.toLocaleTimeString('vi-VN')} <span className="mx-3 text-antique-gold">|</span> {currentTime.toLocaleDateString('vi-VN', { weekday: 'long' })}, {currentTime.toLocaleDateString('vi-VN')}
-            </span>
+        <div className="bg-paper-dark py-4 flex justify-center items-center border-b border-antique-gold/20 shadow-sm">
+            <div className="inline-flex items-center rounded-full overflow-hidden shadow-xl border-2 border-history-red/20 transform hover:scale-105 transition-transform duration-300">
+                {/* Phần Giờ: Nền Đỏ - Chữ Vàng/Trắng */}
+                <div className="bg-history-red text-white px-6 py-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-antique-gold animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-2xl md:text-3xl font-bold font-sans tracking-widest min-w-[140px] text-center">
+                        {currentTime.toLocaleTimeString('vi-VN')}
+                    </span>
+                </div>
+                
+                {/* Phần Ngày: Nền Vàng Đồng - Chữ Đỏ Đậm */}
+                <div className="bg-antique-gold text-history-dark px-6 py-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="text-lg md:text-xl font-serif font-bold uppercase tracking-wide">
+                        {currentTime.toLocaleDateString('vi-VN', { weekday: 'long' })}, {currentTime.toLocaleDateString('vi-VN')}
+                    </span>
+                </div>
+            </div>
         </div>
     );
 }
@@ -596,6 +614,51 @@ const PracticeRoomSection = () => {
     );
 };
 
+// --- DocumentarySection Component ---
+const DocumentarySection = () => {
+    // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
+    const videos = [
+        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/placeholder1" },
+        { title: "Phim tư liệu 2", src: "https://www.youtube.com/embed/placeholder2" },
+        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/placeholder3" },
+        { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/placeholder4" },
+        { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/placeholder5" },
+        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/placeholder6" },
+    ];
+
+    return (
+        <section className="py-24 px-4 bg-paper-dark border-t border-antique-gold/20">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl md:text-5xl font-display text-history-red mb-4 font-bold">Phim tư liệu lịch sử</h2>
+                    <p className="text-charcoal/70 font-serif italic">Những thước phim hào hùng sống mãi với thời gian</p>
+                    <div className="w-24 h-1 bg-antique-gold mx-auto mt-6"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {videos.map((video, idx) => (
+                        <div key={idx} className="group relative bg-white p-3 rounded-lg shadow-md border-2 border-transparent hover:border-antique-gold transition-all duration-300">
+                            {/* Khung Video giả lập (16:9) */}
+                            <div className="relative w-full pt-[56.25%] bg-black rounded overflow-hidden">
+                                <iframe 
+                                    className="absolute top-0 left-0 w-full h-full"
+                                    src={video.src} 
+                                    title={video.title}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                            <h3 className="mt-4 text-lg font-bold text-center text-charcoal group-hover:text-history-red transition-colors font-display">
+                                {video.title}
+                            </h3>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 // --- Footer Component ---
 const Footer = () => {
     return (
@@ -704,6 +767,7 @@ export default function App() {
             onOpenTrueFalse={() => setIsTrueFalseModalOpen(true)}
         />
         <PracticeRoomSection />
+        <DocumentarySection />
         <Footer />
 
         <MindMapModal 

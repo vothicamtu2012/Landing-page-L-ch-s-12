@@ -72,7 +72,7 @@ const MarqueeSection = () => {
 // --- HeroSection Component ---
 const HeroSection = () => {
     return (
-        <section className="relative w-full h-screen flex flex-col items-center justify-end text-center overflow-hidden pb-12">
+        <section className="relative w-full h-screen flex flex-col items-center justify-end text-center overflow-hidden pb-20">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img 
@@ -90,29 +90,29 @@ const HeroSection = () => {
             {/* Content */}
             <div className="relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center animate-fade-in-up w-full">
                 
-                {/* Slogan */}
-                <p className="text-white/90 text-lg md:text-2xl font-serif italic mb-4 tracking-wider drop-shadow-md border-b-2 border-antique-gold/50 pb-2">
-                    “Mỗi trang sử – Một bài học làm người.”
-                </p>
-
                 {/* Typography Design */}
-                <div className="flex flex-col items-center mb-6 w-full">
-                    <span className="text-2xl md:text-4xl font-display font-bold text-white mb-2 drop-shadow-lg tracking-wide opacity-95 font-serif">
+                <div className="flex flex-col items-center mb-10 w-full">
+                    <span className="text-2xl md:text-4xl font-display font-bold text-white mb-4 drop-shadow-lg tracking-wide opacity-95 font-serif">
                         Khám phá Lịch sử
                     </span>
                     
+                    {/* Ornamental Divider */}
+                    <div className="flex items-center gap-4 opacity-80 mb-4">
+                        <div className="h-[2px] w-16 bg-antique-gold"></div>
+                    </div>
+
                     <span className="text-4xl md:text-7xl font-sans font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-antique-gold uppercase tracking-tight drop-shadow-xl text-shadow-lg leading-tight py-2">
                         Nuôi dưỡng lòng yêu nước
                     </span>
                 </div>
                 
-                <p className="text-white/90 text-base md:text-xl max-w-3xl mb-8 font-serif font-light leading-relaxed drop-shadow-md">
+                <p className="text-white/90 text-base md:text-xl max-w-3xl mb-12 font-serif font-light leading-relaxed drop-shadow-md">
                     Học liệu số môn Lịch sử 12 – Dành cho giáo viên & học sinh THPT theo chương trình GDPT 2018.
                 </p>
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#003366] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-4"
+                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#003366] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-8"
                 >
                     <span className="relative z-10 group-hover:text-[#003366] transition-colors duration-300 uppercase">KHÁM PHÁ NGAY</span>
                     <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
@@ -640,8 +640,8 @@ const DocumentarySection = () => {
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
         { title: "Phim tư liệu 3", src: "https://youtu.be/xudfEww9pVQ?si=PmncmUdc18Pg4fwL" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
-        { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/placeholder5" },
-        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/placeholder6" },
+        { title: "Phim tư liệu 5", src: "https://youtu.be/U4_HazNusVk?si=tmnRlZbwQp2_X39s" },
+        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y?si=a2fNtV9Fh0VQ6tb_" },
     ];
 
     // Helper function to extract Video ID and return Embed URL

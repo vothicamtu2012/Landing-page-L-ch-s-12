@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon } from './components/Icons';
 
@@ -72,7 +73,7 @@ const MarqueeSection = () => {
 // --- HeroSection Component ---
 const HeroSection = () => {
     return (
-        <section className="relative w-full h-screen flex flex-col items-center justify-end text-center overflow-hidden pb-20">
+        <section className="relative w-full h-screen flex flex-col items-center justify-end text-center overflow-hidden pb-12">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img 
@@ -90,14 +91,19 @@ const HeroSection = () => {
             {/* Content */}
             <div className="relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center animate-fade-in-up w-full">
                 
+                {/* Slogan added here */}
+                <p className="text-white/90 text-lg md:text-2xl font-serif italic mb-4 tracking-wide drop-shadow-md border-b border-antique-gold/50 pb-2">
+                    “Mỗi trang sử – Một bài học làm người.”
+                </p>
+
                 {/* Typography Design */}
-                <div className="flex flex-col items-center mb-10 w-full">
-                    <span className="text-2xl md:text-4xl font-display font-bold text-white mb-4 drop-shadow-lg tracking-wide opacity-95 font-serif">
+                <div className="flex flex-col items-center mb-6 w-full">
+                    <span className="text-2xl md:text-4xl font-display font-bold text-white mb-2 drop-shadow-lg tracking-wide opacity-95 font-serif">
                         Khám phá Lịch sử
                     </span>
                     
                     {/* Ornamental Divider */}
-                    <div className="flex items-center gap-4 opacity-80 mb-4">
+                    <div className="flex items-center gap-4 opacity-80 mb-2">
                         <div className="h-[2px] w-16 bg-antique-gold"></div>
                     </div>
 
@@ -106,7 +112,7 @@ const HeroSection = () => {
                     </span>
                 </div>
                 
-                <p className="text-white/90 text-base md:text-xl max-w-3xl mb-12 font-serif font-light leading-relaxed drop-shadow-md">
+                <p className="text-white/90 text-base md:text-xl max-w-3xl mb-8 font-serif font-light leading-relaxed drop-shadow-md">
                     Học liệu số môn Lịch sử 12 – Dành cho giáo viên & học sinh THPT theo chương trình GDPT 2018.
                 </p>
 
@@ -636,9 +642,9 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "https://youtu.be/r4O2sqszkW0?si=LbtN9CJ2NILFdI-a" }, // Link gốc từ user, sẽ tự động chạy
+        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/placeholder1" }, // Đã xóa link cũ, chờ link mới
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
-        { title: "Phim tư liệu 3", src: "https://youtu.be/xudfEww9pVQ?si=PmncmUdc18Pg4fwL" },
+        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0?si=HOOvhPK2REPo5si9" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
         { title: "Phim tư liệu 5", src: "https://youtu.be/U4_HazNusVk?si=tmnRlZbwQp2_X39s" },
         { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y?si=a2fNtV9Fh0VQ6tb_" },

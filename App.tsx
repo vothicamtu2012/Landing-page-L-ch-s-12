@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon } from './components/Icons';
 
@@ -91,8 +90,8 @@ const HeroSection = () => {
             {/* Content */}
             <div className="relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center animate-fade-in-up w-full">
                 
-                {/* Slogan added here */}
-                <p className="text-white/90 text-lg md:text-2xl font-serif italic mb-4 tracking-wide drop-shadow-md border-b border-antique-gold/50 pb-2">
+                {/* Slogan */}
+                <p className="text-white/90 text-lg md:text-2xl font-serif italic mb-4 tracking-wider drop-shadow-md border-b-2 border-antique-gold/50 pb-2">
                     “Mỗi trang sử – Một bài học làm người.”
                 </p>
 
@@ -102,11 +101,6 @@ const HeroSection = () => {
                         Khám phá Lịch sử
                     </span>
                     
-                    {/* Ornamental Divider */}
-                    <div className="flex items-center gap-4 opacity-80 mb-2">
-                        <div className="h-[2px] w-16 bg-antique-gold"></div>
-                    </div>
-
                     <span className="text-4xl md:text-7xl font-sans font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-antique-gold uppercase tracking-tight drop-shadow-xl text-shadow-lg leading-tight py-2">
                         Nuôi dưỡng lòng yêu nước
                     </span>
@@ -118,7 +112,7 @@ const HeroSection = () => {
 
                 <button 
                     onClick={() => document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#003366] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-8"
+                    className="group relative px-10 py-4 bg-antique-gold hover:bg-white text-[#003366] font-bold text-lg rounded-full shadow-2xl transition-all duration-300 tracking-wider overflow-hidden mb-4"
                 >
                     <span className="relative z-10 group-hover:text-[#003366] transition-colors duration-300 uppercase">KHÁM PHÁ NGAY</span>
                     <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
@@ -642,12 +636,12 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/placeholder1" }, // Đã xóa link cũ, chờ link mới
+        { title: "Phim tư liệu 1", src: "https://youtu.be/r4O2sqszkW0?si=LbtN9CJ2NILFdI-a" }, // Link gốc từ user, sẽ tự động chạy
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
-        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0?si=HOOvhPK2REPo5si9" },
+        { title: "Phim tư liệu 3", src: "https://youtu.be/xudfEww9pVQ?si=PmncmUdc18Pg4fwL" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
-        { title: "Phim tư liệu 5", src: "https://youtu.be/U4_HazNusVk?si=tmnRlZbwQp2_X39s" },
-        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y?si=a2fNtV9Fh0VQ6tb_" },
+        { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/placeholder5" },
+        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/placeholder6" },
     ];
 
     // Helper function to extract Video ID and return Embed URL

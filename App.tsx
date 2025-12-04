@@ -447,7 +447,7 @@ const GameModal = ({ isOpen, onClose }: ModalProps) => {
     // Mapping link cho các trò chơi (Hiện tại chưa có link, dùng alert)
     const gameLinks: Record<string, string> = {
         "crossword": "", // Link Trò chơi Ô chữ
-        "wheel": "",     // Link Chiếc nón kỳ diệu
+        "wheel": "https://gemini.google.com/share/4734ce70c067", // Link Chiếc nón kỳ diệu
         "wordsearch": "" // Link Tìm từ khóa
     };
 
@@ -737,22 +737,32 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "" }, // Placeholder
-        { title: "Phim tư liệu 2", src: "https://www.youtube.com/embed/BTE8r9kRjvs" },
-        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0" },
-        { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/injdXI30g2M" },
-        { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/U4_HazNusVk" },
-        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y" },
+        { title: "Phim tư liệu 1", src: "https://youtu.be/xudfEww9pVQ?si=YlWWhp-wDQr2YrFG" }, // Link gốc từ user, sẽ tự động chạy
+        { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
+        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0?si=HOOvhPK2REPo5si9" }, // Update here from iframe src
+        { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
+        { title: "Phim tư liệu 5", src: "https://youtu.be/U4_HazNusVk?si=tmnRlZbwQp2_X39s" },
+        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y?si=a2fNtV9Fh0VQ6tb_" },
     ];
 
     // Helper function to extract Video ID and return Embed URL
     const getEmbedUrl = (url: string) => {
-        if (url.includes('youtube.com/embed/')) return url; // Already an embed link
-        
-        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/)([^#&?]*))/);
-        const videoId = videoIdMatch ? videoIdMatch[1] : null;
-        
-        return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+        if (url.includes('youtube.com/embed/')) {
+             // Extract ID if it has params, or return cleaner version
+             const idMatch = url.match(/embed\/([^?&]+)/);
+             return idMatch ? `https://www.youtube.com/embed/${idMatch[1]}?rel=0` : url;
+        }
+
+        // Standard regex for YouTube IDs (supports share, watch, live, short)
+        // Added 'live/' to support live stream links like youtube.com/live/ID
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|live\/)([^#&?]*).*/;
+        const match = url.match(regExp);
+
+        if (match && match[2].length === 11) {
+            return `https://www.youtube.com/embed/${match[2]}?rel=0`;
+        } else {
+            return url; // Return original if no match (e.g. placeholder)
+        }
     };
 
     return (
@@ -769,19 +779,13 @@ const DocumentarySection = () => {
                         <div key={idx} className="group relative bg-white p-3 rounded-lg shadow-md border-2 border-transparent hover:border-antique-gold transition-all duration-300">
                             {/* Khung Video giả lập (16:9) */}
                             <div className="relative w-full pt-[56.25%] bg-black rounded overflow-hidden">
-                                {video.src ? (
-                                    <iframe 
-                                        className="absolute top-0 left-0 w-full h-full"
-                                        src={video.src} 
-                                        title={video.title}
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowFullScreen
-                                    ></iframe>
-                                ) : (
-                                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 text-white/50">
-                                        <span className="text-sm">Đang cập nhật video</span>
-                                    </div>
-                                )}
+                                <iframe 
+                                    className="absolute top-0 left-0 w-full h-full"
+                                    src={getEmbedUrl(video.src)} 
+                                    title={video.title}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen
+                                ></iframe>
                             </div>
                             <h3 className="mt-4 text-lg font-bold text-center text-charcoal group-hover:text-history-red transition-colors font-display">
                                 {video.title}

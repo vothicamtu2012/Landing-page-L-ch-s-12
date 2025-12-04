@@ -257,6 +257,90 @@ const MindMapModal = ({ isOpen, onClose }: ModalProps) => {
     );
 };
 
+// --- LectureModal Component (Bài giảng điện tử) ---
+const LectureModal = ({ isOpen, onClose }: ModalProps) => {
+    const [selectedType, setSelectedType] = useState("ppt");
+
+    if (!isOpen) return null;
+
+    // Mapping link cho tài liệu
+    const lectureLinks: Record<string, string> = {
+        "ppt": "", // Link Giáo án PowerPoint 12
+        "word": "" // Link Giáo án Word 12
+    };
+
+    const handleViewContent = () => {
+        const link = lectureLinks[selectedType];
+        if (link) {
+            window.open(link, '_blank');
+        } else {
+            let typeName = selectedType === "ppt" ? "Giáo án PowerPoint 12" : "Giáo án Word 12";
+            alert(`Đang mở tài liệu: ${typeName} \n(Chức năng đang được cập nhật link)`);
+        }
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            ></div>
+
+            {/* Modal Content */}
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
+                {/* Header */}
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
+                        <BookIcon className="w-6 h-6 text-antique-gold" />
+                        Bài giảng điện tử
+                    </h3>
+                    <button 
+                        onClick={onClose}
+                        className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-8">
+                    <label className="block text-charcoal font-serif font-bold mb-4 text-lg text-center">
+                        Bạn muốn xem loại tài liệu nào?
+                    </label>
+                    
+                    <div className="relative">
+                        <select 
+                            value={selectedType}
+                            onChange={(e) => setSelectedType(e.target.value)}
+                            className="w-full bg-white border-2 border-antique-gold text-charcoal py-3 px-4 pr-8 rounded focus:outline-none focus:ring-2 focus:ring-history-red focus:border-transparent appearance-none font-sans text-lg cursor-pointer"
+                        >
+                            <option value="ppt">Giáo án PowerPoint 12</option>
+                            <option value="word">Giáo án Word 12</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-charcoal">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
+                    <button 
+                        onClick={handleViewContent}
+                        className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                        Xem nội dung
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- ExerciseModal Component (Bài tập theo chủ đề) ---
 const ExerciseModal = ({ isOpen, onClose }: ModalProps) => {
     const [selectedTopic, setSelectedTopic] = useState("1");
@@ -629,9 +713,10 @@ interface ResourceSectionProps {
     onOpenExercise: () => void;
     onOpenTrueFalse: () => void;
     onOpenGame: () => void;
+    onOpenLecture: () => void;
 }
 
-const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame }: ResourceSectionProps) => {
+const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame, onOpenLecture }: ResourceSectionProps) => {
     // Sử dụng màu Earthy tones (Tông màu đất) để tự nhiên và dịu mắt
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-12 h-12" />, bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-200", hover: "hover:border-stone-400" },
@@ -653,6 +738,8 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
             onOpenTrueFalse();
         } else if (title === "Các loại Trò chơi Lịch sử") {
             onOpenGame();
+        } else if (title === "Bài giảng điện tử") {
+            onOpenLecture();
         }
     };
 
@@ -893,6 +980,7 @@ export default function App() {
   const [isExerciseModalOpen, setIsExerciseModalOpen] = useState(false);
   const [isTrueFalseModalOpen, setIsTrueFalseModalOpen] = useState(false);
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
+  const [isLectureModalOpen, setIsLectureModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-paper font-sans text-charcoal flex flex-col selection:bg-antique-gold selection:text-white">
@@ -906,6 +994,7 @@ export default function App() {
             onOpenExercise={() => setIsExerciseModalOpen(true)}
             onOpenTrueFalse={() => setIsTrueFalseModalOpen(true)}
             onOpenGame={() => setIsGameModalOpen(true)}
+            onOpenLecture={() => setIsLectureModalOpen(true)}
         />
         <PracticeRoomSection />
         <DocumentarySection />
@@ -930,6 +1019,10 @@ export default function App() {
         <GameModal
             isOpen={isGameModalOpen}
             onClose={() => setIsGameModalOpen(false)}
+        />
+        <LectureModal
+            isOpen={isLectureModalOpen}
+            onClose={() => setIsLectureModalOpen(false)}
         />
     </div>
   );

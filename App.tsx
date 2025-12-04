@@ -266,7 +266,7 @@ const LectureModal = ({ isOpen, onClose }: ModalProps) => {
     // Mapping link cho tài liệu
     const lectureLinks: Record<string, string> = {
         "ppt": "", // Link Giáo án PowerPoint 12
-        "word": "" // Link Giáo án Word 12
+        "word": "https://docs.google.com/document/d/1lnjo5KfdT8ckjzzSUiyzWd7jXgOYXSBg/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true" // Link Giáo án Word 12
     };
 
     const handleViewContent = () => {

@@ -784,7 +784,7 @@ const PracticeRoomSection = () => {
       'https://i.postimg.cc/BvSxr9zL/hoat-dong-truong-05.jpg',
       'https://i.postimg.cc/pdvHxkQ5/hoat-dong-truong-06.jpg',
       'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-07.jpg',
-      'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-08.jpg', 
+      'https://i.postimg.cc/jdsGdd7Z/khoanh_khac_7_jpg.png', // Updated image
       'https://i.postimg.cc/Y2ZJfkn9/hoat-dong-truong-09.jpg',
       'https://i.postimg.cc/9Q7TRP49/hoat-dong-truong-10.jpg',
     ];

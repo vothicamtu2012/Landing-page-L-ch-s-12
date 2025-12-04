@@ -438,6 +438,98 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
     );
 };
 
+// --- GameModal Component (Trò chơi Lịch sử) ---
+const GameModal = ({ isOpen, onClose }: ModalProps) => {
+    const [selectedGame, setSelectedGame] = useState("crossword");
+
+    if (!isOpen) return null;
+
+    // Mapping link cho các trò chơi (Hiện tại chưa có link, dùng alert)
+    const gameLinks: Record<string, string> = {
+        "crossword": "", // Link Trò chơi Ô chữ
+        "wheel": "",     // Link Chiếc nón kỳ diệu
+        "wordsearch": "" // Link Tìm từ khóa
+    };
+
+    const handleStartGame = () => {
+        const link = gameLinks[selectedGame];
+        let gameName = "";
+        switch (selectedGame) {
+            case "crossword": gameName = "Trò chơi Ô chữ"; break;
+            case "wheel": gameName = "Chiếc nón kỳ diệu"; break;
+            case "wordsearch": gameName = "Tìm từ khóa"; break;
+        }
+
+        if (link) {
+            window.open(link, '_blank');
+        } else {
+            alert(`Đang khởi động: ${gameName} \n(Chức năng đang được cập nhật link)`);
+        }
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            ></div>
+
+            {/* Modal Content */}
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
+                {/* Header */}
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
+                        <GameIcon className="w-6 h-6 text-antique-gold" />
+                        Các loại Trò chơi Lịch sử
+                    </h3>
+                    <button 
+                        onClick={onClose}
+                        className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-8">
+                    <label className="block text-charcoal font-serif font-bold mb-4 text-lg text-center">
+                        Bạn chọn trò chơi nào để giải trí?
+                    </label>
+                    
+                    <div className="relative">
+                        <select 
+                            value={selectedGame}
+                            onChange={(e) => setSelectedGame(e.target.value)}
+                            className="w-full bg-white border-2 border-antique-gold text-charcoal py-3 px-4 pr-8 rounded focus:outline-none focus:ring-2 focus:ring-history-red focus:border-transparent appearance-none font-sans text-lg cursor-pointer"
+                        >
+                            <option value="crossword">Trò chơi Ô chữ</option>
+                            <option value="wheel">Chiếc nón kỳ diệu</option>
+                            <option value="wordsearch">Tìm từ khóa</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-charcoal">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
+                    <button 
+                        onClick={handleStartGame}
+                        className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                        Bắt đầu
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- ExamModal Component (Luyện thi THPT) ---
 const ExamModal = ({ isOpen, onClose }: ModalProps) => {
     const [selectedExam, setSelectedExam] = useState("1");
@@ -536,16 +628,17 @@ interface ResourceSectionProps {
     onOpenExam: () => void;
     onOpenExercise: () => void;
     onOpenTrueFalse: () => void;
+    onOpenGame: () => void;
 }
 
-const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse }: ResourceSectionProps) => {
+const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame }: ResourceSectionProps) => {
     // Sử dụng màu Earthy tones (Tông màu đất) để tự nhiên và dịu mắt
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-12 h-12" />, bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-200", hover: "hover:border-stone-400" },
         { title: "Sơ đồ tư duy", icon: <MindmapIcon className="w-12 h-12" />, bg: "bg-amber-50", text: "text-amber-900", border: "border-amber-200", hover: "hover:border-amber-400" },
         { title: "Bài tập theo chủ đề", icon: <PuzzleIcon className="w-12 h-12" />, bg: "bg-emerald-50", text: "text-emerald-900", border: "border-emerald-200", hover: "hover:border-emerald-400" },
         { title: "Bài tập dạng đúng - sai", icon: <TrueFalseIcon className="w-12 h-12" />, bg: "bg-sky-50", text: "text-sky-900", border: "border-sky-200", hover: "hover:border-sky-400" },
-        { title: "Trò chơi Lịch sử", icon: <GameIcon className="w-12 h-12" />, bg: "bg-rose-50", text: "text-rose-900", border: "border-rose-200", hover: "hover:border-rose-400" },
+        { title: "Các loại Trò chơi Lịch sử", icon: <GameIcon className="w-12 h-12" />, bg: "bg-rose-50", text: "text-rose-900", border: "border-rose-200", hover: "hover:border-rose-400" },
         { title: "Luyện thi THPT", icon: <CheckCircleIcon className="w-12 h-12" />, bg: "bg-orange-50", text: "text-orange-900", border: "border-orange-200", hover: "hover:border-orange-400" },
     ];
 
@@ -558,6 +651,8 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
             onOpenExercise();
         } else if (title === "Bài tập dạng đúng - sai") {
             onOpenTrueFalse();
+        } else if (title === "Các loại Trò chơi Lịch sử") {
+            onOpenGame();
         }
     };
 
@@ -642,12 +737,12 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "https://www.youtube.com/embed/placeholder1" }, // Đã xóa link cũ, chờ link mới
-        { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
-        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0?si=HOOvhPK2REPo5si9" },
-        { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
-        { title: "Phim tư liệu 5", src: "https://youtu.be/U4_HazNusVk?si=tmnRlZbwQp2_X39s" },
-        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y?si=a2fNtV9Fh0VQ6tb_" },
+        { title: "Phim tư liệu 1", src: "" }, // Placeholder
+        { title: "Phim tư liệu 2", src: "https://www.youtube.com/embed/BTE8r9kRjvs" },
+        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0" },
+        { title: "Phim tư liệu 4", src: "https://www.youtube.com/embed/injdXI30g2M" },
+        { title: "Phim tư liệu 5", src: "https://www.youtube.com/embed/U4_HazNusVk" },
+        { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y" },
     ];
 
     // Helper function to extract Video ID and return Embed URL
@@ -674,13 +769,19 @@ const DocumentarySection = () => {
                         <div key={idx} className="group relative bg-white p-3 rounded-lg shadow-md border-2 border-transparent hover:border-antique-gold transition-all duration-300">
                             {/* Khung Video giả lập (16:9) */}
                             <div className="relative w-full pt-[56.25%] bg-black rounded overflow-hidden">
-                                <iframe 
-                                    className="absolute top-0 left-0 w-full h-full"
-                                    src={getEmbedUrl(video.src)} 
-                                    title={video.title}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowFullScreen
-                                ></iframe>
+                                {video.src ? (
+                                    <iframe 
+                                        className="absolute top-0 left-0 w-full h-full"
+                                        src={video.src} 
+                                        title={video.title}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowFullScreen
+                                    ></iframe>
+                                ) : (
+                                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 text-white/50">
+                                        <span className="text-sm">Đang cập nhật video</span>
+                                    </div>
+                                )}
                             </div>
                             <h3 className="mt-4 text-lg font-bold text-center text-charcoal group-hover:text-history-red transition-colors font-display">
                                 {video.title}
@@ -787,6 +888,7 @@ export default function App() {
   const [isExamModalOpen, setIsExamModalOpen] = useState(false);
   const [isExerciseModalOpen, setIsExerciseModalOpen] = useState(false);
   const [isTrueFalseModalOpen, setIsTrueFalseModalOpen] = useState(false);
+  const [isGameModalOpen, setIsGameModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-paper font-sans text-charcoal flex flex-col selection:bg-antique-gold selection:text-white">
@@ -799,6 +901,7 @@ export default function App() {
             onOpenExam={() => setIsExamModalOpen(true)}
             onOpenExercise={() => setIsExerciseModalOpen(true)}
             onOpenTrueFalse={() => setIsTrueFalseModalOpen(true)}
+            onOpenGame={() => setIsGameModalOpen(true)}
         />
         <PracticeRoomSection />
         <DocumentarySection />
@@ -819,6 +922,10 @@ export default function App() {
         <ExamModal 
             isOpen={isExamModalOpen} 
             onClose={() => setIsExamModalOpen(false)} 
+        />
+        <GameModal
+            isOpen={isGameModalOpen}
+            onClose={() => setIsGameModalOpen(false)}
         />
     </div>
   );

@@ -778,7 +778,7 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
 const PracticeRoomSection = () => {
     const schoolActivityImages = [
       'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-01.jpg',
-      'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-02.jpg',
+      'https://i.postimg.cc/zvPNyTrz/hoat_dong_truong_07.jpg', // Updated image
       'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png',
       'https://i.postimg.cc/Y0h4QqWw/hoat-dong-truong-04.jpg',
       'https://i.postimg.cc/BvSxr9zL/hoat-dong-truong-05.jpg',
@@ -799,18 +799,30 @@ const PracticeRoomSection = () => {
           
           {/* Horizontal Scroll (Carousel) - Styled nicer */}
           <div className="relative">
-             <div className="flex overflow-x-auto gap-8 pb-12 snap-x scroll-smooth scrollbar-thin px-4">
+             <div className="flex overflow-x-auto gap-6 pb-12 pt-4 snap-x scroll-smooth scrollbar-thin scrollbar-thumb-antique-gold scrollbar-track-transparent items-center px-4">
                 {schoolActivityImages.map((src, index) => (
                     <div 
                         key={index} 
-                        className="flex-none w-80 md:w-96 aspect-[4/3] rounded-sm overflow-hidden shadow-md hover:shadow-2xl border-[6px] border-white bg-white snap-center transform hover:-translate-y-1 transition-all duration-300"
+                        className="flex-none w-[85vw] sm:w-96 md:w-[500px] aspect-[4/3] relative group snap-center cursor-pointer perspective-1000"
                     >
-                      <img
-                        src={src}
-                        alt={`Hình ảnh hoạt động ${index + 1}`}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
+                      {/* Stacked paper effect */}
+                      <div className="absolute inset-0 bg-white transform rotate-1 group-hover:rotate-3 transition-transform duration-500 rounded shadow-md border border-gray-200/50"></div>
+                      
+                      {/* Main Frame */}
+                      <div className="relative w-full h-full bg-white p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transform transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_20px_50px_rgb(0,0,0,0.25)] border border-gray-100">
+                          <div className="w-full h-full overflow-hidden relative border border-gray-100">
+                              <img
+                                src={src}
+                                alt={`Hình ảnh hoạt động ${index + 1}`}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.1] group-hover:grayscale-0"
+                                loading="lazy"
+                              />
+                              {/* Overlay Caption */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
+                                  <span className="text-white font-display tracking-widest uppercase text-sm md:text-base border-b border-antique-gold pb-1">Hoạt động {index + 1}</span>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                   ))}
              </div>

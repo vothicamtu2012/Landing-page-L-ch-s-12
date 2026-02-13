@@ -530,9 +530,9 @@ const QAModal = ({ isOpen, onClose }: ModalProps) => {
 
     // Mapping link for Q&A exercises
     const qaLinks: Record<string, string> = {
-        "1": "",
-        "2": "",
-        "3": "",
+        "1": "https://docs.google.com/document/d/1QM8X1RKMf6mFiIUjb9cwQa4pcgJZpWGH/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
+        "2": "https://docs.google.com/document/d/1KWRvOtiLGPIZ3BRvkxL_7O8SerAt_yFx/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
+        "3": "https://docs.google.com/document/d/1dngS5jWGYW08fECBniN4qX0DKcw_1sL7/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
         "4": "",
         "5": "",
         "6": "",

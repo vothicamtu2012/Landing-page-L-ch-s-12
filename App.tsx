@@ -530,7 +530,7 @@ const GameModal = ({ isOpen, onClose }: ModalProps) => {
 
     // Mapping link cho các trò chơi (Hiện tại chưa có link, dùng alert)
     const gameLinks: Record<string, string> = {
-        "crossword": "", // Link Trò chơi Ô chữ
+        "crossword": "https://gemini.google.com/share/dcc3615e5055", // Link Trò chơi Ô chữ
         "wheel": "https://gemini.google.com/share/4734ce70c067", // Link Chiếc nón kỳ diệu
         "wordsearch": "" // Link Tìm từ khóa
     };

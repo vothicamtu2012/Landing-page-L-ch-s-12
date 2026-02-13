@@ -933,7 +933,7 @@ const DocumentarySection = () => {
     const videos = [
         { title: "Phim tư liệu 1", src: "https://youtu.be/_090ZoR0HWc?si=thP6fwrvobXeSwF0" },
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
-        { title: "Phim tư liệu 3", src: "https://www.youtube.com/embed/r4O2sqszkW0?si=HOOvhPK2REPo5si9" }, // Update here from iframe src
+        { title: "Phim tư liệu 3", src: "https://youtu.be/srHoCgDF3fo?si=eFeTNo5LQELryNuk" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
         { title: "Phim tư liệu 5", src: "https://youtu.be/U4_HazNusVk?si=tmnRlZbwQp2_X39s" },
         { title: "Phim tư liệu 6", src: "https://www.youtube.com/embed/mP3uw8vvI0Y?si=a2fNtV9Fh0VQ6tb_" },

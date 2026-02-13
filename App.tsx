@@ -533,9 +533,9 @@ const QAModal = ({ isOpen, onClose }: ModalProps) => {
         "1": "https://docs.google.com/document/d/1QM8X1RKMf6mFiIUjb9cwQa4pcgJZpWGH/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
         "2": "https://docs.google.com/document/d/1KWRvOtiLGPIZ3BRvkxL_7O8SerAt_yFx/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
         "3": "https://docs.google.com/document/d/1dngS5jWGYW08fECBniN4qX0DKcw_1sL7/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
-        "4": "",
-        "5": "",
-        "6": "",
+        "4": "https://docs.google.com/document/d/13FE9tJvwxo4d3ZTKWbqyKYT6lSfJXjL5/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
+        "5": "https://docs.google.com/document/d/1yD_0ENQcdDLZ0l9t8MOlmmrHL9g46div/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
+        "6": "https://docs.google.com/document/d/1wavFts1Xx9FAIpVsfRiwByAEL_hgQ_jz/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true",
     };
 
     const handleViewContent = () => {

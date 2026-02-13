@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon } from './components/Icons';
+import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon, QandAIcon } from './components/Icons';
 
 // --- DateTimeDisplay Component ---
 const DateTimeDisplay = () => {
@@ -522,6 +522,97 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
     );
 };
 
+// --- QAModal Component (Bài tập dạng Hỏi - Đáp) ---
+const QAModal = ({ isOpen, onClose }: ModalProps) => {
+    const [selectedTopic, setSelectedTopic] = useState("1");
+
+    if (!isOpen) return null;
+
+    // Mapping link for Q&A exercises
+    const qaLinks: Record<string, string> = {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+    };
+
+    const handleViewContent = () => {
+        const link = qaLinks[selectedTopic];
+        if (link) {
+            window.open(link, '_blank');
+        } else {
+            alert(`Đang mở bài tập Hỏi - Đáp: Chủ đề ${selectedTopic} \n(Chức năng đang được cập nhật link)`);
+        }
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            ></div>
+
+            {/* Modal Content */}
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
+                {/* Header */}
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
+                        <QandAIcon className="w-6 h-6 text-antique-gold" />
+                        Bài tập dạng Hỏi - Đáp
+                    </h3>
+                    <button 
+                        onClick={onClose}
+                        className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-8">
+                    <label className="block text-charcoal font-serif font-bold mb-4 text-lg text-center">
+                        Bạn chọn chủ đề cần luyện tập?
+                    </label>
+                    
+                    <div className="relative">
+                        <select 
+                            value={selectedTopic}
+                            onChange={(e) => setSelectedTopic(e.target.value)}
+                            className="w-full bg-white border-2 border-antique-gold text-charcoal py-3 px-4 pr-8 rounded focus:outline-none focus:ring-2 focus:ring-history-red focus:border-transparent appearance-none font-sans text-lg cursor-pointer"
+                        >
+                            <option value="1">Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh</option>
+                            <option value="2">Chủ đề 2: ASEAN: Những chặng đường lịch sử</option>
+                            <option value="3">Chủ đề 3: Cách mạng tháng Tám năm 1945...</option>
+                            <option value="4">Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay</option>
+                            <option value="5">Chủ đề 5: Lịch sử đối ngoại của Việt Nam</option>
+                            <option value="6">Chủ đề 6: Hồ Chí Minh trong lịch sử Việt Nam</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-charcoal">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
+                    <button 
+                        onClick={handleViewContent}
+                        className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                        Xem bài
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- GameModal Component (Trò chơi Lịch sử) ---
 const GameModal = ({ isOpen, onClose }: ModalProps) => {
     const [selectedGame, setSelectedGame] = useState("crossword");
@@ -714,15 +805,17 @@ interface ResourceSectionProps {
     onOpenTrueFalse: () => void;
     onOpenGame: () => void;
     onOpenLecture: () => void;
+    onOpenQA: () => void;
 }
 
-const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame, onOpenLecture }: ResourceSectionProps) => {
+const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame, onOpenLecture, onOpenQA }: ResourceSectionProps) => {
     // Sử dụng màu Earthy tones (Tông màu đất) để tự nhiên và dịu mắt
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-12 h-12" />, bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-200", hover: "hover:border-stone-400" },
         { title: "Sơ đồ tư duy", icon: <MindmapIcon className="w-12 h-12" />, bg: "bg-amber-50", text: "text-amber-900", border: "border-amber-200", hover: "hover:border-amber-400" },
         { title: "Bài tập theo chủ đề", icon: <PuzzleIcon className="w-12 h-12" />, bg: "bg-emerald-50", text: "text-emerald-900", border: "border-emerald-200", hover: "hover:border-emerald-400" },
         { title: "Bài tập dạng đúng - sai", icon: <TrueFalseIcon className="w-12 h-12" />, bg: "bg-sky-50", text: "text-sky-900", border: "border-sky-200", hover: "hover:border-sky-400" },
+        { title: "Bài tập dạng Hỏi - Đáp ngắn", icon: <QandAIcon className="w-12 h-12" />, bg: "bg-teal-50", text: "text-teal-900", border: "border-teal-200", hover: "hover:border-teal-400" },
         { title: "Các loại Trò chơi Lịch sử", icon: <GameIcon className="w-12 h-12" />, bg: "bg-rose-50", text: "text-rose-900", border: "border-rose-200", hover: "hover:border-rose-400" },
         { title: "Luyện thi THPT", icon: <CheckCircleIcon className="w-12 h-12" />, bg: "bg-orange-50", text: "text-orange-900", border: "border-orange-200", hover: "hover:border-orange-400" },
     ];
@@ -740,6 +833,8 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
             onOpenGame();
         } else if (title === "Bài giảng điện tử") {
             onOpenLecture();
+        } else if (title === "Bài tập dạng Hỏi - Đáp ngắn") {
+            onOpenQA();
         }
     };
 
@@ -993,6 +1088,7 @@ export default function App() {
   const [isTrueFalseModalOpen, setIsTrueFalseModalOpen] = useState(false);
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
   const [isLectureModalOpen, setIsLectureModalOpen] = useState(false);
+  const [isQAModalOpen, setIsQAModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-paper font-sans text-charcoal flex flex-col selection:bg-antique-gold selection:text-white">
@@ -1007,6 +1103,7 @@ export default function App() {
             onOpenTrueFalse={() => setIsTrueFalseModalOpen(true)}
             onOpenGame={() => setIsGameModalOpen(true)}
             onOpenLecture={() => setIsLectureModalOpen(true)}
+            onOpenQA={() => setIsQAModalOpen(true)}
         />
         <PracticeRoomSection />
         <DocumentarySection />
@@ -1035,6 +1132,10 @@ export default function App() {
         <LectureModal
             isOpen={isLectureModalOpen}
             onClose={() => setIsLectureModalOpen(false)}
+        />
+        <QAModal
+            isOpen={isQAModalOpen}
+            onClose={() => setIsQAModalOpen(false)}
         />
     </div>
   );

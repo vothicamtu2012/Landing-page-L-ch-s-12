@@ -441,7 +441,7 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
     const trueFalseLinks: Record<string, string> = {
         "1": "https://azota.vn/de-thi/ijkjte",
         "2": "https://azota.vn/de-thi/oaetnf",
-        "3": "https://azota.vn/de-thi/dcqffr",
+        "3": "https://azota.vn/de-thi/dds1zn",
         "4": "https://azota.vn/de-thi/a7sv9o",
         "5": "https://azota.vn/de-thi/mycoaa",
         "6": "https://azota.vn/de-thi/7pzayw",

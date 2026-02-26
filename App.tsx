@@ -442,9 +442,9 @@ const TrueFalseModal = ({ isOpen, onClose }: ModalProps) => {
         "1": "https://azota.vn/de-thi/ijkjte",
         "2": "https://azota.vn/de-thi/oaetnf",
         "3": "https://azota.vn/de-thi/dds1zn",
-        "4": "https://azota.vn/de-thi/a7sv9o",
-        "5": "https://azota.vn/de-thi/mycoaa",
-        "6": "https://azota.vn/de-thi/7pzayw",
+        "4": "https://azota.vn/de-thi/gcbbfv",
+        "5": "https://azota.vn/de-thi/gy4mop",
+        "6": "https://azota.vn/de-thi/9z18ua",
     };
 
     const handleViewContent = () => {

@@ -1187,6 +1187,156 @@ const DocumentarySection = () => {
     );
 }
 
+// --- FeedbackSection Component ---
+const FeedbackSection = () => {
+    const [formData, setFormData] = useState({ name: '', phone: '', question: '' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        const webhookUrl = 'https://us-central1-zenleads-ai.cloudfunctions.net/publicWebhook/iiu50Y57FUUlFwKWSUhi';
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Lỗi máy chủ: ' + response.status);
+            }
+
+            const responseData = await response.json();
+
+            // Hiển thị popup thành công
+            setShowSuccessModal(true);
+
+            // Đợi 5 giây rồi xử lý tiếp
+            setTimeout(() => {
+                if (responseData.redirectTo) {
+                    window.location.href = responseData.redirectTo;
+                } else {
+                    setShowSuccessModal(false);
+                    setFormData({ name: '', phone: '', question: '' });
+                }
+            }, 5000);
+
+        } catch (error) {
+            console.error('Lỗi khi gửi form:', error);
+            alert('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    return (
+        <section className="py-16 px-4 bg-paper-dark border-t-4 border-antique-gold relative overflow-hidden">
+             {/* Decor */}
+             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-history-red via-antique-gold to-history-red"></div>
+
+             {/* Success Modal */}
+             {showSuccessModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
+                    <div className="bg-white border-4 border-antique-gold rounded-xl shadow-2xl max-w-lg w-full p-8 text-center relative transform animate-scaleIn">
+                        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        
+                        <h3 className="text-2xl md:text-3xl font-display text-history-red font-bold mb-4">
+                            Bạn đã gửi phản hồi thành công !
+                        </h3>
+                        
+                        <div className="space-y-4 text-charcoal/80 font-serif text-lg">
+                            <p>
+                                Chúng tôi sẽ liên hệ lại trong vòng <span className="font-bold text-history-dark">24h</span>.
+                            </p>
+                            <div className="bg-antique-gold/10 p-4 rounded-lg border border-antique-gold/30 mt-4">
+                                <p className="mb-2">Nếu cần hỗ trợ gấp, vui lòng liên hệ:</p>
+                                <p className="font-bold text-history-red text-xl">Hotline: 0907.130.900</p>
+                                <p className="font-bold text-history-dark">(Thầy Dũng)</p>
+                            </div>
+                            <p className="text-sm italic opacity-70 mt-6">
+                                Tự động chuyển hướng sau 5 giây...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+             )}
+
+             <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm p-8 md:p-12 rounded-lg shadow-2xl border border-antique-gold/30 relative z-10">
+                <div className="text-center mb-10">
+                    <h2 className="text-3xl md:text-4xl font-display text-history-red font-bold mb-4">Gửi Phản Hồi & Góp Ý</h2>
+                    <p className="text-charcoal/80 font-serif italic text-lg">
+                        Ý kiến của thầy cô và các em là động lực để trang web ngày càng hoàn thiện hơn.
+                    </p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="block text-history-dark font-bold font-serif">Họ và tên</label>
+                            <input 
+                                type="text" 
+                                required
+                                className="w-full px-4 py-3 border-2 border-antique-gold/50 rounded focus:outline-none focus:border-history-red focus:ring-1 focus:ring-history-red transition-colors bg-paper text-charcoal"
+                                placeholder="Nhập họ tên của bạn..."
+                                value={formData.name}
+                                onChange={e => setFormData({...formData, name: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="block text-history-dark font-bold font-serif">Số điện thoại</label>
+                            <input 
+                                type="tel" 
+                                required
+                                className="w-full px-4 py-3 border-2 border-antique-gold/50 rounded focus:outline-none focus:border-history-red focus:ring-1 focus:ring-history-red transition-colors bg-paper text-charcoal"
+                                placeholder="Nhập số điện thoại..."
+                                value={formData.phone}
+                                onChange={e => setFormData({...formData, phone: e.target.value})}
+                            />
+                        </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                        <label className="block text-history-dark font-bold font-serif">Câu hỏi / Phản hồi</label>
+                        <textarea 
+                            required
+                            rows={4}
+                            className="w-full px-4 py-3 border-2 border-antique-gold/50 rounded focus:outline-none focus:border-history-red focus:ring-1 focus:ring-history-red transition-colors bg-paper resize-none text-charcoal"
+                            placeholder="Nội dung phản hồi..."
+                            value={formData.question}
+                            onChange={e => setFormData({...formData, question: e.target.value})}
+                        ></textarea>
+                    </div>
+
+                    <div className="text-center pt-4">
+                        <button 
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={`bg-history-red hover:bg-history-dark text-white font-bold py-3 px-12 rounded-full shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2 mx-auto ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                        >
+                            <span>{isSubmitting ? 'Đang gửi...' : 'Gửi Phản Hồi'}</span>
+                            {!isSubmitting && (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
+                </form>
+             </div>
+        </section>
+    );
+}
+
 // --- Footer Component ---
 const Footer = () => {
     return (
@@ -1306,6 +1456,7 @@ export default function App() {
         />
         <PracticeRoomSection />
         <DocumentarySection />
+        <FeedbackSection />
         <Footer />
 
         <MindMapModal 

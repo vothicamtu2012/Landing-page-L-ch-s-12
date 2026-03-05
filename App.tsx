@@ -716,7 +716,7 @@ const ExcellentStudentModal = ({ isOpen, onClose }: ModalProps) => {
 
     // Mapping link cho tài liệu ôn thi HSG
     const excellentLinks: Record<string, string> = {
-        "1": "", // Tài liệu 1
+        "1": "https://docs.google.com/document/d/1xWvcWPDWepbSGU9wVrEghY6KCYJd4khj/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true", // Tài liệu 1
         "2": "", // Tài liệu 2
         "3": "", // Tài liệu 3
         "4": "", // Tài liệu 4

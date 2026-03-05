@@ -1067,10 +1067,10 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
 // --- PracticeRoomSection Component ---
 const PracticeRoomSection = () => {
     const schoolActivityImages = [
-      'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-01.jpg',
-      'https://i.postimg.cc/zvPNyTrz/hoat_dong_truong_07.jpg', // Updated image
+      'https://i.postimg.cc/9FCPH5mQ/ANH-LUYEN-THI-1.jpg',
+      'https://i.postimg.cc/PxBjvQq7/ANH-ON-TAP-12D.jpg', // Updated image
       'https://i.postimg.cc/RFZCmwwF/truong-hoat-dong-03-jpg.png',
-      'https://i.postimg.cc/Y0h4QqWw/hoat-dong-truong-04.jpg',
+      'https://i.postimg.cc/T1Fpwb8v/ANH-12-C.jpg',
       'https://i.postimg.cc/BvSxr9zL/hoat-dong-truong-05.jpg',
       'https://i.postimg.cc/pdvHxkQ5/hoat-dong-truong-06.jpg',
       'https://i.postimg.cc/bY41tWNV/hoat-dong-truong-07.jpg',

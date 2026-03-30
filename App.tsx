@@ -993,7 +993,7 @@ const MockExamModal = ({ isOpen, onClose }: ModalProps) => {
     // Mapping link cho đề thi thử
     const mockExamLinks: Record<string, string> = {
         "1": "https://azota.vn/de-thi/3jvyuu", // Đề thi thử 1
-        "2": "", // Đề thi thử 2
+        "2": "https://azota.vn/de-thi/ikfetp", // Đề thi thử 2
         "3": "", // Đề thi thử 3
         "4": "", // Đề thi thử 4
         "5": "", // Đề thi thử 5

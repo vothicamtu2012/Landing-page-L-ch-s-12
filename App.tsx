@@ -810,7 +810,8 @@ const GameModal = ({ isOpen, onClose }: ModalProps) => {
     const gameLinks: Record<string, string> = {
         "crossword": "https://gemini.google.com/share/dcc3615e5055", // Link Trò chơi Ô chữ
         "wheel": "https://gemini.google.com/share/4734ce70c067", // Link Chiếc nón kỳ diệu
-        "wordsearch": "" // Link Tìm từ khóa
+        "wordsearch": "", // Link Tìm từ khóa
+        "goldenbell": "https://docs.google.com/presentation/d/1I2n8UuAqADAd2JB-ejc-4addpm557myk/edit?usp=sharing&ouid=107740259998793158800&rtpof=true&sd=true" // Link Rung chuông vàng
     };
 
     const handleStartGame = () => {
@@ -820,6 +821,7 @@ const GameModal = ({ isOpen, onClose }: ModalProps) => {
             case "crossword": gameName = "Trò chơi Ô chữ"; break;
             case "wheel": gameName = "Chiếc nón kỳ diệu"; break;
             case "wordsearch": gameName = "Tìm từ khóa"; break;
+            case "goldenbell": gameName = "Rung chuông vàng"; break;
         }
 
         if (link) {
@@ -871,6 +873,7 @@ const GameModal = ({ isOpen, onClose }: ModalProps) => {
                             <option value="crossword">Trò chơi Ô chữ</option>
                             <option value="wheel">Chiếc nón kỳ diệu</option>
                             <option value="wordsearch">Tìm từ khóa</option>
+                            <option value="goldenbell">Rung chuông vàng</option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-charcoal">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>

@@ -1136,7 +1136,7 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
         <section id="resources" className="py-24 px-4 bg-paper-dark relative border-t border-antique-gold/20">
              <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-display text-history-red mb-4 font-bold">Kho học liệu</h2>
+                    <h2 className="text-3xl md:text-5xl font-display text-history-red mb-4 font-bold">Kho học liệu Lịch Sử 12</h2>
                     <p className="text-charcoal/70 font-serif italic">Tài nguyên học tập phong phú & đa dạng</p>
                     <div className="w-24 h-1 bg-antique-gold mx-auto mt-6"></div>
                 </div>

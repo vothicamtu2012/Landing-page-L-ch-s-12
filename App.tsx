@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import Markdown from 'react-markdown';
 import { TeacherIcon, BookIcon, PuzzleIcon, MindmapIcon, LocalIcon, GameIcon, SoftwareIcon, GlobeAltIcon, PhoneIcon, BuildingLibraryIcon, CheckCircleIcon, TrueFalseIcon, EyeIcon, QandAIcon, DocumentTextIcon, AcademicCapIcon, ClipboardIcon } from './components/Icons';
 
 // --- DateTimeDisplay Component ---
@@ -1081,18 +1082,51 @@ const MockExamModal = ({ isOpen, onClose }: ModalProps) => {
 
 // --- TutorModal Component (Trợ lý gia sư Lịch sử) ---
 const TutorModal = ({ isOpen, onClose }: ModalProps) => {
+    const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([]);
+    const [input, setInput] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const messagesEndRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages, isLoading]);
+
     if (!isOpen) return null;
 
-    const handleViewContent = () => {
-        window.open("https://gemini.google.com/gem/632c92929ef4/3f00f9142535a1ce", "_blank");
-        onClose();
+    const handleSendMessage = async () => {
+        const text = input.trim();
+        if (!text) return;
+
+        setMessages((prev) => [...prev, { role: 'user', text }]);
+        setInput('');
+        setIsLoading(true);
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
+            setMessages((prev) => [...prev, { role: 'model', text: data.text }]);
+        } catch (error) {
+            console.error(error);
+            setMessages((prev) => [...prev, { role: 'model', text: "Lỗi kết nối đến máy chủ. Vui lòng thử lại!" }]);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
-            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
-                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-2xl h-[80vh] flex flex-col relative z-10 overflow-hidden animate-fade-in-up">
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold shrink-0">
                     <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
                         <TeacherIcon className="w-6 h-6 text-antique-gold" />
                         Trợ lý gia sư Lịch sử
@@ -1103,15 +1137,55 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
                         </svg>
                     </button>
                 </div>
-                <div className="p-8 text-center">
-                    <p className="text-charcoal font-serif mb-4 text-lg">
-                        Chat với trợ lý AI gia sư để giải đáp mọi thắc mắc môn Lịch sử 12.
-                    </p>
+                
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-paper-dark">
+                    {messages.length === 0 && (
+                        <div className="text-center text-charcoal/60 mt-10 font-serif italic">
+                            Hãy đặt câu hỏi về môn Lịch sử 12 cho trợ lý AI...
+                        </div>
+                    )}
+                    {messages.map((msg, index) => (
+                        <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`max-w-[85%] p-3 rounded-lg ${msg.role === 'user' ? 'bg-history-red text-white' : 'bg-white border border-antique-gold text-charcoal'} shadow-sm`}>
+                                <div className="prose prose-sm prose-p:my-1 prose-headings:my-2 prose-ul:my-1 max-w-none">
+                                    <Markdown>{msg.text}</Markdown>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {isLoading && (
+                        <div className="flex justify-start">
+                            <div className="max-w-[80%] p-3 rounded-lg bg-white border border-antique-gold text-charcoal shadow-sm">
+                                <div className="flex gap-1 items-center h-5">
+                                    <div className="w-2 h-2 bg-history-red rounded-full animate-bounce"></div>
+                                    <div className="w-2 h-2 bg-history-red rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                                    <div className="w-2 h-2 bg-history-red rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <div ref={messagesEndRef} />
                 </div>
-                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
-                    <button onClick={handleViewContent} className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-                        Bắt chuyện ngay
-                    </button>
+
+                <div className="p-4 bg-white border-t border-antique-gold shrink-0">
+                    <div className="flex gap-2">
+                        <input 
+                            type="text" 
+                            className="flex-1 border border-antique-gold rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-history-red text-charcoal bg-paper-dark"
+                            placeholder="Nhập câu hỏi..."
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                            disabled={isLoading}
+                        />
+                        <button 
+                            onClick={handleSendMessage}
+                            disabled={isLoading || !input.trim()}
+                            className="bg-history-red hover:bg-history-dark disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-bold transition-colors"
+                        >
+                            Gửi
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

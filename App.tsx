@@ -1084,8 +1084,7 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
     if (!isOpen) return null;
 
     const handleViewContent = () => {
-        // Replace with actual AI tutor link if available
-        alert("Đang cập nhật link cho Trợ lý gia sư Lịch sử");
+        window.open("https://gemini.google.com/gem/632c92929ef4/3f00f9142535a1ce", "_blank");
         onClose();
     };
 

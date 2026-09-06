@@ -1127,8 +1127,15 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
             <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-2xl h-[80vh] flex flex-col relative z-10 overflow-hidden animate-fade-in-up">
                 <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold shrink-0">
-                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
-                        <TeacherIcon className="w-6 h-6 text-antique-gold" />
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-antique-gold bg-white flex items-center justify-center shrink-0">
+                            <img src="/ai-tutor.png" alt="AI Tutor Avatar" className="w-full h-full object-cover" onError={(e) => {
+                                // Fallback to icon if image not found
+                                e.currentTarget.style.display = 'none';
+                                e.currentTarget.parentElement?.classList.add('fallback-icon');
+                            }} />
+                            <style>{`.fallback-icon::before { content: '🤖'; font-size: 20px; }`}</style>
+                        </div>
                         Trợ lý gia sư Lịch sử
                     </h3>
                     <button onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors">
@@ -1145,7 +1152,16 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
                         </div>
                     )}
                     {messages.map((msg, index) => (
-                        <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start gap-2'}`}>
+                            {msg.role === 'model' && (
+                                <div className="w-8 h-8 rounded-full overflow-hidden border border-antique-gold bg-white flex items-center justify-center shrink-0 mt-1">
+                                    <img src="/ai-tutor.png" alt="AI" className="w-full h-full object-cover" onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                        e.currentTarget.parentElement?.classList.add('fallback-icon-small');
+                                    }} />
+                                    <style>{`.fallback-icon-small::before { content: '🤖'; font-size: 16px; }`}</style>
+                                </div>
+                            )}
                             <div className={`max-w-[85%] p-3 rounded-lg ${msg.role === 'user' ? 'bg-history-red text-white' : 'bg-white border border-antique-gold text-charcoal'} shadow-sm`}>
                                 <div className="prose prose-sm prose-p:my-1 prose-headings:my-2 prose-ul:my-1 max-w-none">
                                     <Markdown>{msg.text}</Markdown>
@@ -1154,7 +1170,13 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
                         </div>
                     ))}
                     {isLoading && (
-                        <div className="flex justify-start">
+                        <div className="flex justify-start gap-2">
+                            <div className="w-8 h-8 rounded-full overflow-hidden border border-antique-gold bg-white flex items-center justify-center shrink-0 mt-1">
+                                <img src="/ai-tutor.png" alt="AI" className="w-full h-full object-cover" onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.parentElement?.classList.add('fallback-icon-small');
+                                }} />
+                            </div>
                             <div className="max-w-[80%] p-3 rounded-lg bg-white border border-antique-gold text-charcoal shadow-sm">
                                 <div className="flex gap-1 items-center h-5">
                                     <div className="w-2 h-2 bg-history-red rounded-full animate-bounce"></div>

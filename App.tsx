@@ -64,7 +64,7 @@ const MarqueeSection = () => {
     return (
         <div className="bg-history-red text-paper py-2 overflow-hidden border-b-4 border-antique-gold relative z-50 shadow-sm">
             <div className="animate-marquee whitespace-nowrap inline-block font-bold text-sm md:text-base uppercase tracking-widest font-sans">
-                Trường phổ thông DTNT THPT Bình Phước tỉnh Đồng Nai  - Tổ : TDQP - Sử - Địa - GDKTPL
+                Trường PT DTNT THPT Bình Phước thành phố Đồng Nai  - Tổ : TDQP - Sử - Địa - GDKTPL
             </div>
         </div>
     );

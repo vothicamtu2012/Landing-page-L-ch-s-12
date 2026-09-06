@@ -1084,11 +1084,6 @@ const MockExamModal = ({ isOpen, onClose }: ModalProps) => {
 const TutorModal = ({ isOpen, onClose }: ModalProps) => {
     if (!isOpen) return null;
 
-    const handleViewContent = () => {
-        window.open("https://gemini.google.com/gem/1Ktw_Syfa3NUlnUZSKqDBLFvKDRc-Jaf_?usp=sharing", "_blank");
-        onClose();
-    };
-
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
@@ -1117,9 +1112,15 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
                     </p>
                 </div>
                 <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
-                    <button onClick={handleViewContent} className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                    <a 
+                        href="https://gemini.google.com/gem/1Ktw_Syfa3NUlnUZSKqDBLFvKDRc-Jaf_?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={onClose}
+                        className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 inline-block text-center"
+                    >
                         Chuyển đến Google Gemini
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

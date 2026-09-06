@@ -1079,6 +1079,46 @@ const MockExamModal = ({ isOpen, onClose }: ModalProps) => {
     );
 };
 
+// --- TutorModal Component (Trợ lý gia sư Lịch sử) ---
+const TutorModal = ({ isOpen, onClose }: ModalProps) => {
+    if (!isOpen) return null;
+
+    const handleViewContent = () => {
+        // Replace with actual AI tutor link if available
+        alert("Đang cập nhật link cho Trợ lý gia sư Lịch sử");
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
+            <div className="bg-paper border-4 border-double border-antique-gold rounded-lg shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up">
+                <div className="bg-history-red p-4 flex justify-between items-center border-b border-antique-gold">
+                    <h3 className="text-white font-display font-bold text-xl flex items-center gap-2">
+                        <TeacherIcon className="w-6 h-6 text-antique-gold" />
+                        Trợ lý gia sư Lịch sử
+                    </h3>
+                    <button onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div className="p-8 text-center">
+                    <p className="text-charcoal font-serif mb-4 text-lg">
+                        Chat với trợ lý AI gia sư để giải đáp mọi thắc mắc môn Lịch sử 12.
+                    </p>
+                </div>
+                <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
+                    <button onClick={handleViewContent} className="bg-history-red hover:bg-history-dark text-white font-bold py-3 px-8 rounded shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                        Bắt chuyện ngay
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // --- ResourceSection Component ---
 interface ResourceSectionProps {
     onOpenMindMap: () => void;
@@ -1091,9 +1131,10 @@ interface ResourceSectionProps {
     onOpenReviewOutline: () => void;
     onOpenExcellentStudent: () => void;
     onOpenMockExam: () => void;
+    onOpenTutor: () => void;
 }
 
-const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame, onOpenLecture, onOpenQA, onOpenReviewOutline, onOpenExcellentStudent, onOpenMockExam }: ResourceSectionProps) => {
+const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrueFalse, onOpenGame, onOpenLecture, onOpenQA, onOpenReviewOutline, onOpenExcellentStudent, onOpenMockExam, onOpenTutor }: ResourceSectionProps) => {
     // Sử dụng màu Earthy tones (Tông màu đất) để tự nhiên và dịu mắt
     const resources = [
         { title: "Bài giảng điện tử", icon: <BookIcon className="w-12 h-12" />, bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-200", hover: "hover:border-stone-400" },
@@ -1106,6 +1147,7 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
         { title: "Đề cương ôn tập", icon: <DocumentTextIcon className="w-12 h-12" />, bg: "bg-indigo-50", text: "text-indigo-900", border: "border-indigo-200", hover: "hover:border-indigo-400" },
         { title: "Tài liệu ôn thi HSG", icon: <AcademicCapIcon className="w-12 h-12" />, bg: "bg-purple-50", text: "text-purple-900", border: "border-purple-200", hover: "hover:border-purple-400" },
         { title: "Đề thi thử", icon: <ClipboardIcon className="w-12 h-12" />, bg: "bg-fuchsia-50", text: "text-fuchsia-900", border: "border-fuchsia-200", hover: "hover:border-fuchsia-400" },
+        { title: "Trợ lý gia sư Lịch sử", icon: <TeacherIcon className="w-12 h-12" />, bg: "bg-blue-50", text: "text-blue-900", border: "border-blue-200", hover: "hover:border-blue-400" },
     ];
 
     const handleCardClick = (title: string) => {
@@ -1129,6 +1171,8 @@ const ResourceSection = ({ onOpenMindMap, onOpenExam, onOpenExercise, onOpenTrue
             onOpenExcellentStudent();
         } else if (title === "Đề thi thử") {
             onOpenMockExam();
+        } else if (title === "Trợ lý gia sư Lịch sử") {
+            onOpenTutor();
         }
     };
 
@@ -1225,7 +1269,7 @@ const PracticeRoomSection = () => {
 const DocumentarySection = () => {
     // Dữ liệu mẫu cho video (Bạn có thể thay thế src iframe bằng link video của bạn)
     const videos = [
-        { title: "Phim tư liệu 1", src: "https://youtu.be/_090ZoR0HWc?si=thP6fwrvobXeSwF0" },
+        { title: "Phim tư liệu 1", src: "https://youtu.be/fHaX0DBZbSI?si=ONvtEaY0Hc_WPcoX" },
         { title: "Phim tư liệu 2", src: "https://youtu.be/BTE8r9kRjvs?si=--1fOLjIXySf2SBq" },
         { title: "Phim tư liệu 3", src: "https://youtu.be/srHoCgDF3fo?si=eFeTNo5LQELryNuk" },
         { title: "Phim tư liệu 4", src: "https://www.youtube.com/live/injdXI30g2M?si=kXu1fWIh9riSR5I3" },
@@ -1536,6 +1580,7 @@ export default function App() {
   const [isReviewOutlineModalOpen, setIsReviewOutlineModalOpen] = useState(false);
   const [isExcellentStudentModalOpen, setIsExcellentStudentModalOpen] = useState(false);
   const [isMockExamModalOpen, setIsMockExamModalOpen] = useState(false);
+  const [isTutorModalOpen, setIsTutorModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-paper font-sans text-charcoal flex flex-col selection:bg-antique-gold selection:text-white">
@@ -1554,6 +1599,7 @@ export default function App() {
             onOpenReviewOutline={() => setIsReviewOutlineModalOpen(true)}
             onOpenExcellentStudent={() => setIsExcellentStudentModalOpen(true)}
             onOpenMockExam={() => setIsMockExamModalOpen(true)}
+            onOpenTutor={() => setIsTutorModalOpen(true)}
         />
         <PracticeRoomSection />
         <DocumentarySection />
@@ -1599,6 +1645,10 @@ export default function App() {
         <MockExamModal
             isOpen={isMockExamModalOpen}
             onClose={() => setIsMockExamModalOpen(false)}
+        />
+        <TutorModal
+            isOpen={isTutorModalOpen}
+            onClose={() => setIsTutorModalOpen(false)}
         />
     </div>
   );

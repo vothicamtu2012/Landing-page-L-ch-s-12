@@ -1113,7 +1113,7 @@ const TutorModal = ({ isOpen, onClose }: ModalProps) => {
                 </div>
                 <div className="bg-paper-dark p-6 border-t border-antique-gold/30 flex justify-center">
                     <a 
-                        href="https://gemini.google.com/gem/1Ktw_Syfa3NUlnUZSKqDBLFvKDRc-Jaf_?usp=sharing"
+                        href="https://gemini.google.com/gem/632c92929ef4/3f00f9142535a1ce"
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={onClose}
